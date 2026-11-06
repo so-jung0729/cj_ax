@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>현대그린푸드 밸류체인 맵</title>
+<style>
+  :root {
+    color-scheme: light;
+    --ink:#111418; --ink2:#4A5159; --ink3:#6B727A; --line:#E6E8EB; --band:#F5F6F7; --white:#fff;
+    --accent:#FFD400;
+    --teal:#CFF1E9; --teal-l:#00806A;
+    --bn-l:#E89B00; --cost-l:#E8603C; --opp:#E6F5CF; --opp-d:#4F7F12;
+    --money:#D9480F; --data:#1C64C8; --cut:#C62828;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-padding-top:60px; }
+  body { margin:0; background:var(--white); color:var(--ink); font-family:Pretendard,"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif; font-size:17px; line-height:1.5; word-break:keep-all; overflow-wrap:anywhere; }
+  b { font-weight:700; }
+  [hidden] { display:none !important; }
+  button { font:inherit; color:inherit; cursor:pointer; }
+  button:focus-visible { outline:3px solid var(--data); outline-offset:2px; }
+  .wrap { max-width:1280px; margin:0 auto; padding:0 28px; }
+
+  /* 상단 메뉴 */
+  nav { position:sticky; top:0; z-index:5; background:var(--white); border-bottom:1px solid var(--line); }
+  nav .wrap { display:flex; align-items:center; gap:6px; height:44px; }
+  nav .brand { font-weight:800; font-size:16px; margin-right:auto; white-space:nowrap; }
+  nav button { background:none; border:0; font-size:15px; font-weight:700; color:var(--ink2); padding:5px 14px; border-radius:99px; white-space:nowrap; }
+  nav button:hover { background:var(--band); color:var(--ink); }
+  nav button[aria-selected="true"] { background:var(--ink); color:var(--white); }
+
+  /* 공통 꼬리표 */
+  .tag { display:inline-block; font-size:13px; line-height:18px; font-weight:700; padding:0 6px; margin-left:2px; border-radius:5px; background:#E4E6E9; color:#3D444B; white-space:nowrap; vertical-align:1px; }
+  .ref { font-size:14px; color:var(--ink3); white-space:nowrap; }
+  .asset-chip { background:var(--teal); box-shadow:0 0 0 1.5px var(--teal-l); border-radius:3px; padding:0 3px; -webkit-box-decoration-break:clone; box-decoration-break:clone; }
+  .sig { display:inline-block; font-size:13px; line-height:19px; font-weight:700; color:#fff; padding:0 8px; border-radius:99px; white-space:nowrap; vertical-align:1px; }
+  .sig.sup { background:#2E7D4F; } .sig.dem { background:#B84E12; } .sig.inv { background:#1C64C8; }
+
+  /* 단계 카드 화면 */
+  .cards-view { padding-top:14px; padding-bottom:10px; }
+  h1 { margin:0; font-size:27px; line-height:1.3; font-weight:800; letter-spacing:-.03em; }
+  .hint { display:flex; flex-wrap:wrap; justify-content:space-between; gap:0 16px; margin:0 0 10px; font-size:16px; color:var(--ink2); }
+  .hint .state { font-size:15px; color:var(--ink3); }
+  .did { grid-column:1 / -1; font-size:17px; line-height:1.4; padding:0 4px 1px; }
+  .did b { font-weight:800; margin-right:8px; }
+  .note-line { margin:10px 0 0; font-size:14px; line-height:1.4; color:var(--ink3); }
+  .stages { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; margin-bottom:12px; }
+  .st { position:relative; display:flex; flex-direction:column; align-items:flex-start; text-align:left; background:var(--band); border:0; border-radius:14px; padding:12px 14px; min-height:138px; }
+  .st:hover { background:#ECEEF0; }
+  .st .n { font-size:17px; line-height:1.3; font-weight:800; letter-spacing:-.02em; }
+  .st .now { margin-top:5px; font-size:15.5px; line-height:1.4; color:var(--ink2); }
+  .st .own { margin-top:auto; padding-top:6px; font-size:13px; font-weight:700; color:#00624F; }
+  .st[aria-pressed="true"] { background:var(--ink); color:var(--white); }
+  .st[aria-pressed="true"] .now { color:#E3E5E8; }
+  .st[aria-pressed="true"] .own { color:#7FE3CF; }
+  .st[aria-pressed="true"]::after { content:""; position:absolute; left:50%; bottom:-9px; margin-left:-9px; border-left:9px solid transparent; border-right:9px solid transparent; border-top:10px solid var(--ink); }
+  .st .star { color:#8A6D00; font-weight:800; }
+  .st[aria-pressed="true"] .star { color:var(--accent); }
+
+  .panel { display:grid; grid-template-columns:320px 1fr 1fr 1.3fr; gap:10px; align-items:stretch; }
+  .box { background:var(--band); border-radius:14px; padding:14px 16px; min-width:0; }
+  .box h2 { margin:0 0 10px; font-size:20px; line-height:1.3; font-weight:800; }
+  .box h2.m { color:var(--money); } .box h2.d { color:var(--data); }
+  .box.see { background:var(--white); box-shadow:inset 0 0 0 2px var(--ink); }
+  .box ul { margin:0; padding:0; list-style:none; }
+  .box li { margin-bottom:8px; font-size:18px; line-height:1.42; }
+  .box li:last-child { margin-bottom:0; }
+  .box li.minor { color:var(--ink2); font-size:15px; }
+  .box dl { margin:0; display:grid; grid-template-columns:40px 1fr; gap:5px 6px; font-size:18px; line-height:1.42; }
+  .box dt { font-size:15.5px; line-height:25px; font-weight:700; color:var(--ink3); }
+  .box dd { margin:0; min-width:0; }
+  .routes { margin-top:10px !important; padding-top:9px !important; border-top:1px solid #DDE0E3; }
+  .box .routes li { font-size:16px; margin-bottom:5px; }
+  .routes b { color:var(--data); }
+  .routes .x, .routes .x b { color:var(--cut); font-weight:700; }
+
+  .pt { border-radius:10px; padding:8px 11px; margin-bottom:7px; border:2px solid; background:var(--white); }
+  .pt:last-child { margin-bottom:0; }
+  .pt small { display:block; font-size:13.5px; line-height:1.3; font-weight:800; color:var(--ink2); }
+  .pt b { display:block; font-size:18px; line-height:1.38; }
+  .pt.bn { border-color:var(--bn-l); } .pt.cost { border-color:var(--cost-l); }
+  .pt.opp { border-color:var(--opp); background:var(--opp); }
+  .pt.top { border-color:var(--opp-d); background:var(--opp); }
+  .pt.cut { border-color:var(--cut); border-style:dashed; }
+  .empty { font-size:18px; color:var(--ink2); margin:0; }
+
+  /* 먼저 할 일 화면 */
+  .why-view { padding-top:22px; padding-bottom:24px; }
+  .why-view h1 { font-size:31px; }
+  .why-view .lead { margin:4px 0 18px; font-size:18px; color:var(--ink2); }
+  .why { display:grid; grid-template-columns:1fr 440px; gap:14px; }
+  .card { background:var(--band); border-radius:16px; padding:22px 26px; }
+  .card h2 { margin:0 0 4px; font-size:16px; font-weight:800; color:var(--ink3); }
+  .card p { margin:0 0 18px; font-size:19px; line-height:1.6; }
+  .card p:last-child { margin-bottom:0; }
+  .q2 { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; }
+  .q2 div { background:var(--white); border-radius:10px; padding:12px; font-size:16.5px; line-height:1.4; }
+  .q2 small { display:block; font-size:14px; color:var(--ink3); }
+  .q2 .go { background:var(--opp); box-shadow:inset 0 0 0 2px var(--opp-d); }
+  .card p.axis { margin:10px 0 0; font-size:14.5px; color:var(--ink3); }
+  .card p.note { margin:10px 0 0; font-size:14.5px; line-height:1.45; color:var(--ink2); }
+
+  /* 네 층 맵 화면: 1280×720 한 장 */
+  .map { display:flex; flex-direction:column; gap:8px; min-height:675px; padding-top:10px; padding-bottom:10px; }
+  .map .title { margin:0; font-size:27px; line-height:1.25; font-weight:800; letter-spacing:-.03em; }
+  .map .sub { margin:1px 0 0; font-size:15px; color:var(--ink3); }
+  .band { display:grid; grid-template-columns:62px 1fr; gap:8px; background:var(--band); border-radius:12px; padding:7px 10px 7px 0; }
+  .lab { display:flex; align-items:center; justify-content:center; text-align:center; font-size:15px; line-height:1.25; font-weight:800; padding-left:6px; }
+  .lab.m { color:var(--money); } .lab.d { color:var(--data); }
+  .five { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
+  .cell { font-size:15.5px; line-height:1.36; min-width:0; }
+  .who { font-size:15px; line-height:1.5; letter-spacing:-.01em; }
+  .act { position:relative; background:var(--white); border:2px solid var(--ink); border-radius:10px; padding:5px 10px; font-size:17px; line-height:1.25; font-weight:800; letter-spacing:-.02em; display:flex; flex-direction:column; justify-content:center; min-height:52px; }
+  .act small { font-size:13.5px; line-height:1.3; font-weight:400; letter-spacing:-.01em; color:var(--ink2); }
+  .act.asset { background:var(--teal); border-color:var(--teal-l); }
+  .act:not(.last)::after { content:"▶"; position:absolute; right:-11px; top:50%; transform:translateY(-50%); font-size:10px; color:var(--ink); }
+  .sn { display:none; }
+  .flow { position:relative; display:flex; align-items:center; justify-content:center; height:28px; font-size:15px; font-weight:700; }
+  .flow::before { content:""; position:absolute; left:12px; right:12px; top:50%; border-top:4px solid var(--money); transform:translateY(-50%); }
+  .flow > span { position:relative; background:var(--band); padding:0 10px; white-space:nowrap; }
+  .flow i { position:absolute; top:50%; transform:translateY(-50%); width:0; height:0; border-top:8px solid transparent; border-bottom:8px solid transparent; }
+  .flow.left i { left:2px; border-right:12px solid var(--c,var(--money)); }
+  .flow.right i { right:2px; border-left:12px solid var(--c,var(--money)); }
+  .flow.money { color:var(--money); --c:var(--money); }
+  .flow.thin::before { border-top-width:2px; }
+  .flow.dat { color:var(--data); --c:var(--data); }
+  .flow.dat::before { border-top:2px dashed var(--data); }
+  .flow.cut { color:var(--cut); --c:var(--cut); }
+  .flow.cut::before { border-top:2px dashed var(--cut); }
+  .s14 { grid-column:1 / 5; } .s5 { grid-column:5; }
+  .stack { display:flex; flex-direction:column; gap:3px; }
+  .mks { display:flex; flex-direction:column; gap:4px; }
+  .mk { border-radius:8px; padding:2px 8px; font-size:15px; line-height:1.3; border:2px solid; background:var(--white); }
+  .mk.bn { border-color:var(--bn-l); } .mk.cost { border-color:var(--cost-l); }
+  .mk.opp { border-color:var(--opp); background:var(--opp); }
+  .mk.top { border-color:var(--opp-d); background:var(--opp); font-weight:800; }
+  .none { font-size:15px; color:var(--ink3); padding:2px 8px; }
+  .foot { flex:1; display:grid; grid-template-columns:1fr 420px; gap:10px; }
+  .pri { background:var(--ink); color:var(--white); border-radius:12px; padding:9px 16px; display:flex; flex-direction:column; justify-content:center; }
+  .pri .t { font-size:22px; line-height:1.3; font-weight:800; letter-spacing:-.02em; }
+  .pri .t em { font-style:normal; color:var(--accent); }
+  .pri p { margin:4px 0 0; font-size:16.5px; line-height:1.4; color:#E3E5E8; }
+  .leg { border:1px solid var(--line); border-radius:12px; padding:7px 12px; display:grid; grid-template-columns:1fr 1fr; gap:1px 12px; align-content:center; font-size:14px; line-height:1.45; }
+  .k { display:flex; align-items:center; gap:6px; white-space:nowrap; }
+  .sw { width:22px; height:13px; border-radius:3px; border:2px solid; flex:none; }
+  .ln { width:22px; height:0; flex:none; }
+
+  footer { padding:0 0 16px; font-size:14px; color:var(--ink3); }
+
+  @media (max-width:1000px) {
+    nav .wrap { flex-wrap:wrap; height:auto; padding-top:6px; padding-bottom:6px; }
+    nav .brand { width:100%; }
+    nav button { padding:4px 10px; font-size:14.5px; }
+    html { scroll-padding-top:90px; }
+    .wrap { padding-left:16px; padding-right:16px; }
+    h1 { font-size:23px; }
+    .stages { grid-template-columns:1fr; }
+    .st { min-height:0; }
+    .st[aria-pressed="true"]::after { display:none; }
+    .panel, .why { grid-template-columns:1fr; }
+    .why-view h1 { font-size:25px; }
+    .map { min-height:0; gap:10px; }
+    .map .title { font-size:23px; }
+    .band { grid-template-columns:1fr; padding:10px 12px; }
+    .lab { justify-content:flex-start; padding-left:0; }
+    .lab br { display:none; }
+    .five { grid-template-columns:1fr; gap:8px; }
+    .s14, .s5 { grid-column:auto; }
+    .flow { height:auto; min-height:28px; }
+    .flow > span { white-space:normal; text-align:center; padding:2px 16px; margin:0 12px; }
+    .act::after { display:none; }
+    .sn { display:inline; font-weight:800; color:var(--ink3); }
+    .foot { grid-template-columns:1fr; }
+    .leg { grid-template-columns:1fr; }
+    .k { white-space:normal; }
+  }
+  @media print {
+    nav { display:none; }
+    [hidden] { display:block !important; }
+    .panel[hidden] { display:grid !important; }
+    .panel, .view { break-inside:avoid; margin-bottom:16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav aria-label="화면 선택">
+  <div class="wrap">
+    <span class="brand">현대그린푸드 밸류체인 맵 v1</span>
+    <div role="tablist" aria-label="화면" style="display:flex;gap:6px;flex-wrap:wrap">
+      <button role="tab" aria-selected="true" data-view="cards">단계 카드</button>
+      <button role="tab" aria-selected="false" data-view="why">먼저 할 일</button>
+      <button role="tab" aria-selected="false" data-view="map">네 층 맵 (제출용)</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<div class="view wrap cards-view" id="view-cards">
+  <h1>돈은 고객사에서 산지까지 가는데, 급식·주문 수요가 농가로 가는 길은 확인되지 않았어요 <span class="tag">해석</span></h1>
+  <p class="hint"><span>카드를 누르면 그 단계의 지금 볼 것, 누가, 돈, 데이터가 아래에 나와요.</span><span class="state">AX 데이터·서비스 트랙 · 2026-11-06 · 사람 검증 전</span></p>
+  <div class="stages">
+    <button class="st" data-stage="1" aria-pressed="true" aria-controls="panel-1">
+      <span class="n">1 지역 생산자·산지</span>
+      <span class="now">급식 수요가 농가로 미리 전달되는 길은 확인하지 못했어요</span>
+      <span class="own">팀 자산</span>
+    </button>
+    <button class="st" data-stage="2" aria-pressed="false" aria-controls="panel-2">
+      <span class="n">2 가공·제조</span>
+      <span class="now">제조를 넓히는 중이고, 표시할 비용 신호는 못 찾았어요</span>
+      
+    </button>
+    <button class="st" data-stage="3" aria-pressed="false" aria-controls="panel-3">
+      <span class="n">3 발주 시스템·온라인</span>
+      <span class="now">수수료가 매출보다 빠르게 늘었어요</span>
+      
+    </button>
+    <button class="st" data-stage="4" aria-pressed="false" aria-controls="panel-4">
+      <span class="n">4 주문·납품</span>
+      <span class="now">★ 먼저 할 일: 외식 고객용 7일 시세 전망</span>
+      <span class="own">팀 자산</span>
+    </button>
+    <button class="st" data-stage="5" aria-pressed="false" aria-controls="panel-5">
+      <span class="n">5 물류·배송</span>
+      <span class="now">영남물류센터가 대구와 가까운 거점이에요</span>
+      
+    </button>
+  </div>
+
+  <section class="panel" id="panel-1" aria-label="1 지역 생산자·산지">
+    <p class="did" style="margin:0"><b>1 지역 생산자·산지</b>산지 직거래 · 쌀·농산물 매입 · 상생 프로젝트</p>
+    <div class="box see"><h2>지금 볼 것</h2>
+      <div class="pt cut"><small>단절 D1</small><b>식수·주문 데이터가 농가로 돌아가는 경로를 확인 못 했어요</b></div>
+      <div class="pt bn"><small>병목 B1</small><b>산지 대량 매입이 정부 프로젝트 단위로 보여요 <span class="tag">해석</span> <span class="ref">[5][10]</span></b></div>
+    </div>
+    <div class="box"><h2>누가</h2><ul>
+      <li><span class="asset-chip"><b>대구·경북 등 지역 농가</b></span> <span class="tag">거래 미확인</span></li>
+      <li><b>현대서산농장</b> · <b>국제푸드</b></li>
+      <li><b>참가득F&K</b> · <b>왕인식품</b></li>
+      <li class="minor">농식품부 모두의 상생 · 충남 · 강원</li>
+    </ul></div>
+    <div class="box"><h2 class="m">돈 (여기서 끝나요)</h2><ul>
+      <li>농산물·식자재 매입 대금</li>
+      <li>농가 몫 <span class="tag">미확인</span></li>
+    </ul></div>
+    <div class="box"><h2 class="d">데이터 <span class="sig sup">공급 신호</span></h2><dl>
+      <dt>이름</dt><dd>품목별 매입 단가·매입처</dd>
+      <dt>생성</dt><dd>구매 · 산지 직거래</dd>
+      <dt>보유</dt><dd>현대그린푸드 <span class="tag">해석</span> · 농가별 값 <span class="tag">미확인</span></dd>
+    </dl>
+    <ul class="routes">
+      <li class=""><b>공개 데이터</b> 경락가·반입량 → 살피</li>
+      <li class="x"><b>✕ 들어오는 길</b> 식수·주문 → 농가, 경로 미확인 <span class="tag">해석</span></li>
+    </ul></div>
+  </section>
+
+  <section class="panel" id="panel-2" aria-label="2 가공·제조">
+    <p class="did" style="margin:0"><b>2 가공·제조</b>스마트푸드센터 · 전처리 · 케어푸드</p>
+    <div class="box see"><h2>지금 볼 것</h2>
+      <div class="pt opp"><small>기회 O2 · 다음 순서</small><b>급식 메뉴용 지역 농산물 물량·시세 계획표</b></div>
+    </div>
+    <div class="box"><h2>누가</h2><ul>
+      <li><b>스마트푸드센터</b> 밀키트·케어푸드</li>
+      <li><b>그리팅 Lab</b> PB 개발</li>
+      <li><b>(주)현대캐터링시스템</b></li>
+      <li class="minor">HACCP</li>
+    </ul></div>
+    <div class="box"><h2 class="m">돈</h2><ul>
+      <li>식자재 원가</li>
+      <li>가공품 내부 공급 <span class="tag">해석</span></li>
+    </ul></div>
+    <div class="box"><h2 class="d">데이터 <span class="sig sup">공급 신호</span></h2><dl>
+      <dt>이름</dt><dd>생산·위생 기록</dd>
+      <dt>생성</dt><dd>스마트푸드센터 · 가공센터</dd>
+      <dt>보유</dt><dd>현대그린푸드 <span class="tag">해석</span> · 로트 <span class="tag">미확인</span></dd>
+    </dl></div>
+  </section>
+
+  <section class="panel" id="panel-3" aria-label="3 발주 시스템·온라인">
+    <p class="did" style="margin:0"><b>3 발주 시스템·온라인</b>고객사 시스템 발주 · 그리팅몰</p>
+    <div class="box see"><h2>지금 볼 것</h2>
+      <div class="pt cost"><small>비용 C2</small><b>지급수수료가 매출보다 빠르게 늘었어요. 세부는 미확인 <span class="ref">[8]</span></b></div>
+    </div>
+    <div class="box"><h2>누가</h2><ul>
+      <li><b>현대그린푸드</b> 발주 시스템</li>
+      <li><b>그리팅몰</b> 케어푸드 판매</li>
+      <li><b>온라인쇼핑몰·홈쇼핑</b> <span class="tag">미확인</span></li>
+      <li class="minor">식자재 유통의 디지털 전환</li>
+    </ul></div>
+    <div class="box"><h2 class="m">돈</h2><ul>
+      <li>시스템 발주 상품 판매</li>
+      <li>수수료 세부 <span class="tag">미확인</span></li>
+    </ul></div>
+    <div class="box"><h2 class="d">데이터 <span class="sig dem">수요 신호</span></h2><dl>
+      <dt>이름</dt><dd>고객사 발주 기록</dd>
+      <dt>생성</dt><dd>발주 시스템</dd>
+      <dt>보유</dt><dd>현대그린푸드 <span class="tag">해석</span> · 그리팅 로그 <span class="tag">미확인</span></dd>
+    </dl>
+    <ul class="routes">
+      <li class=""><b>피드백</b> 건강 데이터 → 케어푸드 추천 <span class="ref">[13]</span></li>
+    </ul></div>
+  </section>
+
+  <section class="panel" id="panel-4" aria-label="4 주문·납품">
+    <p class="did" style="margin:0"><b>4 주문·납품</b>외식업체 · 도소매상 · 단체급식</p>
+    <div class="box see"><h2>지금 볼 것</h2>
+      <div class="pt top"><small>★ 기회 O1 · 먼저 간다</small><b>외식 고객용 7일 시세 전망·보충 알림</b></div>
+      <div class="pt cost"><small>비용 C1</small><b>단체급식은 인건비 비중이 커요 <span class="ref">[8]</span></b></div>
+    </div>
+    <div class="box"><h2>누가</h2><ul>
+      <li><b>외식업체·도소매상</b> <span class="tag">미확인</span></li>
+      <li><b>기업·병원 구내식당</b> <span class="tag">미확인</span></li>
+      <li><span class="asset-chip"><b>살피</b> · 대구 식당 사장님(가상)</span></li>
+      <li class="minor">위탁 계약 조건</li>
+    </ul></div>
+    <div class="box"><h2 class="m">돈 (여기서 시작해요)</h2><ul>
+      <li>고객사 대금 (현금·카드·외상)</li>
+      <li>급식 위탁 수입</li>
+    </ul></div>
+    <div class="box"><h2 class="d">데이터 <span class="sig dem">수요 신호</span></h2><dl>
+      <dt>이름</dt><dd>주문·식수 기록</dd>
+      <dt>생성</dt><dd>고객사 발주 · 급식 사업장</dd>
+      <dt>보유</dt><dd>현대그린푸드 <span class="tag">해석</span> · 고객사 값 <span class="tag">미확인</span></dd>
+    </dl>
+    <ul class="routes">
+      <li class=""><b>공개 데이터</b> 경락가·반입량 → 살피</li>
+      <li class=""><b>나가는 길</b> 살피 → 지금 사기·기다리기 알림</li>
+    </ul></div>
+  </section>
+
+  <section class="panel" id="panel-5" aria-label="5 물류·배송">
+    <p class="did" style="margin:0"><b>5 물류·배송</b>경인·영남·호남 물류센터 · 온도 추적</p>
+    <div class="box see"><h2>지금 볼 것</h2>
+      <div class="pt bn"><small>병목 B2</small><b>영업일수·고객사 파업 영향을 받는 일 단위 물량 <span class="ref">[3]</span></b></div>
+      <div class="pt opp"><small>기회 O3 · 지금은 어려움</small><b>수요 신호를 농가·공급사에 공유</b></div>
+    </div>
+    <div class="box"><h2>누가</h2><ul>
+      <li><b>영남물류센터</b> 경남 밀양</li>
+      <li><b>수지·경인·호남·이천·동탄 물류센터</b></li>
+      <li><b>배송 파트너</b> <span class="tag">미확인</span></li>
+      <li class="minor">GPS·온도 추적</li>
+    </ul></div>
+    <div class="box"><h2 class="m">돈 (별도 차감)</h2><ul>
+      <li>물류·용역비</li>
+      <li>운반 비용 세부 <span class="tag">미확인</span></li>
+    </ul></div>
+    <div class="box"><h2 class="d">데이터 <span class="sig inv">재고 신호</span></h2><dl>
+      <dt>이름</dt><dd>재고·배송·온도 기록</dd>
+      <dt>생성</dt><dd>물류센터 · 배송차량 GPS</dd>
+      <dt>보유</dt><dd>현대그린푸드 <span class="tag">해석</span> · 위탁 구간 <span class="tag">미확인</span></dd>
+    </dl>
+    <ul class="routes">
+      <li class=""><b>피드백</b> 결품·폐기 → 다음 발주 (살피 설계, 실제 운영 확인은 아직)</li>
+    </ul></div>
+  </section>
+  <p class="note-line">해석 = [I] · 미확인 = [U] · [n] = 출처 번호 · 맵에 금액·비율 없음 · 원문 수치와 출처는 valuechain_v1.md, analysis.md</p>
+</div>
+
+<div class="view wrap why-view" id="view-why">
+  <h1>먼저 할 일: 외식 고객용 7일 시세 전망·보충 알림</h1>
+  <p class="lead">영향 3, 실현 가능성 3인 기회 O1이에요. (AX 데이터·서비스 트랙 · 2026-11-06 · 사람 검증 전)</p>
+  <div class="why">
+    <div class="card">
+      <h2>근거</h2>
+      <p>식재사업은 외식업체와 소규모 영업점에 공급하고, 식자재 유통이 디지털로 재편된다고 공시했어요. <span class="ref">[1]</span></p>
+      <p>살피의 7일 전망과 aT 공개 데이터로 시작할 수 있어요. <span class="ref">[14]</span></p>
+      <h2>한계</h2>
+      <p>예측 오차(MAE)는 아직 재지 않았어요. 대구 고객과 영남센터 권역은 미확인이고, 현대가 판매자라 기다리기 제안과 입장이 다를 수 있어요.</p>
+    </div>
+    <div class="card">
+      <h2>기회 우선순위</h2>
+      <div class="q2">
+        <div class=""><small>큰 기회 · 지금은 어려움</small><b>O3</b> 영향 3 · 실현 1</div>
+        <div class="go"><small>먼저 간다</small><b>★ O1</b> 영향 3 · 실현 3</div>
+        <div class=""><small>다음 순서</small><b>O2</b> 영향 2 · 실현 2</div>
+        <div class=""><small>빠른 성과</small>없음</div>
+      </div>
+      <p class="axis">세로: 영향 ↑ · 가로: 실현 가능성 →</p>
+      <p class="note">점수는 AI 제안이라 팀이 다시 정해야 해요.</p>
+    </div>
+  </div>
+  <p class="note-line">[n] = 출처 번호 · 맵에 금액·비율 없음 · 원문 수치와 출처는 valuechain_v1.md, analysis.md</p>
+</div>
+
+<div class="view wrap map" id="view-map">
+  <div>
+    <p class="title">돈은 고객사에서 산지까지 가는데, 급식·주문 수요가 농가로 가는 길은 확인되지 않았어요 <span class="tag">해석</span></p>
+    <p class="sub">대시보드 데이터 흐름도 · AX 데이터·서비스 트랙 · 2026-11-06 · 사람 검증 전 · 맵에 금액·비율 없음, 원문 수치와 출처는 valuechain_v1.md, analysis.md</p>
+  </div>
+  <section class="band" aria-label="① 활동"><div class="lab">① 활동</div><div class="five">
+      <div class="act asset">1 지역 생산자·산지<small>산지 직거래 · 쌀·농산물 매입 · 상생 프로젝트</small></div>
+      <div class="act">2 가공·제조<small>스마트푸드센터 · 전처리 · 케어푸드</small></div>
+      <div class="act">3 발주 시스템·온라인<small>고객사 시스템 발주 · 그리팅몰</small></div>
+      <div class="act asset">4 주문·납품<small>외식업체 · 도소매상 · 단체급식</small></div>
+      <div class="act last">5 물류·배송<small>경인·영남·호남 물류센터 · 온도 추적</small></div>
+  </div></section>
+  <section class="band" aria-label="② 이해관계자"><div class="lab">② 이해<br>관계자</div><div class="five">
+        <div class="cell who"><span class="sn">1 </span><span class="asset-chip"><b>대구·경북 등 지역 농가</b></span> <span class="tag">미확인</span><br><b>현대서산농장 · 국제푸드</b><br><b>참가득F&K · 왕인식품</b></div>
+        <div class="cell who"><span class="sn">2 </span><b>스마트푸드센터</b><br><b>그리팅 Lab</b><br><b>(주)현대캐터링시스템</b></div>
+        <div class="cell who"><span class="sn">3 </span><b>현대그린푸드</b> 발주 시스템<br><b>그리팅몰</b><br><b>온라인쇼핑몰·홈쇼핑</b> <span class="tag">미확인</span></div>
+        <div class="cell who"><span class="sn">4 </span><b>외식업체·도소매상</b> <span class="tag">미확인</span><br><b>기업·병원 구내식당</b> <span class="tag">미확인</span><br><span class="asset-chip"><b>살피</b> · 대구 식당(가상)</span></div>
+        <div class="cell who"><span class="sn">5 </span><b>영남물류센터</b><br><b>수지·경인·호남 물류센터</b><br><b>배송 파트너</b> <span class="tag">미확인</span></div>
+  </div></section>
+  <section class="band" aria-label="③ 돈 흐름"><div class="lab m">③ 돈<br>흐름</div><div class="stack">
+      <div class="five">
+        <div class="flow money left s14"><i></i><span>돈은 고객사에서 시작해 산지·공급사에서 끝나요</span></div>
+        <div class="flow money thin right s5"><i></i><span>별도 차감</span></div>
+      </div>
+      <div class="five">
+        <div class="cell "><span class="sn">1 </span><b>끝점</b> 매입 대금<br>농가 몫 <span class="tag">미확인</span></div>
+        <div class="cell "><span class="sn">2 </span>식자재 원가<br>내부 공급 <span class="tag">해석</span></div>
+        <div class="cell "><span class="sn">3 </span>상품 판매<br>수수료 세부 <span class="tag">미확인</span></div>
+        <div class="cell "><span class="sn">4 </span><b>시작점</b> 고객사 대금<br>급식 위탁 수입</div>
+        <div class="cell "><span class="sn">5 </span>물류·용역비<br>세부 <span class="tag">미확인</span></div>
+      </div>
+  </div></section>
+  <section class="band" aria-label="④ 데이터 흐름"><div class="lab d">④ 데이터<br>흐름</div><div class="stack">
+      <div class="five">
+        <div class="flow cut left s14"><i></i><span>✕ 단절 D1: 식수·주문 → 농가, 경로 미확인 <span class="tag">해석</span></span></div>
+        <div class="flow dat left s5"><i></i><span>피드백: 결품·폐기</span></div>
+      </div>
+      <div class="five">
+        <div class="flow dat right s14"><i></i><span>경락가·반입량 → 살피 (aT 공개 데이터)</span></div>
+      </div>
+      <div class="five">
+        <div class="cell"><span class="sn">1 </span>매입 단가·매입처 <span class="sig sup">공급</span></div>
+        <div class="cell"><span class="sn">2 </span>생산·위생 기록 <span class="sig sup">공급</span></div>
+        <div class="cell"><span class="sn">3 </span>고객사 발주 기록 <span class="sig dem">수요</span></div>
+        <div class="cell"><span class="sn">4 </span>주문·식수 기록 <span class="sig dem">수요</span></div>
+        <div class="cell"><span class="sn">5 </span>재고·배송 기록 <span class="sig inv">재고</span></div>
+      </div>
+  </div></section>
+  <section class="band" aria-label="마커"><div class="lab">마커</div><div class="five">
+      <div class="mks"><div class="mk bn"><span class="sn">1 </span><b>병목 B1</b> 산지 매입 프로젝트 단위</div></div>
+      <div class="mks"><div class="mk opp"><span class="sn">2 </span><b>기회 O2</b> 지역 농산물 계획표</div></div>
+      <div class="mks"><div class="mk cost"><span class="sn">3 </span><b>비용 C2</b> 수수료 증가</div></div>
+      <div class="mks"><div class="mk top"><span class="sn">4 </span>★ 기회 O1 시세·보충 알림</div><div class="mk cost"><b>비용 C1</b> 인건비 비중</div></div>
+      <div class="mks"><div class="mk bn"><span class="sn">5 </span><b>병목 B2</b> 일 단위 물량 변동</div><div class="mk opp"><b>기회 O3</b> 수요 신호 공유</div></div>
+  </div></section>
+  <div class="foot">
+    <div class="pri">
+      <div class="t"><em>★ 먼저 할 일</em> 외식 고객용 7일 시세 전망·보충 알림</div>
+      <p>공개 도매 데이터와 살피의 7일 전망이 이미 있어, 파트너 없이 11/16 MVP를 노려볼 수 있어요.</p>
+    </div>
+    <div class="leg" aria-label="범례">
+      <div class="k"><span class="sw" style="background:#fff;border-color:var(--bn-l)"></span>병목 (주황 테두리)</div>
+      <div class="k"><span class="ln" style="border-top:4px solid var(--money)"></span>돈 (고객 → 원천)</div>
+      <div class="k"><span class="sw" style="background:#fff;border-color:var(--cost-l)"></span>비용 (코랄 테두리)</div>
+      <div class="k"><span class="ln" style="border-top:2px dashed var(--data)"></span>데이터 · 피드백</div>
+      <div class="k"><span class="sw" style="background:var(--opp);border-color:var(--opp)"></span>기회 (라임 배경)</div>
+      <div class="k"><span class="ln" style="border-top:2px dashed var(--cut)"></span>데이터 단절</div>
+      <div class="k"><span class="sw" style="background:var(--teal);border-color:var(--teal-l)"></span>팀 자산 (틸)</div>
+      <div class="k"><span class="tag" style="margin:0">해석</span>[I] <span class="tag">미확인</span>[U] · [n] 출처</div>
+    </div>
+  </div>
+</div>
+
+</main>
+<script>
+  (function () {
+    var views = [].slice.call(document.querySelectorAll('.view'));
+    var tabs = [].slice.call(document.querySelectorAll('nav [data-view]'));
+    var cards = [].slice.call(document.querySelectorAll('.st'));
+    var panels = [].slice.call(document.querySelectorAll('.panel'));
+
+    function showView(name) {
+      views.forEach(function (v) { v.hidden = v.id !== 'view-' + name; });
+      tabs.forEach(function (t) { t.setAttribute('aria-selected', String(t.dataset.view === name)); });
+      window.scrollTo(0, 0);
+    }
+    function showStage(n, jump) {
+      panels.forEach(function (p) { p.hidden = p.id !== 'panel-' + n; });
+      cards.forEach(function (c) { c.setAttribute('aria-pressed', String(c.dataset.stage === String(n))); });
+      // 휴대폰에서는 카드가 세로로 쌓이므로 내용까지 내려 준다.
+      if (jump && window.innerWidth <= 1000) document.getElementById('panel-' + n).scrollIntoView();
+    }
+    tabs.forEach(function (t) { t.addEventListener('click', function () { showView(t.dataset.view); }); });
+    cards.forEach(function (c) { c.addEventListener('click', function () { showStage(c.dataset.stage, true); }); });
+    showStage(1, false);
+    showView('cards');
+  })();
+</script>
+</body>
+</html>

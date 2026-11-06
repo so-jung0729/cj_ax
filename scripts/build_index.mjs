@@ -18,6 +18,21 @@ const companies = [
     cut: '수요 예측의 생산자 공유 범위 미확인', chance: '지역 생산자용 시세·제철 출하 리포트', score: '2 · 3', fit: '낮음', fitNote: 'B2C라 고객이 다름',
     day9: 'research/company/컬리/onepager.html', day10: 'valuechain/컬리/valuechain_v1.html',
   },
+  {
+    id: 'hyundai', name: '현대그린푸드', badge: 'CJ프레시웨이 경쟁사', group: 'rival', type: '단체급식·식자재 유통', sales: '2조 3,296억', profit: '1,068억', rival: 'CJ프레시웨이',
+    cut: '식수·주문이 농가로 가는 경로 미확인', chance: '외식 고객용 7일 시세 전망·보충 알림', score: '3 · 3', fit: '중간', fitNote: '외식 고객과 일부 겹침',
+    day9: 'research/company/현대그린푸드/onepager.html', day10: 'valuechain/현대그린푸드/valuechain_v1.html',
+  },
+  {
+    id: 'orion', name: '오리온', badge: '풀무원 경쟁사', group: 'rival', type: '제과 제조사', sales: '3조 3,324억', profit: '5,583억', rival: '풀무원',
+    cut: '판매가 계약 농가로 가는 경로 미확인', chance: '계약 감자 기상·시세 위험 알림', score: '3 · 2', fit: '낮음', fitNote: '식당이 고객이 아님',
+    day9: 'research/company/오리온/onepager.html', day10: 'valuechain/오리온/valuechain_v1.html',
+  },
+  {
+    id: 'oasis', name: '오아시스', badge: '컬리 경쟁사', group: 'rival', type: '온라인 식품 + 직영 매장', sales: '5,645억', profit: '191억', rival: '컬리',
+    cut: '수요 예측의 생산자 공유 범위 미확인', chance: '대구·경북 생산자 시세·제철 리포트', score: '2 · 3', fit: '낮음', fitNote: 'B2C라 고객이 다름',
+    day9: 'research/company/오아시스/onepager.html', day10: 'valuechain/오아시스/valuechain_v1.html',
+  },
 ];
 
 // 외부 링크는 새 탭으로 열고, 페이지 안 이동(#)은 그대로 둔다.
@@ -30,9 +45,9 @@ const safe = obj => JSON.stringify(obj).replace(/</g, '\\u003c');
 const pages = Object.fromEntries(companies.map(c => [c.id, { day9: embed(c.day9), day10: embed(c.day10) }]));
 const meta = companies.map(({ id, name, day9, day10 }) => ({ id, name, day9, day10 }));
 
-const cards = companies.map(c => `
+const cardsOf = list => list.map(c => `
       <a class="co" href="#${c.id}/day9">
-        <span class="top"><b class="name">${c.name}</b>${c.badge ? `<span class="badge">${c.badge}</span>` : ''}</span>
+        <span class="top"><b class="name">${c.name}</b>${c.badge ? `<span class="badge${c.group === 'rival' ? ' plain' : ''}">${c.badge}</span>` : ''}</span>
         <span class="type">${c.type}</span>
         <span class="nums"><span><small>2025 매출</small><b>${c.sales}</b></span><span><small>2025 영업이익</small><b>${c.profit}</b></span></span>
         <span class="row"><small>먼저 할 일</small>${c.chance}</span>
@@ -70,6 +85,9 @@ const html = `<!doctype html>
   .co .top { display:flex; align-items:center; justify-content:space-between; gap:8px; }
   .co .name { font-size:27px; line-height:1.2; font-weight:800; letter-spacing:-.03em; }
   .badge { flex:none; padding:2px 10px; background:var(--accent); border-radius:99px; font-size:14px; font-weight:800; }
+  .badge.plain { background:#E4E6E9; color:#3D444B; font-weight:700; }
+  .group { margin:26px 0 10px; font-size:19px; line-height:1.3; font-weight:800; letter-spacing:-.02em; }
+  .group:first-of-type { margin-top:0; }
   .co .type { color:var(--ink2); font-size:16px; margin-top:-8px; }
   .nums { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
   .nums b { display:block; font-size:21px; line-height:1.3; font-weight:800; letter-spacing:-.02em; }
@@ -79,10 +97,10 @@ const html = `<!doctype html>
 
   h2 { margin:40px 0 12px; font-size:24px; line-height:1.3; font-weight:800; letter-spacing:-.02em; }
   .scroll { overflow-x:auto; }
-  table { width:100%; min-width:720px; border-collapse:collapse; font-size:16px; line-height:1.45; }
+  table { width:100%; min-width:1160px; border-collapse:collapse; font-size:16px; line-height:1.45; }
   th, td { padding:11px 12px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
   thead th { font-size:16px; font-weight:800; }
-  tbody th { width:190px; font-size:15px; font-weight:700; color:var(--ink2); }
+  tbody th { width:130px; font-size:15px; font-weight:700; color:var(--ink2); }
   .opinion { margin:18px 0 0; padding:14px 18px; background:var(--band); border-radius:12px; font-size:16.5px; }
   .foot { margin:18px 0 0; font-size:14px; color:var(--ink3); }
 
@@ -115,19 +133,23 @@ const html = `<!doctype html>
 <body>
 
 <main class="home" id="home">
-  <h1>후보 기업 3곳 리서치와 밸류체인 맵</h1>
-  <p class="lead">기업을 누르면 Day 09 원페이지와 Day 10 밸류체인 맵을 볼 수 있어요.</p>
-  <nav class="cos" aria-label="기업 선택">${cards}
+  <h1>기업 6곳 리서치와 밸류체인 맵</h1>
+  <p class="lead">기업을 누르면 Day 09 원페이지와 Day 10 밸류체인 맵을 볼 수 있어요. 위아래 카드가 서로 경쟁사예요.</p>
+  <h2 class="group">후보 기업</h2>
+  <nav class="cos" aria-label="후보 기업 선택">${cardsOf(companies.filter(c => c.group !== 'rival'))}
+  </nav>
+  <h2 class="group">경쟁사</h2>
+  <nav class="cos" aria-label="경쟁사 선택">${cardsOf(companies.filter(c => c.group === 'rival'))}
   </nav>
 
-  <h2>세 곳 한눈에 비교</h2>
+  <h2>여섯 곳 한눈에 비교</h2>
   <div class="scroll"><table>
     <thead><tr><th scope="col">항목</th>${companies.map(c => `<th scope="col">${c.name}</th>`).join('')}</tr></thead>
     <tbody>
           ${rows}
     </tbody>
   </table></div>
-  <p class="opinion"><b>AI 의견</b> 살피와 가장 잘 맞는 곳은 CJ프레시웨이예요. 풀무원과 컬리는 식당이 아닌 새 고객을 잡아야 해요. 최종 판단은 팀 몫이에요.</p>
+  <p class="opinion"><b>AI 의견</b> 살피와 가장 잘 맞는 곳은 CJ프레시웨이이고, 다음이 현대그린푸드예요. 나머지 네 곳은 식당이 아닌 새 고객을 잡아야 해요. 최종 판단은 팀 몫이에요.</p>
   <p class="foot">AX 데이터·서비스 트랙 · 2026-11-06 · 사람 검증 전 · 금액은 공시를 억원으로 환산한 값 · 점수는 AI 제안 · 개인 실습용 자료이며 투자 판단 자료가 아니에요.</p>
 </main>
 

@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>오아시스 대시보드</title>
+<style>
+  :root {
+    --bg: #F5F3EE;
+    --card: #FFFFFF;
+    --ink: #17231F;
+    --ink-2: #47544F;
+    --ink-3: #66716D;
+    --line: #E2DED5;
+    --track: #EFECE4;
+    --header: #12302A;
+    --accent-ink: #B5470F;
+    --bar: #00806A;
+    --bar-hi: #E86A2E;
+    --tag-f: #1F6B55;
+    --tag-i: #B04A18;
+    --tag-u: #66706D;
+    --tag-c: #3E5C76;
+    --soft: #F8F6F1;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #101614;
+      --card: #1A2320;
+      --ink: #EEF2F0;
+      --ink-2: #BCC7C3;
+      --ink-3: #98A5A0;
+      --line: #2F3A36;
+      --track: #28322E;
+      --header: #0B201B;
+      --accent-ink: #F2A077;
+      --bar: #22A98F;
+      --bar-hi: #E0652B;
+      --tag-f: #1F7A61;
+      --tag-i: #B9531F;
+      --tag-u: #5D6865;
+      --tag-c: #47698A;
+      --soft: #212B28;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    font-size: 15px; line-height: 1.5; word-break: keep-all; overflow-wrap: anywhere;
+  }
+  a { color: inherit; }
+  .top { background: var(--header); color: #fff; }
+  .top-in { max-width: 1240px; margin: 0 auto; padding: 22px 20px 20px; }
+  .top p { margin: 0; }
+  .kicker { font-size: 13px; color: #F3C9B2; }
+  h1 { margin: 2px 0 4px; font-size: 32px; line-height: 1.2; letter-spacing: -.5px; }
+  .lead { font-size: 17px; color: #EAF0EE; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 14px 20px 32px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0 0 14px; color: var(--ink-2); font-size: 13px; align-items: center; }
+  .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
+  .s2 { grid-column: span 2; } .s4 { grid-column: span 4; } .s6 { grid-column: span 6; } .s8 { grid-column: span 8; } .s12 { grid-column: span 12; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; min-width: 0; break-inside: avoid; }
+  .card h2 { display: flex; align-items: baseline; gap: 8px; margin: 0 0 12px; font-size: 17px; line-height: 1.3; }
+  .num { flex: none; color: var(--accent-ink); font-weight: 700; }
+  .sub { margin: -8px 0 12px; font-size: 13px; color: var(--ink-3); }
+  .band { margin: 22px 0 10px; font-size: 20px; }
+
+  .kpi .label { font-size: 13.5px; color: var(--ink-2); }
+  .kpi .val { display: block; margin: 4px 0 2px; font-size: 26px; font-weight: 700; line-height: 1.15; letter-spacing: -.5px; white-space: nowrap; }
+  .kpi .delta { font-size: 14px; font-weight: 700; }
+  .kpi .note { display: block; margin-top: 6px; font-size: 12px; color: var(--ink-3); }
+
+  .stats { display: grid; gap: 10px; }
+  .c2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .stat { background: var(--soft); border-radius: 8px; padding: 10px 12px; min-width: 0; }
+  .stat .q { display: block; font-size: 13px; font-weight: 700; color: var(--accent-ink); }
+  .stat .big { display: block; font-size: 23px; font-weight: 700; line-height: 1.2; margin: 2px 0; letter-spacing: -.3px; }
+  .stat .desc { display: block; font-size: 13px; color: var(--ink-2); line-height: 1.4; }
+
+  .tag { display: inline-block; min-width: 16px; padding: 0 4px; border-radius: 3px; color: #fff; font-size: 11px; font-weight: 700; line-height: 16px; text-align: center; vertical-align: 1px; }
+  .f { background: var(--tag-f); } .i { background: var(--tag-i); } .u { background: var(--tag-u); } .cal { background: var(--tag-c); }
+  a.c { font-size: 12px; color: var(--ink-3); text-decoration: none; white-space: nowrap; }
+  a.c:hover { text-decoration: underline; color: var(--accent-ink); }
+
+  .bars { display: grid; gap: 9px; }
+  .bar { display: grid; grid-template-columns: 96px minmax(0, 1fr) 118px; gap: 8px; align-items: center; border-radius: 4px; outline-offset: 2px; }
+  .bar .name { font-size: 14px; }
+  .bar .val { font-size: 14px; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+  .bar .val small { display: block; font-size: 12px; font-weight: 400; color: var(--ink-3); }
+  .track { position: relative; height: 14px; background: var(--track); border-radius: 0 4px 4px 0; }
+  .fill { position: absolute; top: 0; bottom: 0; left: 0; background: var(--bar); border-radius: 0 4px 4px 0; }
+  .fill.hi { background: var(--bar-hi); }
+  .fill.neg { background: var(--ink-3); border-radius: 4px 0 0 4px; }
+  .key { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 12px; font-size: 13px; color: var(--ink-2); }
+  .key i { display: inline-block; width: 12px; height: 12px; margin-right: 5px; border-radius: 3px; vertical-align: -1px; }
+
+  .cols { display: flex; align-items: flex-end; gap: 18px; height: 170px; padding: 0 6px; border-bottom: 1px solid var(--line); }
+  .col { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; border-radius: 4px; }
+  .col .v { font-size: 14px; font-weight: 700; margin-bottom: 4px; white-space: nowrap; }
+  .col .b { width: 100%; max-width: 24px; background: var(--bar); border-radius: 4px 4px 0 0; }
+  .col.hi .b { background: var(--bar-hi); }
+  .xlab { display: flex; gap: 18px; padding: 5px 6px 0; }
+  .xlab span { flex: 1; text-align: center; font-size: 13px; color: var(--ink-2); }
+
+  ul.rows { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  ul.rows li { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 10px; align-items: start; }
+  .rowval { font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -.2px; }
+  .rowtxt { font-size: 14px; }
+  .rowtxt .meta { display: block; font-size: 12px; color: var(--ink-3); }
+
+  .flow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 12px; font-size: 14px; }
+  .step { padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink-2); }
+  .step.on { background: var(--header); border-color: var(--header); color: #fff; font-weight: 700; }
+  .step.mid { border-color: var(--bar-hi); color: var(--ink); font-weight: 700; }
+
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { padding: 7px 8px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  th { font-size: 13px; color: var(--ink-2); font-weight: 700; white-space: nowrap; }
+  td.n { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  th.n { text-align: right; }
+  .bigcell { font-size: 19px; font-weight: 700; white-space: nowrap; }
+
+  .issue .big { display: block; font-size: 30px; font-weight: 700; line-height: 1.15; letter-spacing: -.5px; margin-bottom: 2px; }
+  .issue .cap { display: block; font-size: 13px; color: var(--ink-3); margin-bottom: 10px; }
+  .issue p { margin: 0 0 7px; font-size: 14px; }
+  .issue .who { display: block; font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
+
+  .draft { font-size: 12.5px; font-weight: 400; color: var(--accent-ink); }
+  .notice { margin: 0; padding: 10px 12px; background: var(--soft); border-left: 3px solid var(--bar-hi); font-size: 14px; }
+  .plain { margin: 0; padding-left: 18px; font-size: 14px; }
+  .plain li { margin-bottom: 6px; }
+  .src { margin: 0; padding: 0; list-style: none; columns: 2; column-gap: 20px; font-size: 13px; }
+  .src li { break-inside: avoid; margin-bottom: 4px; }
+  footer { margin-top: 14px; color: var(--ink-3); font-size: 12.5px; }
+
+  #tip { position: fixed; z-index: 10; display: none; max-width: 260px; padding: 6px 9px; border-radius: 6px; background: var(--header); color: #fff; font-size: 13px; pointer-events: none; box-shadow: 0 2px 8px rgba(0,0,0,.25); }
+  [data-tip] { cursor: default; }
+  [data-tip]:focus-visible { outline: 2px solid var(--bar-hi); }
+
+  @media (max-width: 1040px) {
+    .s2 { grid-column: span 4; } .s4 { grid-column: span 6; } .s8 { grid-column: span 12; } .s6 { grid-column: span 12; }
+    .card.t12 { grid-column: span 12; }
+    .t12 .c2 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  @media (max-width: 640px) {
+    .top-in { padding: 18px 16px; } .wrap { padding: 12px 16px 24px; }
+    h1 { font-size: 27px; } .lead { font-size: 16px; }
+    .s2 { grid-column: span 6; } .s4, .s6, .s8 { grid-column: span 12; }
+    .kpi .val { font-size: 21px; }
+    .c3, .t12 .c2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .bar { grid-template-columns: 78px minmax(0, 1fr) 100px; }
+    .src { columns: 1; }
+  }
+  @page { size: A4; margin: 9mm; }
+  @media print {
+    :root, :root:not([data-theme="light"]) {
+      --bg: #fff; --card: #fff; --ink: #17231F; --ink-2: #47544F; --ink-3: #66716D; --line: #DAD6CC; --track: #EFECE4; --header: #12302A;
+      --accent-ink: #B5470F; --bar: #00806A; --bar-hi: #E86A2E; --tag-f: #1F6B55; --tag-i: #B04A18; --tag-u: #66706D; --tag-c: #3E5C76; --soft: #F8F6F1;
+    }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { font-size: 11px; }
+    .top-in { padding: 10px 12px; } .wrap { padding: 8px 0 0; max-width: none; }
+    h1 { font-size: 22px; } .lead { font-size: 13px; } .kicker { font-size: 10.5px; }
+    .grid { gap: 7px; } .card { padding: 9px; border-radius: 6px; }
+    .card h2 { font-size: 13px; margin-bottom: 7px; } .sub { font-size: 10.5px; margin: -5px 0 7px; }
+    .s2 { grid-column: span 2; } .s4 { grid-column: span 4; } .s6 { grid-column: span 6; } .s8 { grid-column: span 8; }
+    .kpi .label { font-size: 10px; } .kpi .val { font-size: 18px; } .kpi .delta { font-size: 10.5px; } .kpi .note { font-size: 9px; margin-top: 3px; }
+    .stats { gap: 6px; } .stat { padding: 6px 7px; } .stat .q { font-size: 10px; } .stat .big { font-size: 15px; } .stat .desc { font-size: 10px; }
+    .bars { gap: 5px; } .bar { grid-template-columns: 62px minmax(0, 1fr) 76px; gap: 5px; } .bar .name, .bar .val { font-size: 10.5px; } .bar .val small { font-size: 9px; } .track { height: 9px; }
+    .cols { height: 92px; } .col .v, .xlab span { font-size: 10px; } .key { font-size: 10px; margin-top: 6px; }
+    ul.rows { gap: 5px; } ul.rows li { grid-template-columns: 62px minmax(0, 1fr); gap: 6px; } .rowval { font-size: 13px; } .rowtxt { font-size: 10.5px; } .rowtxt .meta { font-size: 9px; }
+    table { font-size: 10px; } th { font-size: 9.5px; } th, td { padding: 3px 4px; } .bigcell { font-size: 12px; }
+    .flow { font-size: 10px; margin-bottom: 6px; } .band { font-size: 14px; margin: 0 0 6px; break-before: page; }
+    .issue .big { font-size: 20px; } .issue .cap { font-size: 10px; margin-bottom: 5px; } .issue p { font-size: 10.5px; margin-bottom: 4px; } .issue .who { font-size: 9.5px; }
+    .notice, .plain { font-size: 10.5px; } .src { font-size: 9.5px; } .legend { font-size: 10px; margin-bottom: 6px; } footer { font-size: 9.5px; margin-top: 6px; }
+    .tag { font-size: 8.5px; line-height: 12px; min-width: 12px; } a.c { font-size: 9px; }
+    #tip { display: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="top"><div class="top-in">
+  <p class="kicker">산업 리서치 원페이지 · 푸드 · 데이터·서비스 트랙 · 2026-11-06 · 사람 검증 전</p>
+  <h1>오아시스</h1>
+  <p class="lead">생산자 직소싱과 자체 물류 소프트웨어로 흑자를 내는 새벽배송 기업이 제휴 채널로 넓히는 중</p>
+</div></div>
+<div class="wrap">
+  <p class="legend">
+    <span><span class="tag f">F</span> 원문 사실</span><span><span class="tag cal">계산</span> 원문 수치로 계산·환산</span><span><span class="tag i">I</span> 해석</span><span><span class="tag u">U</span> 미확인</span>
+    <span>[n] 출처 번호 · 막대에 마우스를 올리면 원문 표기 표시</span>
+  </p>
+  <div class="grid">
+    <div class="card kpi s2"><span class="label">2025 매출</span><span class="val">5,645억</span><span class="delta">▲ 9.2%</span> <span class="tag cal">계산</span><span class="note">564,468,852,915원 <a class="c" href="#s15">[15]</a></span></div>
+    <div class="card kpi s2"><span class="label">2025 영업이익</span><span class="val">191억</span><span class="delta">▼ 14.6%</span> <span class="tag cal">계산</span><span class="note">19,102,124,581원 <a class="c" href="#s15">[15]</a></span></div>
+    <div class="card kpi s2"><span class="label">온라인 비중</span><span class="val">74%</span><span class="delta">직영매장 22%</span> <span class="tag f">F</span><span class="note">2025 <a class="c" href="#s1">[1]</a></span></div>
+    <div class="card kpi s2"><span class="label">직영 매장</span><span class="val">49곳</span><span class="delta">수도권 위주</span> <span class="tag f">F</span><span class="note">보고서 기준일 <a class="c" href="#s1">[1]</a></span></div>
+    <div class="card kpi s2"><span class="label">생산자 정산</span><span class="val">20일 내 99%</span><span class="delta">마감 후</span> <span class="tag f">F</span><span class="note">회사 기재 <a class="c" href="#s1">[1]</a></span></div>
+    <div class="card kpi s2"><span class="label">1H26 영업이익</span><span class="val">147억</span><span class="delta">연결</span> <span class="tag cal">계산</span><span class="note">반기보고서, 대조 전 <a class="c" href="#s3">[3]</a></span></div>
+
+    <section class="card s4 t12"><h2><span class="num">1</span>기업 개요</h2><div class="stats c2">
+      <div class="stat"><span class="big">2011년</span><span class="desc">설립 <span class="tag f">F</span> <a class="c" href="#s1">[1]</a></span></div>
+      <div class="stat"><span class="big">14사</span><span class="desc">지어소프트 그룹 <span class="tag f">F</span> <a class="c" href="#s2">[2]</a></span></div>
+      <div class="stat"><span class="big">오아시스루트</span><span class="desc">자체 물류 소프트웨어 <span class="tag f">F</span> <a class="c" href="#s1">[1]</a></span></div>
+      <div class="stat"><span class="big">국내만</span><span class="desc">수출 해당 없음 <span class="tag f">F</span> <a class="c" href="#s1">[1]</a></span></div>
+    </div></section>
+
+    <section class="card s8"><h2><span class="num">2</span>사업 모델 여섯 질문</h2><div class="stats c3">
+      <div class="stat"><span class="q">누구에게</span><span class="big">B2C</span><span class="desc">주부 등 온라인·매장 고객 <span class="tag f">F</span> <a class="c" href="#s1">[1]</a></span></div>
+      <div class="stat"><span class="q">무엇을</span><span class="big">신선·가공·생활</span><span class="desc">유기농·친환경 중심 <span class="tag f">F</span> <a class="c" href="#s1">[1]</a></span></div>
+      <div class="stat"><span class="q">어떻게 전달</span><span class="big">온라인 74%</span><span class="desc">직영 22%, 토스 전용관 <span class="tag f">F</span> <a class="c" href="#s1">[1]</a><a class="c" href="#s12">[12]</a></span></div>
+      <div class="stat"><span class="q">어떻게 돈</span><span class="big">상품 판매 98.2%</span><span class="desc"><span class="tag f">F</span> <a class="c" href="#s1">[1]</a></span></div>
+      <div class="stat"><span class="q">무엇으로</span><span class="big">직소싱+소프트웨어</span><span class="desc">MD 직접 계약, 오아시스루트 <span class="tag f">F</span> <a class="c" href="#s1">[1]</a></span></div>
+      <div class="stat"><span class="q">얼마나 들어</span><span class="big">상품 72.2%</span><span class="desc">비용 합계 중 <span class="tag cal">계산</span> <a class="c" href="#s8">[8]</a></span></div>
+    </div></section>
+
+    <section class="card s6"><h2><span class="num">2</span>어떻게 돈: 판매채널별 매출</h2><p class="sub">2025년, 억원 환산 <span class="tag cal">계산</span> <a class="c" href="#s1">[1]</a></p><div class="bars">
+        <div class="bar" tabindex="0" data-tip="415,421백만원"><span class="name">온라인</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">4,154억<small>74%</small></span></div>
+        <div class="bar" tabindex="0" data-tip="125,648백만원"><span class="name">직영매장</span><div class="track"><div class="fill" style="width:30.2%"></div></div><span class="val">1,256억<small>22%</small></span></div>
+        <div class="bar" tabindex="0" data-tip="13,718백만원"><span class="name">생협 등</span><div class="track"><div class="fill" style="width:3.3%"></div></div><span class="val">137억<small>2%</small></span></div>
+        <div class="bar" tabindex="0" data-tip="9,681백만원"><span class="name">기타</span><div class="track"><div class="fill" style="width:2.3%"></div></div><span class="val">97억<small>2%</small></span></div>
+      </div><p class="sub" style="margin:12px 0 0"><span class="tag i">I</span> 온라인은 늘고 직영매장은 2024년보다 줄었음</p></section>
+    <section class="card s6"><h2><span class="num">2</span>얼마나 들어: 비용 상위 5개</h2><p class="sub">2025년 합계 5,454억 기준 <span class="tag cal">계산</span> <a class="c" href="#s8">[8]</a></p><div class="bars">
+        <div class="bar" tabindex="0" data-tip="393,767,982천원"><span class="name">상품</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">3,938억<small>72.2%</small></span></div>
+        <div class="bar" tabindex="0" data-tip="43,432,882천원"><span class="name">급여 등</span><div class="track"><div class="fill hi" style="width:11%"></div></div><span class="val">434억<small>8.0%</small></span></div>
+        <div class="bar" tabindex="0" data-tip="34,890,641천원"><span class="name">운송보관료</span><div class="track"><div class="fill hi" style="width:8.9%"></div></div><span class="val">349억<small>6.4%</small></span></div>
+        <div class="bar" tabindex="0" data-tip="15,510,214천원"><span class="name">지급수수료</span><div class="track"><div class="fill" style="width:3.9%"></div></div><span class="val">155억<small>2.8%</small></span></div>
+        <div class="bar" tabindex="0" data-tip="8,906,987천원"><span class="name">광고선전비</span><div class="track"><div class="fill" style="width:2.3%"></div></div><span class="val">89억<small>1.6%</small></span></div>
+      </div><p class="sub" style="margin:12px 0 0"><span class="tag i">I</span> 급여 +18.9%, 운송보관료 +11.5%가 매출 +9.2%보다 빠름</p></section>
+
+    <section class="card s6"><h2><span class="num">4</span>최근 동향 (날짜순)</h2><ul class="rows">
+      <li><span class="rowval">폐기율 0%대</span><span class="rowtxt">회사가 AI 자동 발주로 유지한다고 밝혔다고 전함 <span class="tag f">F</span> <a class="c" href="#s11">[11]</a><br><span class="meta">2026.06.30 · 외부 보도</span></span></li>
+      <li><span class="rowval">69억</span><span class="rowtxt">2분기 영업이익, 별도 기준 <span class="tag f">F</span> <a class="c" href="#s10">[10]</a><br><span class="meta">2026.08.13 · 외부 보도</span></span></li>
+      <li><span class="rowval">300억</span><span class="rowtxt">토스 투자와 전용관을 전함 <span class="tag f">F</span> <a class="c" href="#s12">[12]</a><br><span class="meta">2026.09.21 · 외부 보도</span></span></li>
+    </ul></section>
+
+    <section class="card s6"><h2><span class="num">5</span>산업 지형 내 위치 · 경쟁사 비교</h2>
+      <div class="flow"><span class="step mid">생산자</span><span>→</span><span class="step ">가공</span><span>→</span><span class="step on">플랫폼</span><span>→</span><span class="step on">주문</span><span>→</span><span class="step on">물류</span> <span class="tag i">I</span></div>
+      <div class="scroll"><table><thead><tr><th>2025년</th><th class="n">오아시스</th><th class="n">컬리</th></tr></thead><tbody>
+        <tr><td>매출 <a class="c" href="#s15">[15]</a><a class="c" href="#s7">[7]</a></td><td class="n">5,645억</td><td class="n">2조 3,671억</td></tr>
+        <tr><td>영업이익</td><td class="n">191억</td><td class="n">131억</td></tr>
+        <tr><td>영업이익률 <span class="tag cal">계산</span></td><td class="n">3.4%</td><td class="n">0.6%</td></tr>
+        <tr><td>직영 매장</td><td class="n">49곳</td><td class="n"><span class="tag u">U</span></td></tr>
+        <tr><td>해외</td><td class="n">수출 없음</td><td class="n">수출·미국 D2C</td></tr>
+      </tbody></table></div>
+      <p class="sub" style="margin:12px 0 0"><span class="tag i">I</span> 차이 1: 오아시스는 매장으로 재고를 소진. 차이 2: 규모는 컬리가 약 4배</p>
+    </section>
+
+    <section class="card s6"><h2><span class="num">6</span>글로벌 확장 경로</h2><div class="stats c3">
+      <div class="stat"><span class="q">직접 수출</span><span class="big">없음</span><span class="desc">해당사항 없음 <span class="tag f">F</span> <a class="c" href="#s1">[1]</a></span></div>
+      <div class="stat"><span class="q">해외 소싱</span><span class="big">시험 중</span><span class="desc">메이오아시스 수입, 보도 <span class="tag f">F</span> <a class="c" href="#s13">[13]</a></span></div>
+      <div class="stat"><span class="q">해외 법인</span><span class="big"><span class="tag u">U</span></span><span class="desc">계열 표의 이탈리아 법인 역할 미확인 <a class="c" href="#s9">[9]</a></span></div>
+    </div><p class="sub" style="margin:12px 0 0"><span class="tag i">I</span> 글로벌 확장보다 국내 제휴 확대가 먼저임</p></section>
+
+    <section class="card s6"><h2><span class="num">7</span>우리 자산(살피)과의 접점 <span class="draft">초안 · 직접 검토 필요</span></h2><ul class="rows">
+      <li><span class="rowval">고객</span><span class="rowtxt">살피의 식당 사장님과 고객이 다름 <span class="tag i">I</span> <a class="c" href="#s14">[14]</a></span></li>
+      <li><span class="rowval">거점</span><span class="rowtxt">대구 일부 새벽배송 지역 <span class="tag f">F</span> <a class="c" href="#s1">[1]</a></span></li>
+      <li><span class="rowval">상품</span><span class="rowtxt">대구 사과가 직소싱 신선식품 후보 <span class="tag i">I</span> · 거래 <span class="tag u">U</span></span></li>
+      <li><span class="rowval">쟁점</span><span class="rowtxt">자동 발주와 수요 예측이 이미 있어 살피 전망의 역할이 작을 수 있음 <span class="tag i">I</span> <a class="c" href="#s11">[11]</a></span></li>
+    </ul></section>
+
+    <section class="card s12"><h2><span class="num">8</span>출처 · 충돌 · 미확인</h2><div class="grid" style="gap:14px">
+      <div class="s6"><div class="scroll"><table><thead><tr><th>충돌 항목</th><th>자료 A</th><th>자료 B</th></tr></thead><tbody>
+        <tr><td>영업이익 기준 <a class="c" href="#s10">[10]</a><a class="c" href="#s3">[3]</a></td><td>보도 69억 (별도)</td><td>연결 6,788,482,144원</td></tr>
+        <tr><td>흑자 표현 <a class="c" href="#s1">[1]</a><a class="c" href="#s7">[7]</a></td><td>오아시스 "유일 흑자" 회사 표현</td><td>컬리도 2025 영업흑자</td></tr>
+        <tr><td>티몬 명칭 <a class="c" href="#s8">[8]</a><a class="c" href="#s13">[13]</a></td><td>공시 아고((구)티몬)</td><td>보도 메이오아시스</td></tr>
+      </tbody></table></div></div>
+      <div class="s6"><p style="margin:0 0 6px;font-weight:700"><span class="tag u">U</span> 미확인 5건</p><ul class="plain">
+        <li>수요 예측값의 생산자 공유 범위</li>
+        <li>물류센터 전체 목록과 자체·위탁 구분</li>
+        <li>카테고리별 매출</li>
+        <li>대구 생산자 직소싱 여부</li>
+        <li>토스 채널 매출</li>
+      </ul></div>
+    </div></section>
+  </div>
+
+  <h2 class="band">트랙 과제 · 산업 이슈 3개</h2>
+  <div class="grid">
+    <section class="card issue s4"><h2>직소싱과 원가</h2><span class="big">-3.5%p</span><span class="cap">매출원가율, 회사 설명 보도 <a class="c" href="#s10">[10]</a></span>
+      <p><span class="who">회사가 말하는 것</span><span class="tag f">F</span> 20일 내 99% 정산과 직접 계약을 기재함 <a class="c" href="#s1">[1]</a></p>
+      <p><span class="who">외부가 말하는 것</span><span class="tag f">F</span> 직소싱으로 원가율을 낮췄다고 전함 <a class="c" href="#s10">[10]</a></p></section>
+    <section class="card issue s4"><h2>제휴 채널 확장</h2><span class="big">300억</span><span class="cap">토스 투자, 보도 <a class="c" href="#s12">[12]</a></span>
+      <p><span class="who">회사가 말하는 것</span><span class="tag f">F</span> 보통주식 647,752주 발행 공고, 상대방 이름 없음 <a class="c" href="#s5">[5]</a></p>
+      <p><span class="who">외부가 말하는 것</span><span class="tag f">F</span> 티몬 대안 성격으로 분석함 <a class="c" href="#s12">[12]</a></p></section>
+    <section class="card issue s4"><h2>물류 소프트웨어</h2><span class="big">120~300건</span><span class="cap">인력당 주문 처리, 회사 기재 <a class="c" href="#s1">[1]</a></span>
+      <p><span class="who">회사가 말하는 것</span><span class="tag f">F</span> 소프트웨어 중심으로 감가상각을 줄인다고 기재 <a class="c" href="#s1">[1]</a></p>
+      <p><span class="who">외부가 말하는 것</span><span class="tag f">F</span> 성남 물류센터 르포 <a class="c" href="#s11">[11]</a></p></section>
+
+    <section class="card s12"><h2>대시보드 산업 지표 후보 (수요·재고·물류 신호)</h2><div class="scroll"><table>
+      <thead><tr><th>단계</th><th>지표 후보</th><th>신호</th><th>현재 값</th><th>상태</th></tr></thead><tbody>
+        <tr><td>생산자</td><td>상품 매입액, aT 시세</td><td>공급</td><td class="bigcell">3,959억</td><td>2025 <span class="tag cal">계산</span> <a class="c" href="#s1">[1]</a></td></tr>
+        <tr><td>가공</td><td>PB 비중</td><td>공급</td><td class="bigcell"><span class="tag u">U</span></td><td>언급만 보도 <a class="c" href="#s10">[10]</a></td></tr>
+        <tr><td>플랫폼</td><td>온라인 매출</td><td>수요</td><td class="bigcell">4,154억</td><td>2025 <span class="tag cal">계산</span> <a class="c" href="#s1">[1]</a></td></tr>
+        <tr><td>주문</td><td>직영 매장 매출</td><td>수요</td><td class="bigcell">1,256억</td><td>2025 <span class="tag cal">계산</span> <a class="c" href="#s1">[1]</a></td></tr>
+        <tr><td>물류</td><td>운송보관료</td><td>물류</td><td class="bigcell">349억</td><td>2025 <span class="tag cal">계산</span> <a class="c" href="#s8">[8]</a></td></tr>
+      </tbody></table></div></section>
+
+    <section class="card s12"><h2>검증 상태</h2><p class="notice"><b>사람 검증 전입니다.</b> 핵심 사실 5개 대조는 <code>verify.md</code>에 기록합니다. [3]~[6], [10]~[13]은 Aside가 읽은 값의 메모입니다. "유일 흑자"와 폐기율은 회사 주장이며 독립적으로 확인하지 않았습니다.</p></section>
+
+    <section class="card s12"><h2>출처 목록</h2><ul class="src">
+      <li id="s1">[1] <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260320000593">DART 오아시스 사업보고서 II. 사업의 내용 · 2026.03.20</a></li>
+      <li id="s2">[2] <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260320000593">같은 보고서 IX. 계열회사</a></li>
+      <li id="s3">[3] <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260813000857">반기보고서 (2026.06) · 2026.08.13</a></li>
+      <li id="s4">[4] <a href="https://www.oasis.co.kr/company/story/detail/NTC1/22704">공식 공지 고객소싱 · 2026.10.15</a></li>
+      <li id="s5">[5] <a href="https://www.oasis.co.kr/company/story/detail/NTC1/22659">공식 공지 신주발행 · 2026.09.17</a></li>
+      <li id="s6">[6] <a href="https://www.oasis.co.kr/company/story/detail/NTC1/22650">공식 공지 서비스 점검 · 2026.09.09</a></li>
+      <li id="s7">[7] <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260327000997">DART 컬리 사업보고서 II. 사업의 내용</a></li>
+      <li id="s8">[8] <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260320000593">오아시스 연결 주석 4·26</a></li>
+      <li id="s9">[9] <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260320000593">같은 보고서 XII. 계열회사 현황(상세)</a></li>
+      <li id="s10">[10] <a href="https://www.yna.co.kr/view/AKR20260813119900030">연합뉴스 2분기 실적 · 2026.08.13</a></li>
+      <li id="s11">[11] <a href="https://www.forbeskorea.co.kr/news/articleView.html?idxno=402230">포브스코리아 물류 르포 · 2026.06.30</a></li>
+      <li id="s12">[12] <a href="https://www.newstopkorea.com/news/articleView.html?idxno=47769">뉴스톱 토스 제휴 · 2026.09.21</a></li>
+      <li id="s13">[13] <a href="https://www.dailian.co.kr/news/view/1693026/">데일리안 티몬·직소싱 · 2026.09.21</a></li>
+      <li id="s14">[14] <a href="https://github.com/k-1026/jangbaguni">team 장바구니 살피 저장소 (팀 자료, 가상 설계 포함)</a></li>
+      <li id="s15">[15] <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260320000593">같은 보고서 요약재무정보</a></li>
+    </ul></section>
+  </div>
+  <footer>개인 실습용 자료 · 투자 판단 자료가 아닙니다.</footer>
+</div>
+<div id="tip" role="status"></div>
+<script>
+  (function () {
+    var tip = document.getElementById('tip');
+    function show(el, x, y) {
+      tip.textContent = el.getAttribute('data-tip');
+      tip.style.display = 'block';
+      var w = tip.offsetWidth, h = tip.offsetHeight;
+      tip.style.left = Math.max(8, Math.min(x + 12, innerWidth - w - 8)) + 'px';
+      tip.style.top = Math.max(8, y - h - 10) + 'px';
+    }
+    function hide() { tip.style.display = 'none'; }
+    document.querySelectorAll('[data-tip]').forEach(function (el) {
+      el.addEventListener('mousemove', function (e) { show(el, e.clientX, e.clientY); });
+      el.addEventListener('mouseleave', hide);
+      el.addEventListener('focus', function () { var r = el.getBoundingClientRect(); show(el, r.left, r.top); });
+      el.addEventListener('blur', hide);
+    });
+  })();
+</script>
+</body>
+</html>

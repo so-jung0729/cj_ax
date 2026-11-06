@@ -46,7 +46,7 @@ const pages = Object.fromEntries(companies.map(c => [c.id, { day9: embed(c.day9)
 const meta = companies.map(({ id, name, day9, day10 }) => ({ id, name, day9, day10 }));
 
 const cardsOf = list => list.map(c => `
-      <a class="co" href="#${c.id}/day9">
+      <a class="co" href="#${c.id}/day9" data-route="${c.id}/day9">
         <span class="top"><b class="name">${c.name}</b>${c.badge ? `<span class="badge${c.group === 'rival' ? ' plain' : ''}">${c.badge}</span>` : ''}</span>
         <span class="type">${c.type}</span>
         <span class="nums"><span><small>2025 매출</small><b>${c.sales}</b></span><span><small>2025 영업이익</small><b>${c.profit}</b></span></span>
@@ -155,7 +155,7 @@ const html = `<!doctype html>
 
 <div class="company" id="company" hidden>
   <header class="bar">
-    <a class="back" href="#">← 기업 목록</a>
+    <a class="back" href="#" data-route="">← 기업 목록</a>
     <span class="cur" id="cur"></span>
     <nav class="tabs" aria-label="일차 선택">
       <a class="tab" id="tab-day9">Day 09 원페이지</a>
@@ -186,23 +186,25 @@ const html = `<!doctype html>
       document.getElementById('cur').textContent = c.name;
       ['day9', 'day10'].forEach(function (d) {
         var t = document.getElementById('tab-' + d);
-        t.href = '#' + c.id + '/' + d;
+        t.href = '#' + c.id + '/' + d; t.dataset.route = c.id + '/' + d;
         if (d === day) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current');
       });
       [].forEach.call(document.querySelectorAll('#switch a'), function (a) {
-        a.href = '#' + a.dataset.id + '/' + day;
+        a.href = '#' + a.dataset.id + '/' + day; a.dataset.route = a.dataset.id + '/' + day;
         a.setAttribute('aria-current', String(a.dataset.id === c.id));
       });
-      document.getElementById('open').href = encodeURI(c[day]);
+      // htmlpreview로 열었을 때는 원본 페이지도 htmlpreview로 연다.
+      var q = location.search.slice(1);
+      document.getElementById('open').href = q.indexOf('https://github.com/') === 0 && q.indexOf('/index.html') > 0 ? location.pathname + '?' + q.split('/index.html')[0] + '/' + encodeURI(c[day]) : encodeURI(c[day]);
       var key = c.id + '/' + day;
       if (shown !== key) { view.title = c.name + ' ' + day; view.srcdoc = pages[c.id][day]; shown = key; }
     }
     // 파일을 어떤 방식으로 열어도 동작하도록 클릭을 직접 처리하고, 가능하면 주소에도 남긴다.
     document.addEventListener('click', function (e) {
-      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      var a = e.target.closest && e.target.closest('[data-route]');
       if (!a) return;
       e.preventDefault();
-      var route = a.getAttribute('href').slice(1);
+      var route = a.dataset.route;
       render(route);
       try { history.pushState(null, '', '#' + route); } catch (err) { /* data: 주소 등에서는 주소만 안 바뀜 */ }
     });

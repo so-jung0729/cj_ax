@@ -6,11 +6,20 @@ L.L.M Academy Day 09·Day 10 과제 저장소입니다. AX 데이터·서비스 
 
 ## 바로 보기
 
-1. 저장소를 내려받습니다.
-2. 루트의 `index.html`을 브라우저로 엽니다.
-3. 기업 카드를 눌러 Day 09 원페이지와 Day 10 밸류체인 맵을 봅니다.
+**[통합 페이지 열기](https://htmlpreview.github.io/?https://github.com/so-jung0729/cj_ax/blob/main/index.html)**: 기업 카드를 누르면 Day 09 원페이지와 Day 10 밸류체인 맵을 볼 수 있습니다.
 
-GitHub 화면에서는 HTML이 코드로 보이므로 내려받아서 열어야 합니다.
+기업별 페이지를 바로 열 수도 있습니다.
+
+| 기업 | Day 09 | Day 10 |
+|---|---|---|
+| CJ프레시웨이 | [원페이지](https://htmlpreview.github.io/?https://github.com/so-jung0729/cj_ax/blob/main/research/company/CJ%ED%94%84%EB%A0%88%EC%8B%9C%EC%9B%A8%EC%9D%B4/onepager.html) | [밸류체인 맵](https://htmlpreview.github.io/?https://github.com/so-jung0729/cj_ax/blob/main/valuechain/valuechain_v1.html) |
+| 풀무원 | [원페이지](https://htmlpreview.github.io/?https://github.com/so-jung0729/cj_ax/blob/main/research/company/%ED%92%80%EB%AC%B4%EC%9B%90/onepager.html) | [밸류체인 맵](https://htmlpreview.github.io/?https://github.com/so-jung0729/cj_ax/blob/main/valuechain/%ED%92%80%EB%AC%B4%EC%9B%90/valuechain_v1.html) |
+| 컬리 | [원페이지](https://htmlpreview.github.io/?https://github.com/so-jung0729/cj_ax/blob/main/research/company/%EC%BB%AC%EB%A6%AC/onepager.html) | [밸류체인 맵](https://htmlpreview.github.io/?https://github.com/so-jung0729/cj_ax/blob/main/valuechain/%EC%BB%AC%EB%A6%AC/valuechain_v1.html) |
+| 현대그린푸드 | [원페이지](https://htmlpreview.github.io/?https://github.com/so-jung0729/cj_ax/blob/main/research/company/%ED%98%84%EB%8C%80%EA%B7%B8%EB%A6%B0%ED%91%B8%EB%93%9C/onepager.html) | [밸류체인 맵](https://htmlpreview.github.io/?https://github.com/so-jung0729/cj_ax/blob/main/valuechain/%ED%98%84%EB%8C%80%EA%B7%B8%EB%A6%B0%ED%91%B8%EB%93%9C/valuechain_v1.html) |
+| 오리온 | [원페이지](https://htmlpreview.github.io/?https://github.com/so-jung0729/cj_ax/blob/main/research/company/%EC%98%A4%EB%A6%AC%EC%98%A8/onepager.html) | [밸류체인 맵](https://htmlpreview.github.io/?https://github.com/so-jung0729/cj_ax/blob/main/valuechain/%EC%98%A4%EB%A6%AC%EC%98%A8/valuechain_v1.html) |
+| 오아시스 | [원페이지](https://htmlpreview.github.io/?https://github.com/so-jung0729/cj_ax/blob/main/research/company/%EC%98%A4%EC%95%84%EC%8B%9C%EC%8A%A4/onepager.html) | [밸류체인 맵](https://htmlpreview.github.io/?https://github.com/so-jung0729/cj_ax/blob/main/valuechain/%EC%98%A4%EC%95%84%EC%8B%9C%EC%8A%A4/valuechain_v1.html) |
+
+링크는 외부 미리보기 서비스 htmlpreview를 거칩니다. 열리지 않으면 저장소를 내려받아 `index.html`을 브라우저로 여세요.
 
 ## 기업 6곳
 

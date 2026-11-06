@@ -75,7 +75,7 @@
   <p class="lead">기업을 누르면 Day 09 원페이지와 Day 10 밸류체인 맵을 볼 수 있어요. 위아래 카드가 서로 경쟁사예요.</p>
   <h2 class="group">후보 기업</h2>
   <nav class="cos" aria-label="후보 기업 선택">
-      <a class="co" href="#cj/day9">
+      <a class="co" href="#cj/day9" data-route="cj/day9">
         <span class="top"><b class="name">CJ프레시웨이</b><span class="badge">선정 기업</span></span>
         <span class="type">B2B 식자재 유통·급식</span>
         <span class="nums"><span><small>2025 매출</small><b>3조 4,811억</b></span><span><small>2025 영업이익</small><b>1,017억</b></span></span>
@@ -83,7 +83,7 @@
         <span class="row"><small>살피와 맞는 정도</small><b>높음</b> · 식당이 곧 고객</span>
         <span class="go">들어가기 →</span>
       </a>
-      <a class="co" href="#pulmuone/day9">
+      <a class="co" href="#pulmuone/day9" data-route="pulmuone/day9">
         <span class="top"><b class="name">풀무원</b></span>
         <span class="type">식품 제조사</span>
         <span class="nums"><span><small>2025 매출</small><b>3조 3,802억</b></span><span><small>2025 영업이익</small><b>932억</b></span></span>
@@ -91,7 +91,7 @@
         <span class="row"><small>살피와 맞는 정도</small><b>일부</b> · 외식 채널 비중이 작음</span>
         <span class="go">들어가기 →</span>
       </a>
-      <a class="co" href="#kurly/day9">
+      <a class="co" href="#kurly/day9" data-route="kurly/day9">
         <span class="top"><b class="name">컬리</b></span>
         <span class="type">온라인 식품 플랫폼 + 자체 배송</span>
         <span class="nums"><span><small>2025 매출</small><b>2조 3,671억</b></span><span><small>2025 영업이익</small><b>131억</b></span></span>
@@ -102,7 +102,7 @@
   </nav>
   <h2 class="group">경쟁사</h2>
   <nav class="cos" aria-label="경쟁사 선택">
-      <a class="co" href="#hyundai/day9">
+      <a class="co" href="#hyundai/day9" data-route="hyundai/day9">
         <span class="top"><b class="name">현대그린푸드</b><span class="badge plain">CJ프레시웨이 경쟁사</span></span>
         <span class="type">단체급식·식자재 유통</span>
         <span class="nums"><span><small>2025 매출</small><b>2조 3,296억</b></span><span><small>2025 영업이익</small><b>1,068억</b></span></span>
@@ -110,7 +110,7 @@
         <span class="row"><small>살피와 맞는 정도</small><b>중간</b> · 외식 고객과 일부 겹침</span>
         <span class="go">들어가기 →</span>
       </a>
-      <a class="co" href="#orion/day9">
+      <a class="co" href="#orion/day9" data-route="orion/day9">
         <span class="top"><b class="name">오리온</b><span class="badge plain">풀무원 경쟁사</span></span>
         <span class="type">제과 제조사</span>
         <span class="nums"><span><small>2025 매출</small><b>3조 3,324억</b></span><span><small>2025 영업이익</small><b>5,583억</b></span></span>
@@ -118,7 +118,7 @@
         <span class="row"><small>살피와 맞는 정도</small><b>낮음</b> · 식당이 고객이 아님</span>
         <span class="go">들어가기 →</span>
       </a>
-      <a class="co" href="#oasis/day9">
+      <a class="co" href="#oasis/day9" data-route="oasis/day9">
         <span class="top"><b class="name">오아시스</b><span class="badge plain">컬리 경쟁사</span></span>
         <span class="type">온라인 식품 + 직영 매장</span>
         <span class="nums"><span><small>2025 매출</small><b>5,645억</b></span><span><small>2025 영업이익</small><b>191억</b></span></span>
@@ -148,7 +148,7 @@
 
 <div class="company" id="company" hidden>
   <header class="bar">
-    <a class="back" href="#">← 기업 목록</a>
+    <a class="back" href="#" data-route="">← 기업 목록</a>
     <span class="cur" id="cur"></span>
     <nav class="tabs" aria-label="일차 선택">
       <a class="tab" id="tab-day9">Day 09 원페이지</a>
@@ -179,23 +179,25 @@
       document.getElementById('cur').textContent = c.name;
       ['day9', 'day10'].forEach(function (d) {
         var t = document.getElementById('tab-' + d);
-        t.href = '#' + c.id + '/' + d;
+        t.href = '#' + c.id + '/' + d; t.dataset.route = c.id + '/' + d;
         if (d === day) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current');
       });
       [].forEach.call(document.querySelectorAll('#switch a'), function (a) {
-        a.href = '#' + a.dataset.id + '/' + day;
+        a.href = '#' + a.dataset.id + '/' + day; a.dataset.route = a.dataset.id + '/' + day;
         a.setAttribute('aria-current', String(a.dataset.id === c.id));
       });
-      document.getElementById('open').href = encodeURI(c[day]);
+      // htmlpreview로 열었을 때는 원본 페이지도 htmlpreview로 연다.
+      var q = location.search.slice(1);
+      document.getElementById('open').href = q.indexOf('https://github.com/') === 0 && q.indexOf('/index.html') > 0 ? location.pathname + '?' + q.split('/index.html')[0] + '/' + encodeURI(c[day]) : encodeURI(c[day]);
       var key = c.id + '/' + day;
       if (shown !== key) { view.title = c.name + ' ' + day; view.srcdoc = pages[c.id][day]; shown = key; }
     }
     // 파일을 어떤 방식으로 열어도 동작하도록 클릭을 직접 처리하고, 가능하면 주소에도 남긴다.
     document.addEventListener('click', function (e) {
-      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      var a = e.target.closest && e.target.closest('[data-route]');
       if (!a) return;
       e.preventDefault();
-      var route = a.getAttribute('href').slice(1);
+      var route = a.dataset.route;
       render(route);
       try { history.pushState(null, '', '#' + route); } catch (err) { /* data: 주소 등에서는 주소만 안 바뀜 */ }
     });

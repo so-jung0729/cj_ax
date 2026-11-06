@@ -58,3 +58,10 @@
 | 7 | 보도 | CJ프레시웨이 베트남 중심 해외 사업 확장 기사 (뉴데일리) | 2017.06.27 | https://biz.newdaily.co.kr/site/data/html/2017/06/27/2017062710089.html |
 | 8 | DART | 현대그린푸드 사업보고서 (2025.12) | 2026.03.16 | https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260316001009 |
 | 9 | 보도 | '런치플레이션'에 활짝 웃은 급식 빅3 기사 (더팩트) | 2026.08.25 | https://news.tf.co.kr/read/economy/2357208.htm |
+
+## 추가 진행 (2026-11-06)
+
+- 사용자 요청으로 선정 기업 외 후보 2곳도 Day09·Day10 산출물을 만듦: `research/company/풀무원/`, `research/company/컬리/`, `valuechain/풀무원/`, `valuechain/컬리/`.
+- 비교용 경쟁사: 풀무원 → 오리온, 컬리 → 오아시스. 각 기업 `sources.md` 참고.
+- 위 [U] 항목 해소: 컬리 2026.10.02 주식교환 보고서는 지주 구조 개편이 아니라 넥스트키친 완전자회사화임 (`컬리/sources/10_dart_주식교환결정.md`). 6월 보고서는 읽지 않음.
+- 세 곳 비교는 `compare.md`.

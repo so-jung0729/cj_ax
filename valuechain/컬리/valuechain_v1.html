@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>컬리 밸류체인 맵</title>
+<style>
+  :root {
+    color-scheme: light;
+    --ink:#111418; --ink2:#4A5159; --ink3:#6B727A; --line:#E6E8EB; --band:#F5F6F7; --white:#fff;
+    --accent:#FFD400;
+    --teal:#CFF1E9; --teal-l:#00806A;
+    --bn-l:#E89B00; --cost-l:#E8603C; --opp:#E6F5CF; --opp-d:#4F7F12;
+    --money:#D9480F; --data:#1C64C8; --cut:#C62828;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-padding-top:60px; }
+  body { margin:0; background:var(--white); color:var(--ink); font-family:Pretendard,"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif; font-size:17px; line-height:1.5; word-break:keep-all; overflow-wrap:anywhere; }
+  b { font-weight:700; }
+  [hidden] { display:none !important; }
+  button { font:inherit; color:inherit; cursor:pointer; }
+  button:focus-visible { outline:3px solid var(--data); outline-offset:2px; }
+  .wrap { max-width:1280px; margin:0 auto; padding:0 28px; }
+
+  /* 상단 메뉴 */
+  nav { position:sticky; top:0; z-index:5; background:var(--white); border-bottom:1px solid var(--line); }
+  nav .wrap { display:flex; align-items:center; gap:6px; height:44px; }
+  nav .brand { font-weight:800; font-size:16px; margin-right:auto; white-space:nowrap; }
+  nav button { background:none; border:0; font-size:15px; font-weight:700; color:var(--ink2); padding:5px 14px; border-radius:99px; white-space:nowrap; }
+  nav button:hover { background:var(--band); color:var(--ink); }
+  nav button[aria-selected="true"] { background:var(--ink); color:var(--white); }
+
+  /* 공통 꼬리표 */
+  .tag { display:inline-block; font-size:13px; line-height:18px; font-weight:700; padding:0 6px; margin-left:2px; border-radius:5px; background:#E4E6E9; color:#3D444B; white-space:nowrap; vertical-align:1px; }
+  .ref { font-size:14px; color:var(--ink3); white-space:nowrap; }
+  .asset-chip { background:var(--teal); box-shadow:0 0 0 1.5px var(--teal-l); border-radius:3px; padding:0 3px; -webkit-box-decoration-break:clone; box-decoration-break:clone; }
+  .sig { display:inline-block; font-size:13px; line-height:19px; font-weight:700; color:#fff; padding:0 8px; border-radius:99px; white-space:nowrap; vertical-align:1px; }
+  .sig.sup { background:#2E7D4F; } .sig.dem { background:#B84E12; } .sig.inv { background:#1C64C8; }
+
+  /* 단계 카드 화면 */
+  .cards-view { padding-top:14px; padding-bottom:10px; }
+  h1 { margin:0; font-size:27px; line-height:1.3; font-weight:800; letter-spacing:-.03em; }
+  .hint { display:flex; flex-wrap:wrap; justify-content:space-between; gap:0 16px; margin:0 0 10px; font-size:16px; color:var(--ink2); }
+  .hint .state { font-size:15px; color:var(--ink3); }
+  .did { grid-column:1 / -1; font-size:17px; line-height:1.4; padding:0 4px 1px; }
+  .did b { font-weight:800; margin-right:8px; }
+  .note-line { margin:10px 0 0; font-size:14px; line-height:1.4; color:var(--ink3); }
+  .stages { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; margin-bottom:12px; }
+  .st { position:relative; display:flex; flex-direction:column; align-items:flex-start; text-align:left; background:var(--band); border:0; border-radius:14px; padding:12px 14px; min-height:138px; }
+  .st:hover { background:#ECEEF0; }
+  .st .n { font-size:17px; line-height:1.3; font-weight:800; letter-spacing:-.02em; }
+  .st .now { margin-top:5px; font-size:15.5px; line-height:1.4; color:var(--ink2); }
+  .st .own { margin-top:auto; padding-top:6px; font-size:13px; font-weight:700; color:#00624F; }
+  .st[aria-pressed="true"] { background:var(--ink); color:var(--white); }
+  .st[aria-pressed="true"] .now { color:#E3E5E8; }
+  .st[aria-pressed="true"] .own { color:#7FE3CF; }
+  .st[aria-pressed="true"]::after { content:""; position:absolute; left:50%; bottom:-9px; margin-left:-9px; border-left:9px solid transparent; border-right:9px solid transparent; border-top:10px solid var(--ink); }
+  .st .star { color:#8A6D00; font-weight:800; }
+  .st[aria-pressed="true"] .star { color:var(--accent); }
+
+  .panel { display:grid; grid-template-columns:320px 1fr 1fr 1.3fr; gap:10px; align-items:stretch; }
+  .box { background:var(--band); border-radius:14px; padding:14px 16px; min-width:0; }
+  .box h2 { margin:0 0 10px; font-size:20px; line-height:1.3; font-weight:800; }
+  .box h2.m { color:var(--money); } .box h2.d { color:var(--data); }
+  .box.see { background:var(--white); box-shadow:inset 0 0 0 2px var(--ink); }
+  .box ul { margin:0; padding:0; list-style:none; }
+  .box li { margin-bottom:8px; font-size:18px; line-height:1.42; }
+  .box li:last-child { margin-bottom:0; }
+  .box li.minor { color:var(--ink2); font-size:15px; }
+  .box dl { margin:0; display:grid; grid-template-columns:40px 1fr; gap:5px 6px; font-size:18px; line-height:1.42; }
+  .box dt { font-size:15.5px; line-height:25px; font-weight:700; color:var(--ink3); }
+  .box dd { margin:0; min-width:0; }
+  .routes { margin-top:10px !important; padding-top:9px !important; border-top:1px solid #DDE0E3; }
+  .box .routes li { font-size:16px; margin-bottom:5px; }
+  .routes b { color:var(--data); }
+  .routes .x, .routes .x b { color:var(--cut); font-weight:700; }
+
+  .pt { border-radius:10px; padding:8px 11px; margin-bottom:7px; border:2px solid; background:var(--white); }
+  .pt:last-child { margin-bottom:0; }
+  .pt small { display:block; font-size:13.5px; line-height:1.3; font-weight:800; color:var(--ink2); }
+  .pt b { display:block; font-size:18px; line-height:1.38; }
+  .pt.bn { border-color:var(--bn-l); } .pt.cost { border-color:var(--cost-l); }
+  .pt.opp { border-color:var(--opp); background:var(--opp); }
+  .pt.top { border-color:var(--opp-d); background:var(--opp); }
+  .pt.cut { border-color:var(--cut); border-style:dashed; }
+  .empty { font-size:18px; color:var(--ink2); margin:0; }
+
+  /* 먼저 할 일 화면 */
+  .why-view { padding-top:22px; padding-bottom:24px; }
+  .why-view h1 { font-size:31px; }
+  .why-view .lead { margin:4px 0 18px; font-size:18px; color:var(--ink2); }
+  .why { display:grid; grid-template-columns:1fr 440px; gap:14px; }
+  .card { background:var(--band); border-radius:16px; padding:22px 26px; }
+  .card h2 { margin:0 0 4px; font-size:16px; font-weight:800; color:var(--ink3); }
+  .card p { margin:0 0 18px; font-size:19px; line-height:1.6; }
+  .card p:last-child { margin-bottom:0; }
+  .q2 { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; }
+  .q2 div { background:var(--white); border-radius:10px; padding:12px; font-size:16.5px; line-height:1.4; }
+  .q2 small { display:block; font-size:14px; color:var(--ink3); }
+  .q2 .go { background:var(--opp); box-shadow:inset 0 0 0 2px var(--opp-d); }
+  .card p.axis { margin:10px 0 0; font-size:14.5px; color:var(--ink3); }
+  .card p.note { margin:10px 0 0; font-size:14.5px; line-height:1.45; color:var(--ink2); }
+
+  /* 네 층 맵 화면: 1280×720 한 장 */
+  .map { display:flex; flex-direction:column; gap:8px; min-height:675px; padding-top:10px; padding-bottom:10px; }
+  .map .title { margin:0; font-size:27px; line-height:1.25; font-weight:800; letter-spacing:-.03em; }
+  .map .sub { margin:1px 0 0; font-size:15px; color:var(--ink3); }
+  .band { display:grid; grid-template-columns:62px 1fr; gap:8px; background:var(--band); border-radius:12px; padding:7px 10px 7px 0; }
+  .lab { display:flex; align-items:center; justify-content:center; text-align:center; font-size:15px; line-height:1.25; font-weight:800; padding-left:6px; }
+  .lab.m { color:var(--money); } .lab.d { color:var(--data); }
+  .five { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
+  .cell { font-size:15.5px; line-height:1.36; min-width:0; }
+  .who { font-size:15px; line-height:1.5; letter-spacing:-.01em; }
+  .act { position:relative; background:var(--white); border:2px solid var(--ink); border-radius:10px; padding:5px 10px; font-size:17px; line-height:1.25; font-weight:800; letter-spacing:-.02em; display:flex; flex-direction:column; justify-content:center; min-height:52px; }
+  .act small { font-size:13.5px; line-height:1.3; font-weight:400; letter-spacing:-.01em; color:var(--ink2); }
+  .act.asset { background:var(--teal); border-color:var(--teal-l); }
+  .act:not(.last)::after { content:"▶"; position:absolute; right:-11px; top:50%; transform:translateY(-50%); font-size:10px; color:var(--ink); }
+  .sn { display:none; }
+  .flow { position:relative; display:flex; align-items:center; justify-content:center; height:28px; font-size:15px; font-weight:700; }
+  .flow::before { content:""; position:absolute; left:12px; right:12px; top:50%; border-top:4px solid var(--money); transform:translateY(-50%); }
+  .flow > span { position:relative; background:var(--band); padding:0 10px; white-space:nowrap; }
+  .flow i { position:absolute; top:50%; transform:translateY(-50%); width:0; height:0; border-top:8px solid transparent; border-bottom:8px solid transparent; }
+  .flow.left i { left:2px; border-right:12px solid var(--c,var(--money)); }
+  .flow.right i { right:2px; border-left:12px solid var(--c,var(--money)); }
+  .flow.money { color:var(--money); --c:var(--money); }
+  .flow.thin::before { border-top-width:2px; }
+  .flow.dat { color:var(--data); --c:var(--data); }
+  .flow.dat::before { border-top:2px dashed var(--data); }
+  .flow.cut { color:var(--cut); --c:var(--cut); }
+  .flow.cut::before { border-top:2px dashed var(--cut); }
+  .s14 { grid-column:1 / 5; } .s5 { grid-column:5; }
+  .stack { display:flex; flex-direction:column; gap:3px; }
+  .mks { display:flex; flex-direction:column; gap:4px; }
+  .mk { border-radius:8px; padding:2px 8px; font-size:15px; line-height:1.3; border:2px solid; background:var(--white); }
+  .mk.bn { border-color:var(--bn-l); } .mk.cost { border-color:var(--cost-l); }
+  .mk.opp { border-color:var(--opp); background:var(--opp); }
+  .mk.top { border-color:var(--opp-d); background:var(--opp); font-weight:800; }
+  .none { font-size:15px; color:var(--ink3); padding:2px 8px; }
+  .foot { flex:1; display:grid; grid-template-columns:1fr 420px; gap:10px; }
+  .pri { background:var(--ink); color:var(--white); border-radius:12px; padding:9px 16px; display:flex; flex-direction:column; justify-content:center; }
+  .pri .t { font-size:22px; line-height:1.3; font-weight:800; letter-spacing:-.02em; }
+  .pri .t em { font-style:normal; color:var(--accent); }
+  .pri p { margin:4px 0 0; font-size:16.5px; line-height:1.4; color:#E3E5E8; }
+  .leg { border:1px solid var(--line); border-radius:12px; padding:7px 12px; display:grid; grid-template-columns:1fr 1fr; gap:1px 12px; align-content:center; font-size:14px; line-height:1.45; }
+  .k { display:flex; align-items:center; gap:6px; white-space:nowrap; }
+  .sw { width:22px; height:13px; border-radius:3px; border:2px solid; flex:none; }
+  .ln { width:22px; height:0; flex:none; }
+
+  footer { padding:0 0 16px; font-size:14px; color:var(--ink3); }
+
+  @media (max-width:1000px) {
+    nav .wrap { flex-wrap:wrap; height:auto; padding-top:6px; padding-bottom:6px; }
+    nav .brand { width:100%; }
+    nav button { padding:4px 10px; font-size:14.5px; }
+    html { scroll-padding-top:90px; }
+    .wrap { padding-left:16px; padding-right:16px; }
+    h1 { font-size:23px; }
+    .stages { grid-template-columns:1fr; }
+    .st { min-height:0; }
+    .st[aria-pressed="true"]::after { display:none; }
+    .panel, .why { grid-template-columns:1fr; }
+    .why-view h1 { font-size:25px; }
+    .map { min-height:0; gap:10px; }
+    .map .title { font-size:23px; }
+    .band { grid-template-columns:1fr; padding:10px 12px; }
+    .lab { justify-content:flex-start; padding-left:0; }
+    .lab br { display:none; }
+    .five { grid-template-columns:1fr; gap:8px; }
+    .s14, .s5 { grid-column:auto; }
+    .flow { height:auto; min-height:28px; }
+    .flow > span { white-space:normal; text-align:center; padding:2px 16px; margin:0 12px; }
+    .act::after { display:none; }
+    .sn { display:inline; font-weight:800; color:var(--ink3); }
+    .foot { grid-template-columns:1fr; }
+    .leg { grid-template-columns:1fr; }
+    .k { white-space:normal; }
+  }
+  @media print {
+    nav { display:none; }
+    [hidden] { display:block !important; }
+    .panel[hidden] { display:grid !important; }
+    .panel, .view { break-inside:avoid; margin-bottom:16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav aria-label="화면 선택">
+  <div class="wrap">
+    <span class="brand">컬리 밸류체인 맵 v1</span>
+    <div role="tablist" aria-label="화면" style="display:flex;gap:6px;flex-wrap:wrap">
+      <button role="tab" aria-selected="true" data-view="cards">단계 카드</button>
+      <button role="tab" aria-selected="false" data-view="why">먼저 할 일</button>
+      <button role="tab" aria-selected="false" data-view="map">네 층 맵 (제출용)</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<div class="view wrap cards-view" id="view-cards">
+  <h1>컬리는 주문으로 발주를 예측하는데, 그 신호가 생산자까지 가는지는 확인되지 않았어요 <span class="tag">해석</span></h1>
+  <p class="hint"><span>카드를 누르면 그 단계의 지금 볼 것, 누가, 돈, 데이터가 아래에 나와요.</span><span class="state">AX 데이터·서비스 트랙 · 2026-11-06 · 사람 검증 전</span></p>
+  <div class="stages">
+    <button class="st" data-stage="1" aria-pressed="true" aria-controls="panel-1">
+      <span class="n">1 지역 생산자·공급사</span>
+      <span class="now">수요 예측 신호가 생산자까지 가는지 확인하지 못했어요</span>
+      <span class="own">팀 자산</span>
+    </button>
+    <button class="st" data-stage="2" aria-pressed="false" aria-controls="panel-2">
+      <span class="n">2 가공</span>
+      <span class="now">표시할 신호는 못 찾았고, 넥스트키친 편입이 예정돼 있어요</span>
+      
+    </button>
+    <button class="st" data-stage="3" aria-pressed="false" aria-controls="panel-3">
+      <span class="n">3 식품 온라인 플랫폼</span>
+      <span class="now">신선 재고 폐기를 줄이는 게 핵심 과제예요</span>
+      
+    </button>
+    <button class="st" data-stage="4" aria-pressed="false" aria-controls="panel-4">
+      <span class="n">4 주문·결제</span>
+      <span class="now">결제·서비스 수수료가 비용으로 쌓여요</span>
+      
+    </button>
+    <button class="st" data-stage="5" aria-pressed="false" aria-controls="panel-5">
+      <span class="n">5 물류·배송</span>
+      <span class="now">운반·임차 비용이 매출보다 빠르게 늘어요</span>
+      <span class="own">팀 자산</span>
+    </button>
+  </div>
+
+  <section class="panel" id="panel-1" aria-label="1 지역 생산자·공급사">
+    <p class="did" style="margin:0"><b>1 지역 생산자·공급사</b>직매입 납품 · 상품위원회 · 입고 가이드</p>
+    <div class="box see"><h2>지금 볼 것</h2>
+      <div class="pt cut"><small>단절 D1</small><b>수요 예측이 생산자까지 가는지 확인 못 했어요</b></div>
+      <div class="pt bn"><small>병목 B1</small><b>입고 규격이 작은 생산자엔 부담일 수 있어요 <span class="tag">해석</span> <span class="ref">[1]</span></b></div>
+      <div class="pt top"><small>★ 기회 O1 · 빠른 성과</small><b>시세·제철 출하 리포트</b></div>
+    </div>
+    <div class="box"><h2>누가</h2><ul>
+      <li><span class="asset-chip"><b>대구·경북 등 지역 생산자</b></span> <span class="tag">거래 미확인</span></li>
+      <li><b>공급업체·파트너사</b> <span class="tag">개별명 미확인</span></li>
+      <li><b>상품위원회</b> (컬리 내부)</li>
+      <li class="minor">대규모유통업법</li>
+    </ul></div>
+    <div class="box"><h2 class="m">돈 (여기서 끝나요)</h2><ul>
+      <li>직매입 상품 대금</li>
+      <li>상품별 단가 합의 후 발주·납품량 정산</li>
+      <li>생산자 몫 <span class="tag">미확인</span></li>
+    </ul></div>
+    <div class="box"><h2 class="d">데이터 <span class="sig sup">공급 신호</span></h2><dl>
+      <dt>이름</dt><dd>발주량·입고·상품 검증 기록</dd>
+      <dt>생성</dt><dd>입고 예약 · 입고 가이드 · 상품위원회</dd>
+      <dt>보유</dt><dd>컬리 <span class="tag">해석</span> · 공급사 공유 범위 <span class="tag">미확인</span></dd>
+    </dl>
+    <ul class="routes">
+      <li class=""><b>공개 데이터</b> aT 경락가 → 살피 → 생산자 리포트 (설계)</li>
+      <li class="x"><b>✕ 들어오는 길</b> 수요 예측 → 생산자, 공유 범위 미확인 <span class="tag">해석</span></li>
+    </ul></div>
+  </section>
+
+  <section class="panel" id="panel-2" aria-label="2 가공">
+    <p class="did" style="margin:0"><b>2 가공</b>PB·간편식 · 넥스트키친 · 파트너 생산</p>
+    <div class="box see"><h2>지금 볼 것</h2>
+      <p class="empty">병목·비용·기회 신호의 근거를 찾지 못해 마커를 비워 뒀어요. 넥스트키친은 12월 완전자회사가 될 예정이에요.</p>
+    </div>
+    <div class="box"><h2>누가</h2><ul>
+      <li><b>(주)넥스트키친</b> 식품 제조</li>
+      <li><b>록야(주)</b> <span class="tag">역할 미확인</span></li>
+      <li><b>PB 제조 파트너</b> <span class="tag">미확인</span></li>
+      <li class="minor">식품위생법 · 축산물위생관리법</li>
+    </ul></div>
+    <div class="box"><h2 class="m">돈</h2><ul>
+      <li>파트너사 납품 단가 <span class="tag">해석</span></li>
+      <li>넥스트키친 내부 거래 <span class="tag">미확인</span></li>
+    </ul></div>
+    <div class="box"><h2 class="d">데이터 <span class="sig sup">공급 신호</span></h2><dl>
+      <dt>이름</dt><dd>파트너 생산·납품 계획</dd>
+      <dt>생성</dt><dd>파트너 공장 <span class="tag">해석</span> · 판매 생산 관리 시스템</dd>
+      <dt>보유</dt><dd>파트너사·컬리 <span class="tag">해석</span> · 공유 범위 <span class="tag">미확인</span></dd>
+    </dl></div>
+  </section>
+
+  <section class="panel" id="panel-3" aria-label="3 식품 온라인 플랫폼">
+    <p class="did" style="margin:0"><b>3 식품 온라인 플랫폼</b>마켓컬리 · 직매입 · 3P · 수요 예측</p>
+    <div class="box see"><h2>지금 볼 것</h2>
+      <div class="pt bn"><small>병목 B2</small><b>유통기한이 짧아 폐기 관리가 필요하고 폐기 예측 기술까지 만들었어요 <span class="ref">[1]</span></b></div>
+      <div class="pt opp"><small>기회 O3</small><b>입고 가이드 사전 점검을 지역 생산자로 확대</b></div>
+    </div>
+    <div class="box"><h2>누가</h2><ul>
+      <li><b>(주)컬리</b> 마켓컬리 운영</li>
+      <li><b>3P 판매자</b> <span class="tag">미확인</span></li>
+      <li><b>네이버</b> 컬리N마트 협업</li>
+      <li class="minor">공정위 · 전자상거래법</li>
+    </ul></div>
+    <div class="box"><h2 class="m">돈</h2><ul>
+      <li>상품 판매 매출</li>
+      <li>3P 수수료</li>
+      <li>기타 수수료</li>
+    </ul></div>
+    <div class="box"><h2 class="d">데이터 <span class="sig dem">수요 신호</span></h2><dl>
+      <dt>이름</dt><dd>상품·검색·구매 데이터, 수요 예측값</dd>
+      <dt>생성</dt><dd>컬리 앱·웹 · 데이터 플랫폼</dd>
+      <dt>보유</dt><dd>컬리 <span class="ref">[1]</span></dd>
+    </dl>
+    <ul class="routes">
+      <li class=""><b>피드백</b> 구매 데이터 → 주문량 예측 → 발주 <span class="ref">[1]</span></li>
+      <li class=""><b>피드백</b> 리뷰 → AI 분석 → 운영 <span class="ref">[1]</span></li>
+    </ul></div>
+  </section>
+
+  <section class="panel" id="panel-4" aria-label="4 주문·결제">
+    <p class="did" style="margin:0"><b>4 주문·결제</b>앱·웹 주문 · 컬리페이 · 멤버십 · 컬리N마트</p>
+    <div class="box see"><h2>지금 볼 것</h2>
+      <div class="pt cost"><small>비용 C2</small><b>결제 수수료가 금액 비례이고 서비스 이용수수료도 늘었어요 <span class="ref">[1][8]</span></b></div>
+      <div class="pt opp"><small>기회 O2 · 지금은 어려움</small><b>생산자에게 품목 수요 신호 공유 (컬리 협조 필요)</b></div>
+    </div>
+    <div class="box"><h2>누가</h2><ul>
+      <li><b>온라인 소비자</b> 개인 고객</li>
+      <li><b>(주)컬리페이</b> 결제 정산</li>
+      <li><b>컬리멤버스</b> 회원</li>
+      <li class="minor">개인정보보호법</li>
+    </ul></div>
+    <div class="box"><h2 class="m">돈 (여기서 시작해요)</h2><ul>
+      <li>소비자 결제 금액</li>
+      <li>결제 금액에 수수료율을 곱한 수수료</li>
+    </ul></div>
+    <div class="box"><h2 class="d">데이터 <span class="sig dem">수요 신호</span></h2><dl>
+      <dt>이름</dt><dd>주문·결제·재구매 기록</dd>
+      <dt>생성</dt><dd>컬리 앱·웹 · 컬리N마트</dd>
+      <dt>보유</dt><dd>컬리·컬리페이 <span class="tag">해석</span> · 네이버 측 <span class="tag">미확인</span></dd>
+    </dl>
+    <ul class="routes">
+      <li class=""><b>피드백</b> 주문 패턴 → 실시간 추천 <span class="ref">[1]</span></li>
+    </ul></div>
+  </section>
+
+  <section class="panel" id="panel-5" aria-label="5 물류·배송">
+    <p class="did" style="margin:0"><b>5 물류·배송</b>김포·창원·평택 · 샛별배송 · FBK</p>
+    <div class="box see"><h2>지금 볼 것</h2>
+      <div class="pt cost"><small>비용 C1</small><b>운반 및 임차료가 매출보다 빠르게 늘었어요 <span class="ref">[1][8]</span></b></div>
+    </div>
+    <div class="box"><h2>누가</h2><ul>
+      <li><span class="asset-chip"><b>창원 물류센터</b> (영남권 거점)</span></li>
+      <li><b>(주)컬리넥스트마일</b> 배송</li>
+      <li><b>화물운송사·임대인</b> <span class="tag">미확인</span></li>
+      <li class="minor">콜드체인 품질 기준</li>
+    </ul></div>
+    <div class="box"><h2 class="m">돈 (별도 차감)</h2><ul>
+      <li>배송 건수·박스 단가 운임</li>
+      <li>물류센터 월 임차료</li>
+      <li>포장비</li>
+    </ul></div>
+    <div class="box"><h2 class="d">데이터 <span class="sig inv">재고 신호</span></h2><dl>
+      <dt>이름</dt><dd>재고·입출고·배송 기록</dd>
+      <dt>생성</dt><dd>WMS · 통합 물류 운영 · 배송 관제</dd>
+      <dt>보유</dt><dd>컬리·컬리넥스트마일 <span class="tag">해석</span> · 3PL 화주 값 <span class="tag">미확인</span></dd>
+    </dl>
+    <ul class="routes">
+      <li class=""><b>피드백</b> 재고·판매 → 폐기 예측·할인 조정 <span class="ref">[1]</span></li>
+    </ul></div>
+  </section>
+  <p class="note-line">해석 = [I] · 미확인 = [U] · [n] = 출처 번호 · 맵에 금액·비율 없음 · 원문 수치와 출처는 valuechain_v1.md, analysis.md</p>
+</div>
+
+<div class="view wrap why-view" id="view-why">
+  <h1>먼저 할 일: 지역 생산자용 시세·제철 출하 리포트</h1>
+  <p class="lead">영향 2, 실현 가능성 3인 기회 O1이에요. "먼저 간다" 칸에 들어가는 기회는 없었어요. (AX 데이터·서비스 트랙 · 2026-11-06 · 사람 검증 전)</p>
+  <div class="why">
+    <div class="card">
+      <h2>근거</h2>
+      <p>컬리는 직매입과 상품 검증을 거쳐 납품받으므로 생산자가 무엇을 언제 낼지 판단할 자료가 필요해 보여요. <span class="ref">[1]</span></p>
+      <p>살피는 이미 aT 경락가·KAMIS·기상청 데이터를 모으고, 사과 등은 aT 경매 품목에 있어요. <span class="ref">[16]</span></p>
+      <h2>한계</h2>
+      <p>지역 생산자가 실제로 원하는지 검증 전이에요. 살피의 기존 고객(식당)과 다른 고객이라 페르소나를 새로 잡아야 하고, 컬리 입점 가능성도 미확인이에요.</p>
+    </div>
+    <div class="card">
+      <h2>기회 우선순위</h2>
+      <div class="q2">
+        <div class=""><small>큰 기회 · 지금은 어려움</small><b>O2</b> 영향 3 · 실현 1</div>
+        <div class=""><small>먼저 간다</small>해당 없음</div>
+        <div class=""><small>보류 · 다음 순서</small><b>O3</b> 영향 2 · 실현 2</div>
+        <div class="go"><small>빠른 성과 · 우선 선택</small><b>★ O1</b> 영향 2 · 실현 3</div>
+      </div>
+      <p class="axis">세로: 영향 ↑ · 가로: 실현 가능성 →</p>
+      <p class="note">점수는 AI 제안이라 팀이 다시 정해야 해요.</p>
+    </div>
+  </div>
+  <p class="note-line">[n] = 출처 번호 · 맵에 금액·비율 없음 · 원문 수치와 출처는 valuechain_v1.md, analysis.md</p>
+</div>
+
+<div class="view wrap map" id="view-map">
+  <div>
+    <p class="title">컬리는 주문으로 발주를 예측하는데, 그 신호가 생산자까지 가는지는 확인되지 않았어요 <span class="tag">해석</span></p>
+    <p class="sub">대시보드 데이터 흐름도 · AX 데이터·서비스 트랙 · 2026-11-06 · 사람 검증 전 · 맵에 금액·비율 없음, 원문 수치와 출처는 valuechain_v1.md, analysis.md</p>
+  </div>
+  <section class="band" aria-label="① 활동"><div class="lab">① 활동</div><div class="five">
+      <div class="act asset">1 지역 생산자·공급사<small>직매입 납품 · 상품위원회 · 입고 가이드</small></div>
+      <div class="act">2 가공<small>PB·간편식 · 넥스트키친 · 파트너 생산</small></div>
+      <div class="act">3 식품 온라인 플랫폼<small>마켓컬리 · 직매입 · 3P · 수요 예측</small></div>
+      <div class="act">4 주문·결제<small>앱·웹 주문 · 컬리페이 · 멤버십 · 컬리N마트</small></div>
+      <div class="act asset last">5 물류·배송<small>김포·창원·평택 · 샛별배송 · FBK</small></div>
+  </div></section>
+  <section class="band" aria-label="② 이해관계자"><div class="lab">② 이해<br>관계자</div><div class="five">
+        <div class="cell who"><span class="sn">1 </span><span class="asset-chip"><b>대구·경북 등 지역 생산자</b></span> <span class="tag">미확인</span><br><b>공급업체·파트너사</b> <span class="tag">미확인</span><br><b>상품위원회</b></div>
+        <div class="cell who"><span class="sn">2 </span><b>(주)넥스트키친</b><br><b>록야(주)</b> <span class="tag">미확인</span><br><b>PB 제조 파트너</b> <span class="tag">미확인</span></div>
+        <div class="cell who"><span class="sn">3 </span><b>(주)컬리</b><br><b>3P 판매자</b> <span class="tag">미확인</span><br><b>네이버</b></div>
+        <div class="cell who"><span class="sn">4 </span><b>온라인 소비자</b><br><b>(주)컬리페이</b><br><b>컬리멤버스</b> 회원</div>
+        <div class="cell who"><span class="sn">5 </span><span class="asset-chip"><b>창원 물류센터</b></span><br><b>(주)컬리넥스트마일</b><br><b>화물운송사·임대인</b> <span class="tag">미확인</span></div>
+  </div></section>
+  <section class="band" aria-label="③ 돈 흐름"><div class="lab m">③ 돈<br>흐름</div><div class="stack">
+      <div class="five">
+        <div class="flow money left s14"><i></i><span>돈은 소비자에서 시작해 공급사·생산자에서 끝나요</span></div>
+        <div class="flow money thin right s5"><i></i><span>별도 차감</span></div>
+      </div>
+      <div class="five">
+        <div class="cell "><span class="sn">1 </span><b>끝점</b> 직매입 대금<br>생산자 몫 <span class="tag">미확인</span></div>
+        <div class="cell "><span class="sn">2 </span>납품 단가 <span class="tag">해석</span><br>내부 거래 <span class="tag">미확인</span></div>
+        <div class="cell "><span class="sn">3 </span>상품 판매 매출<br>3P 수수료</div>
+        <div class="cell "><span class="sn">4 </span><b>시작점</b> 소비자 결제<br>결제 수수료</div>
+        <div class="cell "><span class="sn">5 </span>운임 · 임차료<br>포장비</div>
+      </div>
+  </div></section>
+  <section class="band" aria-label="④ 데이터 흐름"><div class="lab d">④ 데이터<br>흐름</div><div class="stack">
+      <div class="five">
+        <div class="flow cut left s14"><i></i><span>✕ 단절 D1: 수요 예측 → 생산자, 공유 범위 미확인 <span class="tag">해석</span></span></div>
+        <div class="flow dat left s5"><i></i><span>피드백: 재고→폐기</span></div>
+      </div>
+      <div class="five">
+        <div class="flow dat right s14"><i></i><span>경락가·반입량 → 살피 → 생산자 리포트 (설계)</span></div>
+      </div>
+      <div class="five">
+        <div class="cell"><span class="sn">1 </span>발주·입고 기록 <span class="sig sup">공급</span></div>
+        <div class="cell"><span class="sn">2 </span>생산·납품 계획 <span class="sig sup">공급</span></div>
+        <div class="cell"><span class="sn">3 </span>구매·수요 예측 <span class="sig dem">수요</span></div>
+        <div class="cell"><span class="sn">4 </span>주문·재구매 <span class="sig dem">수요</span></div>
+        <div class="cell"><span class="sn">5 </span>재고·배송 기록 <span class="sig inv">재고</span></div>
+      </div>
+  </div></section>
+  <section class="band" aria-label="마커"><div class="lab">마커</div><div class="five">
+      <div class="mks"><div class="mk bn"><span class="sn">1 </span><b>병목 B1</b> 입고 규격 부담</div><div class="mk top">★ 기회 O1 출하 리포트</div></div>
+      <div class="mks"><div class="none"><span class="sn">2 </span>근거를 못 찾아 비움</div></div>
+      <div class="mks"><div class="mk bn"><span class="sn">3 </span><b>병목 B2</b> 신선 재고 폐기</div><div class="mk opp"><b>기회 O3</b> 입고 사전 점검</div></div>
+      <div class="mks"><div class="mk cost"><span class="sn">4 </span><b>비용 C2</b> 결제·서비스 수수료</div><div class="mk opp"><b>기회 O2</b> 생산자 수요 공유</div></div>
+      <div class="mks"><div class="mk cost"><span class="sn">5 </span><b>비용 C1</b> 운반·임차 증가</div></div>
+  </div></section>
+  <div class="foot">
+    <div class="pri">
+      <div class="t"><em>★ 먼저 할 일</em> 지역 생산자용 시세·제철 출하 리포트</div>
+      <p>공개 도매 데이터로 파트너 없이 만들 수 있지만, 컬리 내부 데이터가 아니어서 영향은 제한적이에요.</p>
+    </div>
+    <div class="leg" aria-label="범례">
+      <div class="k"><span class="sw" style="background:#fff;border-color:var(--bn-l)"></span>병목 (주황 테두리)</div>
+      <div class="k"><span class="ln" style="border-top:4px solid var(--money)"></span>돈 (고객 → 원천)</div>
+      <div class="k"><span class="sw" style="background:#fff;border-color:var(--cost-l)"></span>비용 (코랄 테두리)</div>
+      <div class="k"><span class="ln" style="border-top:2px dashed var(--data)"></span>데이터 · 피드백</div>
+      <div class="k"><span class="sw" style="background:var(--opp);border-color:var(--opp)"></span>기회 (라임 배경)</div>
+      <div class="k"><span class="ln" style="border-top:2px dashed var(--cut)"></span>데이터 단절</div>
+      <div class="k"><span class="sw" style="background:var(--teal);border-color:var(--teal-l)"></span>팀 자산 (틸)</div>
+      <div class="k"><span class="tag" style="margin:0">해석</span>[I] <span class="tag">미확인</span>[U] · [n] 출처</div>
+    </div>
+  </div>
+</div>
+
+</main>
+<script>
+  (function () {
+    var views = [].slice.call(document.querySelectorAll('.view'));
+    var tabs = [].slice.call(document.querySelectorAll('nav [data-view]'));
+    var cards = [].slice.call(document.querySelectorAll('.st'));
+    var panels = [].slice.call(document.querySelectorAll('.panel'));
+
+    function showView(name) {
+      views.forEach(function (v) { v.hidden = v.id !== 'view-' + name; });
+      tabs.forEach(function (t) { t.setAttribute('aria-selected', String(t.dataset.view === name)); });
+      window.scrollTo(0, 0);
+    }
+    function showStage(n, jump) {
+      panels.forEach(function (p) { p.hidden = p.id !== 'panel-' + n; });
+      cards.forEach(function (c) { c.setAttribute('aria-pressed', String(c.dataset.stage === String(n))); });
+      // 휴대폰에서는 카드가 세로로 쌓이므로 내용까지 내려 준다.
+      if (jump && window.innerWidth <= 1000) document.getElementById('panel-' + n).scrollIntoView();
+    }
+    tabs.forEach(function (t) { t.addEventListener('click', function () { showView(t.dataset.view); }); });
+    cards.forEach(function (c) { c.addEventListener('click', function () { showStage(c.dataset.stage, true); }); });
+    showStage(1, false);
+    showView('cards');
+  })();
+</script>
+</body>
+</html>

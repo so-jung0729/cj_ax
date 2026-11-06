@@ -15,7 +15,7 @@
 
 # [현재 상황]
 
-기준일: 2026-11-06. 저장소: https://github.com/so-jung0729/cj_ax (공개, main, 커밋 a647410). 프로젝트 폴더는 sugeup-radar/.
+기준일: 2026-11-06. 저장소: https://github.com/so-jung0729/cj_ax (공개, main, 이전 기준 커밋 a647410). 프로젝트는 저장소 루트 기준이며 기업 조사와 서비스 데이터 검증을 같은 프로젝트로 관리해. 폴더 통합 변경의 GitHub 반영 여부는 따로 확인해야 해.
 
 ## 1. 어떤 프로젝트인가
 - 원래 L.L.M Academy 수업 과제로 기업 6곳(CJ프레시웨이, 풀무원, 컬리, 현대그린푸드, 오리온, 오아시스)을 조사하고 밸류체인 맵을 만들었어.
@@ -99,8 +99,10 @@ AI 예측 (내가 직접 설계해서 넣고 싶어):
 - 결정과 이유는 DECISIONS.md에 남겨.
 
 ## 9. 먼저 볼 파일
-- sugeup-radar/ROADMAP.md
-- sugeup-radar/DECISIONS.md
-- sugeup-radar/research/data/data_spec.md
+- README.md (프로젝트 소개·구현 현황·읽는 순서)
+- docs/COURSE_GUIDE.md (강의와 프로젝트 연결)
+- ROADMAP.md
+- DECISIONS.md
+- research/data/data_spec.md
 - research/bottlenecks.md
 - research/opendata_catalog.md

@@ -1,5 +1,5 @@
 // aT 경매·정산 API 시험 호출. 키는 .env에서 읽고 출력하거나 저장하지 않는다.
-// 실행: 저장소의 sugeup-radar 폴더에서 node scripts/probe_at.mjs
+// 실행: 저장소 루트에서 node scripts/probe_at.mjs
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 
 const env = readFileSync('.env', 'utf8');

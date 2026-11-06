@@ -1,11 +1,13 @@
 # 수급 레이더 단독 진행 로드맵
 
+> 폴더 안내: 별도 하위 프로젝트 없이 저장소 루트를 기준으로 진행합니다. 기업 조사와 데이터 검증은 같은 프로젝트의 과정입니다. 현재 상태는 [README](README.md), 수업별 연결은 [강의 안내](docs/COURSE_GUIDE.md)를 확인하세요. 아래 체크박스는 완료 판정 전의 기존 계획을 유지한 것입니다.
+
 강의 자료 Day 01~08의 흐름을 **혼자 하는 공공데이터 사이드 프로젝트**에 맞게 바꾼 문서입니다. Day 09·10의 기업 조사와 병목 분석은 이미 끝나서 입력 자료로 씁니다.
 
 - 프로젝트(가칭): 수급 레이더, 농식품 수급 위험 플랫폼
 - 한 줄 정의: 품목과 산지별 가격·물량 이상과 기상 위험을 공공데이터로 한곳에서 보여 줍니다.
 - 첫 사용자(가설): 자체 분석팀이 없는 중소 식품 제조사와 식자재 유통사의 구매 담당자
-- 근거: [병목 분석](../research/bottlenecks.md), [공공데이터 목록](../research/opendata_catalog.md)
+- 근거: [병목 분석](research/bottlenecks.md), [공공데이터 목록](research/opendata_catalog.md)
 - 작성일: 2026-11-06
 
 ## 무엇이 바뀌나
@@ -20,7 +22,7 @@
 | 리뷰·SNS 중심 필드워크 | 구매 담당자·생산자·유통인의 공개된 말과 기사 |
 | 캐릭터·세계관 | **제품 브랜드** 수준으로 축소. 말투와 경고 표현 규칙이 핵심 |
 | 영상 스토리보드 | **앱 화면 흐름** 6~8화면 |
-| Local 발표 패키지 | `sugeup-radar/` 폴더 자체가 포트폴리오 |
+| Local 발표 패키지 | 저장소 전체가 포트폴리오 |
 | Chrome 수집 | Aside로 수집하고, 저장은 Claude Code |
 
 **그대로 지킬 것:** 출처와 확인일 기록, 교차검증, 사실·해석·미확인 구분, 파일로 남기기, AI 결과를 사람이 확인하기.
@@ -29,7 +31,7 @@
 
 | 단계 | 원본 | 하는 일 | 대표 산출물 |
 |---|---|---|---|
-| 0 | Day 01·02 | 목표와 작업 환경 | `CLAUDE.md`, `.env.example` |
+| 0 | Day 01·02 | 목표와 작업 환경 | `claude.md`, `.env.example` |
 | 1 | Day 02·03 | 키워드와 데이터 검증 | `research/data/data_spec.md` |
 | 2 | Day 04·05 | 현장의 말 수집과 정리 | `archive/metadata.csv` |
 | 3 | Day 06 | 품목·데이터 자산 선정 | `inventory/top3_rationale.md` |
@@ -46,7 +48,7 @@
 - 6주 뒤 확인 가능한 목표를 3개 적습니다.
 
 **완료 기준**
-- [ ] `CLAUDE.md`에 프로젝트 목표, 출처 규칙, 사실·해석·미확인 규칙이 있음
+- [ ] `claude.md`에 프로젝트 목표, 출처 규칙, 사실·해석·미확인 규칙이 있음
 - [ ] `.env`가 `.gitignore`에 있고 `.env.example`만 저장소에 있음
 - [ ] `goals.md`에 확인 가능한 목표 3개가 있음
 
@@ -54,8 +56,8 @@
 
 **요청 예시**
 ```text
-sugeup-radar/ 폴더에 CLAUDE.md, .gitignore, .env.example, goals.md, DECISIONS.md를 만들어 줘.
-API 키는 .env에만 두고, 출처·확인일·[F][I][U] 규칙을 CLAUDE.md에 적어 줘.
+저장소 루트에 claude.md, .gitignore, .env.example, goals.md, DECISIONS.md를 만들어 줘.
+API 키는 .env에만 두고, 출처·확인일·[F][I][U] 규칙을 claude.md에 적어 줘.
 ```
 
 ## 단계 1. 키워드와 데이터 검증 (Day 02·03)
@@ -212,8 +214,9 @@ research/opendata_catalog.md의 aT 경매·정산, KAMIS, 기상청 API를 .env 
 ## 만들어질 폴더
 
 ```text
-sugeup-radar/
-  README.md, ROADMAP.md, CLAUDE.md, DECISIONS.md, goals.md
+k-뉴딜/
+  README.md, ROADMAP.md, claude.md, DECISIONS.md, goals.md
+  docs/       COURSE_GUIDE.md, DATA_SETUP.md
   .env.example, .gitignore
   research/   keyword_map.md, crosscheck.md, fieldwork_plan.md, insights.md, metrics.md
     data/     raw/, 정리본 CSV, data_spec.md

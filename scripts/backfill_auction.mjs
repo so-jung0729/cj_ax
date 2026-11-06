@@ -1,6 +1,6 @@
 // aT 경매 API에서 시험 품목의 최근 데이터를 날짜·품목별 원본 파일로 저장한다.
 // 이미 받은 날짜는 건너뛰므로 다시 실행해도 안전하다. 키는 출력하거나 저장하지 않는다.
-// 실행: 저장소의 sugeup-radar 폴더에서 node scripts/backfill_auction.mjs [시작일] [종료일]
+// 실행: 저장소 루트에서 node scripts/backfill_auction.mjs [시작일] [종료일]
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 
 const KEY = (readFileSync('.env', 'utf8').match(/^DATA_GO_KR_SERVICE_KEY=(.*)$/m) || [])[1]?.trim();

@@ -3,7 +3,7 @@
 .env.*
 !.env.example
 
-# 원본 데이터 (재수집 가능)
+# 작업용 원본 데이터 (재수집 불가 기간이 있을 수 있어 압축본 별도 보관)
 research/data/raw/*
 !research/data/raw/.gitkeep
 

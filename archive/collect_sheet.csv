@@ -1,0 +1,7 @@
+source,question,target,collected,verified,folder,id_range,next_action
+기사,Q1 가격 급변 때 구매자는 무엇이 곤란한가,10,14,3,archive/text,T01-T14,검색 요약 10건 원문 확인
+채용공고,Q2 구매 담당자의 실제 업무,5,4,1,archive/text,J01-J04,원문 확인 3건과 1건 추가
+기존서비스,Q3 기존 서비스는 어디까지 하나,5,6,0,archive/text,S01-S06,KAMIS·농넷 화면 직접 확인
+연구보고서,Q4 예측은 어디까지 믿을 수 있나,2,1,0,archive/text,R01,KREI 보고서 본문 확인
+유튜브,Q5 시장·산지 사람들의 말,5,0,0,archive/video,-,Node·yt-dlp 설치 후 자막 요약
+커뮤니티,Q6 식당·급식 운영자의 불만,10,0,0,archive/text,-,Aside로 공개 글 수집

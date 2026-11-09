@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 04</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body>
+<header class="hero"><div class="wrap"><nav class="tabs"><a href="../index.html" class="">← 한 줄기 전체 보기</a><a href="day04.html" class="on">01 Day 04 조사</a><a href="day05.html" class="">02 Day 05 아카이브</a><a href="day06.html" class="">03 Day 06 인벤토리</a><a href="day07.html" class="">04 Day 07 브랜드·세계관</a><a href="journey.html" class="">05 고객 유형·여정</a><a href="day08.html" class="">06 Day 08 스토리보드</a></nav>
+<div class="eyebrow">DAY 04 · 10/29 · 지역 자산 조사 방법론 2</div><h1>Day 04 — 사람들의 말에서 인사이트 도출</h1><p class="lead">공공데이터가 보여 주는 "무슨 일이 있었나" 옆에, 기사·채용공고·기존 서비스 속 사람들의 말로 "무엇이 곤란한가"를 채웠습니다.</p></div></header>
+<main class="wrap"><div class="card table-scroll"><table class="chk"><thead><tr><th>강의 요구 산출물</th><th>이 저장소의 파일</th><th>상태</th><th>메모</th></tr></thead><tbody><tr><td>리뷰 분석 리포트 + 차트</td><td>research/voices/ (voices_tagged.csv · report.md) + 이 페이지 차트</td><td><span class="st ok">완료</span></td><td>리뷰 100건 대신 기사·공고·서비스 25건 (ROADMAP 단계 2)</td></tr><tr><td>디지털 필드워크 계획서</td><td>research/fieldwork_plan.md</td><td><span class="st ok">완료</span></td><td>질문 6 → 소스 → 항목 → 분량</td></tr><tr><td>자막 추출 테스트 1건</td><td>archive/test/README.md</td><td><span class="st no">미완</span></td><td>yt-dlp·Node 없음 — 미실시 기록</td></tr><tr><td>지표 후보 정의 (데이터·서비스)</td><td>research/metrics.md · metrics.csv</td><td><span class="st ok">완료</span></td><td>6개, 계산식·한계 포함</td></tr><tr><td>인사이트 3 (근거 id)</td><td>research/insights.md</td><td><span class="st ok">완료</span></td><td>근거 수준 표시</td></tr><tr><td>소스별 표준 프롬프트</td><td>research/fieldwork_plan.md 3절</td><td><span class="st ok">완료</span></td><td>팀 CLAUDE.md 대신</td></tr><tr><td>태깅 검수 10건</td><td>research/voices/review_log.md</td><td><span class="st part">일부</span></td><td>AI 점검만, 본인 확인 칸 비어 있음</td></tr></tbody></table></div><h2><span class="n">01</span>한눈에</h2><div class="grid g4"><div class="card kpi"><b>25건</b><span>수집·태깅한 자료</span></div><div class="card kpi"><b>4건</b><span>원문까지 확인</span></div><div class="card kpi"><b>−45.6%</b><span>무 kg당 가격 변화 (첫 주 → 최근 5일)</span></div><div class="card kpi"><b>52.9%</b><span>감자 물량 중 평창군 비중</span></div></div><h2><span class="n">02</span>차트 ① 한 달 사이 가격 흐름</h2><p class="sub">무·배추는 절반 가까이 내렸고, 감자·양파·콩나물·숙주는 ±10% 안에서 움직였습니다.</p><div class="card"><svg class="chart" viewBox="0 0 760 300" role="img" aria-label="품목별 kg당 가격 지수"><line x1="44" x2="748" y1="270.0" y2="270.0" stroke="var(--line)"/><text x="38" y="274.0" font-size="11" text-anchor="end" fill="var(--muted)">40</text><line x1="44" x2="748" y1="218.8" y2="218.8" stroke="var(--line)"/><text x="38" y="222.8" font-size="11" text-anchor="end" fill="var(--muted)">60</text><line x1="44" x2="748" y1="167.6" y2="167.6" stroke="var(--line)"/><text x="38" y="171.6" font-size="11" text-anchor="end" fill="var(--muted)">80</text><line x1="44" x2="748" y1="116.4" y2="116.4" stroke="var(--line)"/><text x="38" y="120.4" font-size="11" text-anchor="end" fill="var(--muted)">100</text><line x1="44" x2="748" y1="65.2" y2="65.2" stroke="var(--line)"/><text x="38" y="69.2" font-size="11" text-anchor="end" fill="var(--muted)">120</text><line x1="44" x2="748" y1="14.0" y2="14.0" stroke="var(--line)"/><text x="38" y="18.0" font-size="11" text-anchor="end" fill="var(--muted)">140</text><text x="44.0" y="292" font-size="11" text-anchor="middle" fill="var(--muted)">10-06</text><text x="396.0" y="292" font-size="11" text-anchor="middle" fill="var(--muted)">10-21</text><text x="748.0" y="292" font-size="11" text-anchor="middle" fill="var(--muted)">11-05</text><polyline fill="none" stroke="var(--c1)" stroke-width="1.6" points="44.0,116.4 71.1,108.0 98.2,112.6 125.2,126.9 152.3,116.3 179.4,116.7 206.5,115.6 233.5,117.9 260.6,128.9 287.7,132.0 314.8,132.9 341.8,111.6 368.9,113.4 396.0,115.3 423.1,114.6 450.2,107.1 477.2,118.5 504.3,116.8 531.4,112.4 558.5,109.0 585.5,110.4 612.6,111.9 639.7,118.0 666.8,104.3 693.8,103.8 720.9,104.7 748.0,86.3"/><polyline fill="none" stroke="var(--c2)" stroke-width="3" points="44.0,116.4 71.1,125.4 98.2,122.9 125.2,125.4 152.3,128.8 179.4,125.7 206.5,119.5 233.5,125.3 260.6,122.2 287.7,126.6 314.8,129.1 341.8,133.6 368.9,130.9 396.0,123.4 423.1,122.6 450.2,126.5 477.2,119.7 504.3,106.5 531.4,108.6 558.5,111.4 585.5,116.0 612.6,115.8 639.7,110.4 666.8,108.6 693.8,114.5 720.9,110.8 748.0,98.7"/><polyline fill="none" stroke="var(--c3)" stroke-width="3" points="44.0,116.4 71.1,164.8 98.2,161.4 125.2,179.1 152.3,185.7 179.4,176.2 206.5,184.5 233.5,192.9 260.6,206.8 287.7,219.1 314.8,235.0 341.8,238.5 368.9,246.5 396.0,253.9 423.1,252.4 450.2,262.2 477.2,257.0 504.3,249.0 531.4,261.8 558.5,263.1 585.5,267.7 612.6,250.7 639.7,261.5 666.8,254.2 693.8,257.2 720.9,259.3 748.0,240.7"/><polyline fill="none" stroke="var(--c4)" stroke-width="3" points="44.0,116.4 71.1,110.9 98.2,75.6 125.2,94.5 152.3,87.2 179.4,122.5 206.5,102.5 233.5,97.4 260.6,92.8 287.7,112.5 314.8,120.8 341.8,138.7 368.9,147.2 396.0,181.2 423.1,178.4 450.2,197.3 477.2,210.5 504.3,214.9 531.4,219.7 558.5,211.4 585.5,226.7 612.6,227.2 639.7,232.5 666.8,216.1 693.8,217.3 720.9,234.9 748.0,211.8"/><polyline fill="none" stroke="var(--c5)" stroke-width="1.6" points="44.0,116.4 71.1,115.7 98.2,116.1 125.2,112.5 152.3,115.2 179.4,115.2 206.5,112.8 233.5,118.3 260.6,97.2 287.7,115.3 314.8,116.2 341.8,116.9 368.9,112.6 396.0,71.4 423.1,110.1 450.2,94.8 477.2,117.7 504.3,109.1 531.4,113.3 558.5,117.2 585.5,121.3 612.6,110.8 639.7,113.7 666.8,115.9 693.8,113.5 720.9,119.0 748.0,117.8"/><polyline fill="none" stroke="var(--c6)" stroke-width="1.6" points="44.0,116.4 71.1,108.5 98.2,112.5 125.2,108.2 152.3,110.2 179.4,111.9 206.5,116.1 233.5,109.6 260.6,112.7 287.7,113.1 314.8,112.0 341.8,112.5 368.9,119.5 396.0,120.4 423.1,120.8 450.2,46.6 477.2,123.0 504.3,112.5 531.4,115.1 558.5,115.1 585.5,111.0 612.6,125.4 639.7,110.8 666.8,116.2 693.8,109.2 720.9,111.6 748.0,109.3"/></svg><div class="legend"><span><i style="background:var(--c1)"></i>감자</span><span><i style="background:var(--c2)"></i>양파</span><span><i style="background:var(--c3)"></i>배추</span><span><i style="background:var(--c4)"></i>무</span><span><i style="background:var(--c5)"></i>콩나물</span><span><i style="background:var(--c6)"></i>숙주나물</span><span>· 10/06 = 100, kg당 가중가격 (aT 경매 계산값)</span></div></div><h2><span class="n">03</span>차트 ② 사람들의 말</h2><p class="sub">부정 감정은 "원가 반영" 단계에 몰리고, 긍정은 예측·정보 서비스 쪽입니다.</p><div class="grid g2"><div class="card"><h4 style="margin:0 0 8px">여정 단계별 감정 (25건)</h4><svg class="chart" viewBox="0 0 560 140" role="img" aria-label="여정 단계별 감정"><text x="0" y="21" font-size="12.5" fill="var(--ink)">모니터링</text><rect x="90.0" y="7" width="107.5" height="20" fill="var(--bad)"/><text x="143.8" y="21" font-size="11.5" text-anchor="middle" fill="#fff">2</text><rect x="197.5" y="7" width="268.8" height="20" fill="var(--c6)"/><text x="331.9" y="21" font-size="11.5" text-anchor="middle" fill="#fff">5</text><rect x="466.2" y="7" width="53.8" height="20" fill="var(--ok)"/><text x="493.1" y="21" font-size="11.5" text-anchor="middle" fill="#fff">1</text><text x="0" y="55" font-size="12.5" fill="var(--ink)">판단</text><rect x="90.0" y="41" width="53.8" height="20" fill="var(--bad)"/><text x="116.9" y="55" font-size="11.5" text-anchor="middle" fill="#fff">1</text><rect x="143.8" y="41" width="107.5" height="20" fill="var(--c6)"/><text x="197.5" y="55" font-size="11.5" text-anchor="middle" fill="#fff">2</text><rect x="251.2" y="41" width="268.8" height="20" fill="var(--ok)"/><text x="385.6" y="55" font-size="11.5" text-anchor="middle" fill="#fff">5</text><text x="0" y="89" font-size="12.5" fill="var(--ink)">구매</text><rect x="90.0" y="75" width="215.0" height="20" fill="var(--c6)"/><text x="197.5" y="89" font-size="11.5" text-anchor="middle" fill="#fff">4</text><text x="0" y="123" font-size="12.5" fill="var(--ink)">원가 반영</text><rect x="90.0" y="109" width="268.8" height="20" fill="var(--bad)"/><text x="224.4" y="123" font-size="11.5" text-anchor="middle" fill="#fff">5</text></svg><div class="legend"><span><i style="background:var(--bad)"></i>부정</span><span><i style="background:var(--c6)"></i>중립</span><span><i style="background:var(--ok)"></i>긍정</span></div></div><div class="card"><h4 style="margin:0 0 8px">소스 분포</h4><svg class="chart" viewBox="0 0 460 112" role="img"><text x="0" y="20" font-size="12.5" fill="var(--ink)">기사</text><rect x="110" y="8" width="290.0" height="16" rx="4" fill="var(--c2)"/><text x="406.0" y="21" font-size="12" fill="var(--muted)">14건</text><text x="0" y="46" font-size="12.5" fill="var(--ink)">기존서비스</text><rect x="110" y="34" width="124.3" height="16" rx="4" fill="var(--c2)"/><text x="240.3" y="47" font-size="12" fill="var(--muted)">6건</text><text x="0" y="72" font-size="12.5" fill="var(--ink)">채용공고</text><rect x="110" y="60" width="82.9" height="16" rx="4" fill="var(--c2)"/><text x="198.9" y="73" font-size="12" fill="var(--muted)">4건</text><text x="0" y="98" font-size="12.5" fill="var(--ink)">연구보고서</text><rect x="110" y="86" width="20.7" height="16" rx="4" fill="var(--c2)"/><text x="136.7" y="99" font-size="12" fill="var(--muted)">1건</text></svg></div></div><h2><span class="n">04</span>산출물</h2><details class="doc" open><summary><span>인사이트 3가지</span><span class="path">research/insights.md</span></summary><div class="md"><h1>사람들의 말에서 나온 인사이트 3가지 (Day 04)</h1>
+<ul>
+<li>작성일: 2026-11-09 · 근거: <a href="../archive/metadata.csv">archive/metadata.csv</a> 25건, <a href="../research/voices/voices_tagged.csv">voices_tagged.csv</a>, <a href="../research/metrics.md">metrics.md</a></li>
+<li>형식: [인사이트] — [근거 id] — [그래서 서비스에서]</li>
+<li>근거 수준 표시: ✅ 원문 확인 / 🔎 검색 요약만</li>
+</ul>
+<h2>1. 문제는 "비쌀 때"가 아니라 "방향이 자주 바뀔 때"다</h2>
+<ul>
+<li><strong>[I]</strong> 같은 해에 같은 품목이 폭락(5월)과 급등(7월), 다시 하락(10월)을 오갔습니다. 구매자는 "얼마인가"보다 "평소와 얼마나 다른가, 왜 다른가"를 알기 어렵습니다.</li>
+<li>근거: T03 ✅ (5월 양파 평년 대비 −47.3%), T01 ✅ (7월 배추 중품 6월 하순 대비 +137.8%), T04 🔎 (10월 배추·무 하락), T10 🔎 (낙찰가 등락 폭이 큼), 계산값 M1 (10/06→11/05 배추 −44.1%, 무 −45.6%)</li>
+<li>서비스에서: 첫 화면은 가격표가 아니라 <strong>"평소와 달라진 품목 + 방향이 바뀐 날"</strong> 을 보여 줍니다.</li>
+</ul>
+<h2>2. 작은 구매자는 오른 값을 가격에 못 넘기고, 메뉴나 재료를 바꿔 버틴다</h2>
+<ul>
+<li><strong>[I]</strong> 가격 정보의 쓸모는 "언제 살까"보다 <strong>"무엇으로 바꿀까, 얼마나 버틸까"</strong> 에 가깝습니다.</li>
+<li>근거: T02 ✅ (종사자 5명 미만 사업장 약 52%가 원가 상승분을 판매가에 반영 못 함, KREI 2023 조사 인용), T01 ✅ (한식당 운영자가 김치 반찬 대체 고민), T13 🔎 (급식 식품비 +8.7% vs 배춧값 +78%), T14 (제목만) 급식업체 마진 축소</li>
+<li>서비스에서: 급변 품목 옆에 <strong>같은 용도의 다른 품목 가격 흐름</strong>을 함께 보여 주는 기능 후보. 단, 구매 지시가 아니라 비교 정보로만.</li>
+</ul>
+<h2>3. 가격 숫자는 넘치지만 "왜"와 "산지 상황"은 흩어져 있다</h2>
+<ul>
+<li><strong>[I]</strong> 공공 사이트는 가격·경락·산지 동향을 따로 보여 주고, 민간 예측 서비스는 주로 생산·유통 기업을 향합니다. 구매 담당자를 위한 <strong>이유 설명형 화면</strong>은 찾지 못했습니다 [U: 찾지 못함 ≠ 없음].</li>
+<li>근거: S01 🔎 (KAMIS 도매 76품목 가격 공개), S02·S03 (aT 경락·농넷 산지 동향이 별도 사이트), S04·S05·S06 🔎 (예측 서비스, 성능은 회사 발표), J01 ✅ (구매 MD 업무에 수요 예측·시장 분석이 포함)</li>
+<li>서비스에서: 숫자 하나마다 <strong>이유 한 줄(물량 변화·산지 날씨)과 데이터 기준일</strong>을 붙이는 것이 차별점 후보입니다.</li>
+</ul>
+<h2>2차 자료(공공데이터)와 가장 어긋난 점</h2>
+<p>공공데이터만 보면 10월의 배추·무 하락은 "좋은 소식"입니다. 그러나 기사 속 사람들은 5월 폭락 때는 산지가, 7월 급등 때는 식당이 곤란했습니다. <strong>같은 숫자가 누구에게는 위험, 누구에게는 기회</strong>라서 서비스는 방향 판단을 대신하지 않고 변화와 이유만 보여 줘야 합니다 [I].</p></div></details><details class="doc"><summary><span>사람들의 말 분석 리포트</span><span class="path">research/voices/report.md</span></summary><div class="md"><h1>사람들의 말 분석 리포트 (Day 04)</h1>
+<ul>
+<li>작성일: 2026-11-09 · 대상: <a href="../archive/metadata.csv">archive/metadata.csv</a> 25건 → 태깅 <a href="../research/voices/voices_tagged.csv">voices_tagged.csv</a></li>
+<li>수업 원본과 다른 점: 리뷰 100건이 아니라 기사 14 · 채용공고 4 · 기존 서비스 6 · 연구 1건입니다. 차트는 <a href="day04.html">local_package/day04.html</a>에 있습니다.</li>
+</ul>
+<h2>1. 한눈에 보기 (집계값)</h2>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>소스 분포</td>
+<td>기사 14 (56%) · 기존 서비스 6 · 채용공고 4 · 연구 1 — 한 소스 70% 이하 기준 충족</td>
+</tr>
+<tr>
+<td>근거 수준</td>
+<td>원문 확인 4 · 검색 요약 15 · 제목만 4 · 미확인 2</td>
+</tr>
+<tr>
+<td>감정</td>
+<td>부정(−) 8 · 중립(0) 11 · 긍정(+) 6</td>
+</tr>
+<tr>
+<td>여정 단계</td>
+<td>모니터링 8 · 판단 8 · 구매 4 · 원가 반영 5</td>
+</tr>
+</tbody>
+</table>
+<p><strong>[I] 부정 감정 8건 중 5건이 "원가 반영", 2건이 "모니터링" 단계입니다.</strong> 가격 정보를 보는 순간보다, 오른 값을 감당해야 하는 순간과 급락·급등을 알게 되는 순간이 곤란합니다. 긍정 6건은 모두 예측·정보 서비스 쪽입니다.</p>
+<h2>2. 인사이트 3가지</h2>
+<p>자세한 근거는 <a href="../research/insights.md">insights.md</a>.</p>
+<ol>
+<li>문제는 "비쌀 때"가 아니라 "방향이 자주 바뀔 때"다 — T03 · T01 · T04 · 계산값 M1</li>
+<li>작은 구매자는 오른 값을 가격에 못 넘기고, 메뉴나 재료를 바꿔 버틴다 — T02 · T01 · T13</li>
+<li>가격 숫자는 넘치지만 "왜"와 "산지 상황"은 흩어져 있다 — S01 · S02 · S03 · J01</li>
+</ol>
+<h2>3. 공공데이터와 대조</h2>
+<table>
+<thead>
+<tr>
+<th>사람들의 말</th>
+<th>공공데이터 계산값 (<a href="../research/metrics.md">metrics.md</a>)</th>
+<th>일치</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10월 배추·무 하락, 출하 증가 (T04)</td>
+<td>배추 가격 −44.1%, 물량 +39.2% / 무 −45.6%, +100.5%</td>
+<td>방향 일치</td>
+</tr>
+<tr>
+<td>2026년산 양파 공급과잉 (T07)</td>
+<td>양파 10월 가격 +6.1%, 변동계수 3.3%</td>
+<td>시기가 달라 비교 불가 (T07은 6월)</td>
+</tr>
+<tr>
+<td>낙찰가 등락 폭이 큼 (T10)</td>
+<td>배추 일별 448~1,096원/kg</td>
+<td>배추·무는 일치, 감자·양파는 안정</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 한계</h2>
+<ul>
+<li>구매자 본인의 말은 T01 한 건뿐입니다. 유튜브·커뮤니티 보강 전까지 인사이트 2는 가설입니다.</li>
+<li>검색 요약만 확인한 16건은 원문 대조 전입니다 (<a href="../archive/check_report.md">check_report.md</a>).</li>
+</ul></div></details><details class="doc"><summary><span>디지털 필드워크 계획서</span><span class="path">research/fieldwork_plan.md</span></summary><div class="md"><h1>디지털 필드워크 계획서 (Day 04)</h1>
+<ul>
+<li>작성일: 2026-11-09 · 작성: 본인 + Claude Code 초안</li>
+<li>목적: 공공데이터가 보여 주는 "무슨 일이 있었나" 옆에, 구매 담당자·산지·시장 사람들의 말로 "무엇이 곤란한가"를 채웁니다.</li>
+<li>수업 원본과 다른 점: 리뷰 100건 대신 기사·채용공고·기존 서비스·연구 자료를 모읍니다 (<a href="../ROADMAP.md">ROADMAP 단계 2</a>). 혼자 진행하므로 담당은 모두 본인입니다.</li>
+</ul>
+<h2>1. 질문 → 소스 → 항목 → 분량</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>알고 싶은 질문</th>
+<th>소스</th>
+<th>수집 항목</th>
+<th>목표</th>
+<th>실제 (11/09)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q1</td>
+<td>가격이 급하게 바뀔 때 구매자는 무엇이 곤란한가</td>
+<td>농업·식품 전문 기사, 일간지 경제면</td>
+<td>품목, 변동률과 기준 시점, 원인, 구매자 발언 요지</td>
+<td>10건</td>
+<td>14건 (T01~T14)</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>구매 담당자는 실제로 어떤 일을 하고 어떤 도구를 쓰나</td>
+<td>채용 공고 (원티드·리멤버·캐치 등)</td>
+<td>업종, 직무, 주요 업무, 자격 요건</td>
+<td>5건</td>
+<td>4건 (J01~J04), 원문 확인 1건</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>이미 있는 서비스는 어디까지 해 주나</td>
+<td>공공 가격 사이트, 민간 예측 서비스 소개 기사</td>
+<td>대상 사용자, 제공 정보, 예측 여부, 가격</td>
+<td>5건</td>
+<td>6건 (S01~S06)</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>가격 예측은 어디까지 믿을 수 있나</td>
+<td>KREI 보고서, 관측 자료</td>
+<td>방법, 오차, 한계</td>
+<td>2건</td>
+<td>1건 (R01)</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>시장·산지 사람들은 현장을 어떻게 말하나</td>
+<td>유튜브 (도매시장·산지 인터뷰)</td>
+<td>영상 URL, 자막 요약, 말한 사람의 역할</td>
+<td>5건</td>
+<td><strong>0건</strong> — 보강 필요</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>식당·급식 운영자의 생생한 불만은 무엇인가</td>
+<td>공개 커뮤니티·블로그</td>
+<td>업종, 불만 요지, 품목</td>
+<td>10건</td>
+<td><strong>0건</strong> — 기사 속 발언(T01, T13)으로 일부 대체</td>
+</tr>
+</tbody>
+</table>
+<p><strong>[I] 가장 큰 공백은 Q5·Q6입니다.</strong> 지금의 "사람들의 말"은 대부분 기자·연구자·정부의 말이고, 구매자 본인의 말은 T01 한 건뿐입니다.</p>
+<h2>2. 수집 규칙 (팀 CLAUDE.md 대신 이 저장소의 <a href="../claude.md">claude.md</a>를 따름)</h2>
+<table>
+<thead>
+<tr>
+<th>규칙</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>저장 범위</td>
+<td>기사·글은 요약만. 원문 복사, 로그인·유료 자료 수집 금지</td>
+</tr>
+<tr>
+<td>익명화</td>
+<td>사람 이름·닉네임은 역할로 바꿈 ("한식당 운영자", "연구자")</td>
+</tr>
+<tr>
+<td>메타데이터 4요소</td>
+<td>소스·URL·일시(게시일·수집일)·저작권을 <a href="../archive/metadata.csv">archive/metadata.csv</a>에 한 줄씩</td>
+</tr>
+<tr>
+<td>근거 수준</td>
+<td><code>원문 확인</code> / <code>검색 요약</code> / <code>제목만</code> / <code>미확인</code>으로 구분. 검색 요약만 본 자료는 사실 근거로 단독 사용하지 않음</td>
+</tr>
+<tr>
+<td>교차검증</td>
+<td>같은 통계·보도자료를 인용한 기사는 1건으로 셈 (예: T05와 T09)</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 소스별 표준 프롬프트</h2>
+<pre><code class="language-text">[기사] 이 URL의 제목, 게재일, 품목별 수치와 비교 기준(평년/전년/전월), 원인, 
+구매자·상인 발언 요지(이름 제외, 역할만)를 정리해 줘. 수치는 원문 표기 그대로.
+
+[채용공고] 회사 업종, 직무명, 주요 업무, 자격 요건, 우대 사항을 정리해 줘. 
+담당자 이름은 빼고, &quot;가격·시세·수요 예측&quot;과 관련된 업무에 표시해 줘.
+
+[기존 서비스] 대상 사용자, 보여 주는 정보, 예측 제공 여부와 방식, 
+성능 주장(회사 발표인지 독립 검증인지), 가격을 표로 정리해 줘.
+</code></pre>
+<h2>4. 수집 도구</h2>
+<ul>
+<li><a href="../claude.md">claude.md</a>의 규칙은 "웹 수집은 Aside"입니다. <strong>이번 수집은 Claude Code의 웹 검색·웹 읽기로 했습니다.</strong> 다음 보강 수집(유튜브·커뮤니티)은 Aside로 진행합니다.</li>
+<li>유튜브 자막 추출은 이 PC에 yt-dlp·Python·Node가 없어 실행하지 못했습니다 (<a href="../archive/test/README.md">archive/test/README.md</a>).</li>
+</ul>
+<h2>5. 다음 보강 (11/10까지 목표)</h2>
+<ol>
+<li>유튜브 5건: "가락시장 경매", "양파 산지 인터뷰", "식자재 구매 브이로그" — 자막 요약 + metadata</li>
+<li>공개 커뮤니티 10건: 외식업 사장님 커뮤니티의 공개 글(로그인 불필요한 것만)</li>
+<li>채용공고 J02~J04 원문 확인, 기사 중 <code>검색 요약</code> 10건 중 5건 원문 확인</li>
+</ol></div></details><details class="doc"><summary><span>지표 후보 정의</span><span class="path">research/metrics.md</span></summary><div class="md"><h1>지표 후보 정의 (Day 04 데이터·서비스 트랙)</h1>
+<ul>
+<li>작성일: 2026-11-09</li>
+<li>계산 데이터: <a href="../research/data/auction_item_daily.csv">auction_item_daily.csv</a>, <a href="../research/data/auction_item_origin_daily.csv">auction_item_origin_daily.csv</a> (aT 경매, 2026-10-06 ~ 11-05, 27영업일)</li>
+<li>계산 결과: <a href="../research/metrics.csv">metrics.csv</a> — <strong>모든 값은 계산값</strong>이며, 약 한 달 치라 계절·평년 비교가 아닙니다.</li>
+</ul>
+<h2>지표 6개</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>지표</th>
+<th>정의</th>
+<th>계산식</th>
+<th>사용자에게 주는 뜻</th>
+<th>한계</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M1</td>
+<td><strong>가격 변화율</strong></td>
+<td>최근 5영업일과 첫 5영업일의 kg당 가중가격 비교</td>
+<td>최근5일 평균 ÷ 첫5일 평균 − 1</td>
+<td>"평소보다 싸졌나 비싸졌나"</td>
+<td>첫 5일을 "평소"로 둔 임시 기준. 1년 이상 데이터가 생기면 평년 대비로 바꿈</td>
+</tr>
+<tr>
+<td>M2</td>
+<td><strong>가격 출렁임</strong></td>
+<td>일별 가격의 변동계수</td>
+<td>일별 kg당 가격의 표준편차 ÷ 평균</td>
+<td>이 품목은 날마다 값이 얼마나 흔들리나</td>
+<td>배추는 소포장 상품이 섞여 부풀려질 수 있음 (<a href="../research/data/data_spec.md">명세</a>)</td>
+</tr>
+<tr>
+<td>M3</td>
+<td><strong>반입량 변화율</strong></td>
+<td>최근 5영업일과 첫 5영업일의 kg 비교</td>
+<td>최근5일 평균 kg ÷ 첫5일 평균 kg − 1</td>
+<td>시장에 물건이 많이 들어오나</td>
+<td>요일(월요일 적음) 효과가 섞임. 같은 요일끼리 비교로 개선 필요</td>
+</tr>
+<tr>
+<td>M4</td>
+<td><strong>산지 쏠림</strong></td>
+<td>최대 산지의 물량 비중과 HHI</td>
+<td>산지별 kg 비중의 최댓값, Σ(비중%)²</td>
+<td>한 산지에 문제가 생기면 얼마나 흔들리나</td>
+<td>시군구로 분류된 행만 사용. 콩나물·숙주는 시군구 비율 6~10%라 해석 불가</td>
+</tr>
+<tr>
+<td>M5</td>
+<td><strong>가격·물량 엇갈림</strong></td>
+<td>물량이 늘며 가격이 내리는(또는 반대) 신호</td>
+<td>M3 &gt; +20% 이고 M1 &lt; −20%이면 "공급 증가형 하락"</td>
+<td>"왜" 변했는지 첫 번째 설명</td>
+<td>수요 쪽 원인(소비 둔화 등)은 이 데이터로 알 수 없음</td>
+</tr>
+<tr>
+<td>M6</td>
+<td>산지 기상 위험 일수</td>
+<td>주산지에 폭염·호우·한파 특보가 있었던 날 수</td>
+<td>산지 시군구 × 기상특보 구역 매칭 후 일수 합</td>
+<td>앞으로 물량이 줄 수 있나</td>
+<td><strong>[U] 기상 API 미시험, 산지-특보 구역 연결 미검증</strong></td>
+</tr>
+</tbody>
+</table>
+<h2>계산 결과 (계산값)</h2>
+<table>
+<thead>
+<tr>
+<th>품목</th>
+<th>M1 가격 변화율</th>
+<th>M2 출렁임</th>
+<th>M3 반입량 변화율</th>
+<th>M4 최대 산지 비중</th>
+<th>HHI</th>
+<th>M5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>감자</td>
+<td>+4.9%</td>
+<td>3.6%</td>
+<td>+18.4%</td>
+<td>평창군 52.9%</td>
+<td>3,099</td>
+<td>-</td>
+</tr>
+<tr>
+<td>양파</td>
+<td>+6.1%</td>
+<td>3.3%</td>
+<td>+29.7%</td>
+<td>무안군 32.3%</td>
+<td>1,418</td>
+<td>-</td>
+</tr>
+<tr>
+<td>배추</td>
+<td><strong>−44.1%</strong></td>
+<td><strong>27.5%</strong></td>
+<td>+39.2%</td>
+<td>평창군 25.6%</td>
+<td>940</td>
+<td><strong>공급 증가형 하락</strong></td>
+</tr>
+<tr>
+<td>무</td>
+<td><strong>−45.6%</strong></td>
+<td><strong>26.2%</strong></td>
+<td><strong>+100.5%</strong></td>
+<td>홍천군 38.4%</td>
+<td>2,024</td>
+<td><strong>공급 증가형 하락</strong></td>
+</tr>
+<tr>
+<td>콩나물</td>
+<td>−0.3%</td>
+<td>3.8%</td>
+<td>+14.3%</td>
+<td>(해석 불가)</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>숙주나물</td>
+<td>−0.1%</td>
+<td>5.2%</td>
+<td>+2.9%</td>
+<td>(해석 불가)</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h2>해석 [I]</h2>
+<ul>
+<li>한 달 사이 <strong>배추·무는 값이 절반 가까이 떨어졌고 물량은 크게 늘었습니다.</strong> 기사(T04 "출하 늘어 안정세", T05·T09 가을배추 재배면적 증가)와 방향이 같습니다. 단 기사들은 검색 요약만 확인했습니다.</li>
+<li><strong>감자는 가격이 안정적이지만 평창군 한 곳이 물량의 절반을 넘습니다.</strong> 지금은 위험이 작아 보여도 산지 날씨에 가장 민감할 수 있는 품목입니다 [I].</li>
+<li>콩나물·숙주는 공장형 생산이라 산지·기상 지표가 맞지 않습니다. 대시보드에서는 가격 지표만 씁니다.</li>
+</ul>
+<h2>대시보드 연결</h2>
+<p>M1·M3 → "오늘 평소와 달라진 품목" 카드 / M5 → 이유 한 줄 / M4·M6 → 산지 위험 지도 / M2 → 예측 범위의 폭.</p></div></details><details class="doc"><summary><span>태깅 결과 (voices_tagged.csv)</span><span class="path">research/voices/voices_tagged.csv</span></summary><div class="md"><table><thead><tr><th>id</th><th>source_type</th><th>topic</th><th>journey</th><th>sentiment</th><th>speaker_role</th><th>evidence_level</th><th>quote_or_point</th></tr></thead><tbody><tr><td>T01</td><td>기사</td><td>가격 급등</td><td>원가 반영</td><td>-</td><td>한식당 운영자</td><td>원문 확인</td><td>필수 반찬이라 빼기 어렵고 대체 채소를 고민</td></tr><tr><td>T02</td><td>기사</td><td>원가 전가 불가</td><td>원가 반영</td><td>-</td><td>연구자</td><td>원문 확인</td><td>영세 업체는 원가 상승분을 판매가에 반영하지 못해 부담 누적</td></tr><tr><td>T03</td><td>기사</td><td>가격 폭락</td><td>모니터링</td><td>-</td><td>정부</td><td>원문 확인</td><td>양파 도매 kg당 504원 평년 대비 47.3% 하락으로 출하 정지</td></tr><tr><td>T04</td><td>기사</td><td>가격 하락</td><td>모니터링</td><td>0</td><td>기자</td><td>검색 요약</td><td>출하 증가로 배추·무 안정세 전망</td></tr><tr><td>T05</td><td>기사</td><td>공급 변화</td><td>모니터링</td><td>0</td><td>통계 발표</td><td>검색 요약</td><td>가을배추 면적 +5.5% 가을무 -1.3%</td></tr><tr><td>T06</td><td>기사</td><td>부재료 상승</td><td>원가 반영</td><td>-</td><td>기자</td><td>검색 요약</td><td>주재료는 내렸지만 부재료가 올라 김장 원가 부담</td></tr><tr><td>T07</td><td>기사</td><td>가격 폭락</td><td>모니터링</td><td>-</td><td>산지 농민</td><td>검색 요약</td><td>공급과잉으로 밭을 갈아엎음</td></tr><tr><td>T08</td><td>기사</td><td>예측 수요</td><td>판단</td><td>+</td><td>연구·통계 현장</td><td>검색 요약</td><td>생산량을 디지털로 예측해 가격 전망에 활용</td></tr><tr><td>T09</td><td>기사</td><td>공급 변화</td><td>모니터링</td><td>0</td><td>기자</td><td>검색 요약</td><td>배추 면적 증가 무 면적 감소(T05와 같은 발표)</td></tr><tr><td>T10</td><td>기사</td><td>가격 변동성</td><td>판단</td><td>-</td><td>기자</td><td>검색 요약</td><td>낙찰가가 기준가로 쓰이지만 날마다 등락 폭이 큼</td></tr><tr><td>T11</td><td>기사</td><td>가격 결정 구조</td><td>판단</td><td>0</td><td>중도매인</td><td>검색 요약</td><td>가격은 생산량보다 거래처 수요가 좌우한다는 주장</td></tr><tr><td>T12</td><td>기사</td><td>경매 구조</td><td>구매</td><td>0</td><td>기자</td><td>검색 요약</td><td>경매 한 건 평균 4초 안팎 밤샘 경매</td></tr><tr><td>T13</td><td>기사</td><td>원가 전가 불가</td><td>원가 반영</td><td>-</td><td>국회·학교급식</td><td>검색 요약</td><td>식품비 8.7% 인상 대비 배춧값 78% 상승</td></tr><tr><td>T14</td><td>기사</td><td>마진 축소</td><td>원가 반영</td><td>-</td><td>급식업체</td><td>제목만</td><td>매출은 늘었지만 마진이 얇아짐</td></tr><tr><td>J01</td><td>채용공고</td><td>업무 범위</td><td>판단</td><td>0</td><td>식자재 유통 기업</td><td>원문 확인</td><td>원가 절감 소싱과 수요 예측·시장 분석이 MD 업무</td></tr><tr><td>J02</td><td>채용공고</td><td>업무 범위</td><td>구매</td><td>0</td><td>푸드테크 기업</td><td>제목만</td><td>B2B 식자재 유통 문제 해결 플랫폼</td></tr><tr><td>J03</td><td>채용공고</td><td>업무 범위</td><td>구매</td><td>0</td><td>프랜차이즈</td><td>제목만</td><td>프랜차이즈 구매 담당 채용</td></tr><tr><td>J04</td><td>채용공고</td><td>업무 범위</td><td>구매</td><td>0</td><td>식자재마트</td><td>제목만</td><td>농산 구매MD 경력 채용</td></tr><tr><td>S01</td><td>기존서비스</td><td>가격 정보</td><td>모니터링</td><td>+</td><td>공공기관</td><td>검색 요약</td><td>도매 76품목 소매 95품목 가격 평일 공개</td></tr><tr><td>S02</td><td>기존서비스</td><td>가격 정보</td><td>모니터링</td><td>0</td><td>공공기관</td><td>미확인</td><td>도매시장 경락 정보</td></tr><tr><td>S03</td><td>기존서비스</td><td>산지 정보</td><td>모니터링</td><td>0</td><td>공공기관</td><td>미확인</td><td>산지 동향 정보</td></tr><tr><td>S04</td><td>기존서비스</td><td>가격 예측</td><td>판단</td><td>+</td><td>스타트업</td><td>검색 요약</td><td>변수 데이터를 AI로 분석해 평균 가격 예측</td></tr><tr><td>S05</td><td>기존서비스</td><td>가격 예측</td><td>판단</td><td>+</td><td>스타트업</td><td>검색 요약</td><td>D+30 예측 평균 오차 7%대(회사 발표)</td></tr><tr><td>S06</td><td>기존서비스</td><td>가격 예측</td><td>판단</td><td>+</td><td>스타트업</td><td>검색 요약</td><td>양파·마늘 오차 5% 이내(회사 주장 시제품)</td></tr><tr><td>R01</td><td>연구보고서</td><td>가격 예측</td><td>판단</td><td>+</td><td>연구기관</td><td>검색 요약</td><td>양파 가격 예측 정확도 향상 AI 연구</td></tr></tbody></table></div></details><details class="doc"><summary><span>태깅 검수 기록</span><span class="path">research/voices/review_log.md</span></summary><div class="md"><h1>태깅 검수 기록 (Day 04)</h1>
+<ul>
+<li>태깅: Claude Code가 <a href="../research/voices/voices_tagged.csv">voices_tagged.csv</a>의 주제·여정·감정을 붙임</li>
+<li>검수 기준: 수업 원칙대로 10건 표본 중 8건(80%) 이상 맞으면 통과</li>
+<li><strong>상태: AI 자체 점검만 함. 본인 확인 칸은 비어 있습니다.</strong></li>
+</ul>
+<h2>표본 10건</h2>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>주제</th>
+<th>여정</th>
+<th>감정</th>
+<th>AI 점검</th>
+<th>본인 확인</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T01</td>
+<td>가격 급등</td>
+<td>원가 반영</td>
+<td>−</td>
+<td>원문과 일치</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>T02</td>
+<td>원가 전가 불가</td>
+<td>원가 반영</td>
+<td>−</td>
+<td>원문과 일치. 발언자는 사장님이 아니라 연구자</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>T03</td>
+<td>가격 폭락</td>
+<td>모니터링</td>
+<td>−</td>
+<td>원문과 일치</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>T07</td>
+<td>가격 폭락</td>
+<td>모니터링</td>
+<td>−</td>
+<td>검색 요약 기준</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>T10</td>
+<td>가격 변동성</td>
+<td>판단</td>
+<td>−</td>
+<td>검색 요약 기준</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>T11</td>
+<td>가격 결정 구조</td>
+<td>판단</td>
+<td>0</td>
+<td>"중도매인 측 주장"이라 사실로 쓰지 않음</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>T13</td>
+<td>원가 전가 불가</td>
+<td>원가 반영</td>
+<td>−</td>
+<td>2022년 자료라 현재 근거로는 약함</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>J01</td>
+<td>업무 범위</td>
+<td>판단</td>
+<td>0</td>
+<td>원문과 일치</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>S01</td>
+<td>가격 정보</td>
+<td>모니터링</td>
+<td>+</td>
+<td>품목 수는 검색 요약 기준</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>S05</td>
+<td>가격 예측</td>
+<td>판단</td>
+<td>+</td>
+<td>성능은 회사 발표</td>
+<td>☐</td>
+</tr>
+</tbody>
+</table>
+<h2>AI 점검에서 고친 것</h2>
+<ul>
+<li>T02의 말한 사람을 "사장님"에서 "연구자"로 고침. 기사 제목은 사장님 이야기지만 본문 발언은 연구자였음.</li>
+<li>T09를 T05와 같은 통계 발표로 묶어 교차검증에서 1건으로 셈.</li>
+</ul></div></details><details class="doc"><summary><span>자막 추출 테스트 — 미실시 기록</span><span class="path">archive/test/README.md</span></summary><div class="md"><h1>자막 추출 테스트 (Day 04 · H)</h1>
+<ul>
+<li>시도일: 2026-11-09</li>
+<li>결과: <strong>미실시.</strong> 이 PC에서 yt-dlp, Python, Node.js를 찾지 못했습니다 (<code>py</code>, <code>node</code> 명령 없음).</li>
+<li>대상 후보: "가락시장 새벽 경매", "양파 산지 출하 인터뷰" 영상 — 웹 검색에서 영상 URL을 찾지 못해 후보도 미확정 [U]</li>
+</ul>
+<h2>다음에 할 일</h2>
+<ol>
+<li>Node.js 18 이상 설치 (README의 데이터 재현에도 필요)</li>
+<li><code>yt-dlp --skip-download --write-auto-sub --sub-lang ko &lt;URL&gt;</code> 로 자막만 받기</li>
+<li>자막 전문은 저장하지 않고 10줄 이내 요약 + 말한 사람의 역할만 <code>archive/test/&lt;영상ID&gt;.md</code>에 기록</li>
+<li>metadata.csv에 <code>V01</code> 행 추가 (license는 YouTube 표준 라이선스 → "요약만(저작권)")</li>
+</ol></div></details>
+<p class="foot">수급 레이더 · 강의 과제용 개인 프로젝트 · 전체 흐름은 루트 <a href="../index.html">index.html</a> · 이 페이지는 <code>python scripts/build_local_package.py</code>로 md·csv 원본에서 생성했습니다. 원본 파일이 기준입니다.</p>
+</main>
+<button class="theme" id="theme" type="button">밝기 전환</button>
+<script>document.getElementById('theme').onclick=()=>{const r=document.documentElement;const d=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=d?'light':'dark';};</script>
+</body></html>

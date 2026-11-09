@@ -1,0 +1,7 @@
+﻿id,기업,구분,유형,2025 매출,2025 영업이익,비교 경쟁사,데이터 단절,우선 기회,영향 · 실현 (AI 제안),day9,day10
+cj,CJ프레시웨이,후보,B2B 식자재 유통·급식,"3조 4,811억","1,017억",현대그린푸드,주문·재구매가 생산자로 가는 경로 미확인,대구 식당용 7일 시세 전망·보충 알림,3 · 3,research/company/CJ프레시웨이/onepager.html,valuechain/valuechain_v1.html
+pulmuone,풀무원,후보,식품 제조사,"3조 3,802억",932억,오리온,주문·판매가 농가로 가는 경로 미확인,계약 품목 기상·시세 위험 알림,3 · 2,research/company/풀무원/onepager.html,valuechain/풀무원/valuechain_v1.html
+kurly,컬리,후보,온라인 식품 플랫폼 + 자체 배송,"2조 3,671억",131억,오아시스,수요 예측의 생산자 공유 범위 미확인,지역 생산자용 시세·제철 출하 리포트,2 · 3,research/company/컬리/onepager.html,valuechain/컬리/valuechain_v1.html
+hyundai,현대그린푸드,경쟁사,단체급식·식자재 유통,"2조 3,296억","1,068억",CJ프레시웨이,식수·주문이 농가로 가는 경로 미확인,외식 고객용 7일 시세 전망·보충 알림,3 · 3,research/company/현대그린푸드/onepager.html,valuechain/현대그린푸드/valuechain_v1.html
+orion,오리온,경쟁사,제과 제조사,"3조 3,324억","5,583억",풀무원,판매가 계약 농가로 가는 경로 미확인,계약 감자 기상·시세 위험 알림,3 · 2,research/company/오리온/onepager.html,valuechain/오리온/valuechain_v1.html
+oasis,오아시스,경쟁사,온라인 식품 + 직영 매장,"5,645억",191억,컬리,수요 예측의 생산자 공유 범위 미확인,대구·경북 생산자 시세·제철 리포트,2 · 3,research/company/오아시스/onepager.html,valuechain/오아시스/valuechain_v1.html

@@ -1,0 +1,31 @@
+asset_id,자산명,유형,소재지,한줄설명,근거파일,스토리성,시장성,데이터가용성,연계사업,비고
+A01,감자,품목,전국 (주산지 강원),경매 일평균 486t·kg당 1151원 거래되는 서류 품목,research/data/auction_item_daily.csv;research/metrics.md,3,3,5,식품;서비스,평창군 한 곳이 물량 52.9% — 산지 날씨 민감
+A02,양파,품목,전국 (주산지 전남 무안),경매 일평균 1188t 거래되는 조미채소. 2026년 공급과잉으로 5월 평년 대비 47.3% 하락,T03;T07;T08;research/metrics.md,5,4,5,식품;서비스,10월 경매 기준 kg당 가격 변동계수 3.3%
+A03,배추,품목,전국 (주산지 강원),경매 일평균 1147t. 7월 6월 하순 대비 137.8% 상승 후 10월 한 달 44.1% 하락,T01;T04;research/metrics.md,5,5,4,식품;서비스,소포장 상품 혼재로 kg당 가격 왜곡 — 소분류 분리 필요
+A04,무,품목,전국 (주산지 강원 홍천),경매 일평균 1446t. 10월 한 달 kg당 가격 45.6% 하락·물량 2배,T04;research/metrics.md;research/data/auction_item_daily.csv,3,4,5,식품;서비스,중분류 코드 혼동(무순) 주의
+A05,콩나물,품목,전국,경매 일평균 20t. 공장형 생산으로 산지 시군구 비율 6%,research/data/data_spec.md;research/metrics.md,2,3,3,식품,산지·기상 지표 부적합
+A06,숙주나물,품목,전국,경매 일평균 14t. 산지 시군구 비율 10%,research/data/data_spec.md;research/metrics.md,1,2,3,식품,산지·기상 지표 부적합
+A07,대파,품목,전국,7월 도매가 6월 하순 대비 19.3% 상승 보도. 경매 데이터 미수집,T01;research/opendata_catalog.md,2,3,2,식품,수집 품목에 추가하면 데이터가용성 상향 가능
+A08,양배추,품목,전국,7월 도매가 6월 하순 대비 67.7% 상승 보도. 경매 데이터 미수집,T01;research/opendata_catalog.md,2,2,2,식품,수집 품목 추가 후보
+A09,마늘,품목,전국,깐마늘 1kg 소매 1만2755원 전년 대비 9.9% 상승 보도. KREI 관측 대상,T02;research/opendata_catalog.md,2,3,2,식품,관측 자료는 PDF
+A10,쌀,품목,전국,20kg 6만2751원 전년 대비 16.1% 상승 보도. 국제 쌀 FOB 자료 존재,T02;research/opendata_catalog.md,2,3,3,식품,도매 경매 대상이 아님 — 별도 데이터 필요
+A11,강원 평창군,산지,강원특별자치도 평창군,10월 경매 감자 물량 52.9%·배추 25.6%를 차지한 산지,research/data/auction_item_origin_daily.csv;research/metrics.md,3,2,4,식품;물류,약 한 달 치 기준이라 연간 주산지 아님
+A12,강원 홍천군,산지,강원특별자치도 홍천군,10월 경매 무 물량 38.4%를 차지한 산지,research/data/auction_item_origin_daily.csv;research/metrics.md,2,2,4,식품;물류,약 한 달 치 기준
+A13,전남 무안군,산지,전남광주통합특별시 무안군,10월 경매 양파 물량 32.3%를 차지한 산지. 6월 공급과잉 보도 지역(전남),research/data/auction_item_origin_daily.csv;T07,4,2,4,식품;물류,T07은 전남 전체 서술 — 무안군 단위는 확인 필요
+A14,충남 서산시,산지,충청남도 서산시,11/5 경매 배추 표본 상위 산지,research/data/data_spec.md;research/data/auction_item_origin_daily.csv,1,1,3,식품,앞쪽 1000행 표본 순위 — 전국 순위 아님
+A15,경북 경주시,산지,경상북도 경주시,10월 경매 콩나물 물량 35.3% 산지(시군구 분류 6% 안에서),research/data/auction_item_origin_daily.csv;research/metrics.md,1,1,2,식품,공장 소재지일 가능성 [I]
+A16,서울 가락시장,시장,서울 송파구,하루 경매 2만8302~3만3208행. 경매 한 건 평균 4초 안팎·밤 경매,research/data/data_spec.md;T10;T11;T12,4,4,5,식품;물류;서비스,낙찰가 등락 폭이 크다는 지적(T10)
+A17,전국 공영도매시장 경매,시장,전국 32개 시장,하루 전국 10만9160행 낙찰 기록이 API로 공개되는 거래,research/data/data_spec.md;research/opendata_catalog.md,2,3,5,식품;서비스,약 한 달만 조회됨 — 누적 수집 필요
+A18,공공급식 전자조달(eaT),시장,전국,입찰·낙찰·발주계획·계약 정보를 제공하는 공공급식 조달 API,research/opendata_catalog.md;T13,2,3,3,식품;서비스,세부 응답 필드 미확인
+A19,폭염·장마,위험요인,전국 산지,7월 장마·폭염 뒤 배추·양배추·무·대파 동반 상승 보도. 기상청 예보·특보 API 존재,T01;research/opendata_catalog.md,4,3,4,식품;서비스,산지-특보 구역 연결 미검증
+A20,공급과잉·출하조절 정책,위험요인,전국,조생종 양파 1만5000t 출하 정지·비축 15% 확대 등 정부 수급 대책,T03;T07,5,3,2,식품,정책 발표는 텍스트 — 날짜 이벤트로 기록 필요
+A21,재배면적 변화,위험요인,전국,가을배추 재배면적 5.5% 증가·가을무 1.3% 감소 발표,T05;T09,2,2,3,식품,T05·T09는 같은 통계 인용 — 독립 출처 1건
+A22,원달러 환율,위험요인,국외,ECOS 일별 환율. 수입 원재료 원가 요인,research/opendata_catalog.md;research/bottlenecks.md,2,2,5,식품,채소 가격과의 직접 관련은 약함
+A23,국제 곡물 가격,위험요인,국외,밀·옥수수·대두 선물·쌀 FOB 가격 CSV,research/opendata_catalog.md;research/bottlenecks.md,2,2,4,식품,2단계 기능 후보
+A24,식자재 구매 MD 업무,수요신호,수도권 등,원가 절감 소싱·수요 예측·시장 분석을 맡는 구매 직무 채용,J01;J04,3,4,1,서비스,J04는 제목만 확인
+A25,학교급식 식단(NEIS),수요신호,전국 학교,급식일자·인원·메뉴·원산지를 매일 적재하는 API,research/opendata_catalog.md;T13,3,3,5,식품;서비스,과거 보존 범위 미확인
+A26,외식업 원가 부담,수요신호,전국,종사자 5명 미만 사업장 약 52%가 원가 상승분 미반영(KREI 2023 인용),T02;T01,5,5,2,식품;서비스,원 조사 원문 미확인
+A27,온라인쇼핑 음식료품 거래액,수요신호,전국,KOSIS 월별 음·식료품 거래액. 2026년 9월 잠정 3조7801억 원,research/opendata_catalog.md;research/bottlenecks.md,1,3,4,식품;서비스,월 단위라 일 단위 화면과 맞지 않음
+A28,식품 회수·판매중지,안전규제,전국,제품명·회수사유·회수등급을 제공하는 식약처 API,research/opendata_catalog.md;research/bottlenecks.md,2,2,4,식품;서비스,3단계 기능 후보
+A29,HACCP 인증업체,안전규제,전국,1997년 이후 인증업체·업종·인증일 API,research/opendata_catalog.md;research/bottlenecks.md,1,2,4,식품,가격 위험과 직접 관련 없음
+A30,민간 농산물 가격 예측 서비스,시장,국내,테란·비굿·한니발 등 AI 가격 예측 서비스. 성능은 회사 발표,S04;S05;S06,3,3,2,서비스,경쟁 범위 확인 필요(고객이 생산자인지 구매자인지)

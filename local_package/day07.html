@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 07</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body>
+<header class="hero"><div class="wrap"><nav class="tabs"><a href="../index.html" class="">← 한 줄기 전체 보기</a><a href="day04.html" class="">01 Day 04 조사</a><a href="day05.html" class="">02 Day 05 아카이브</a><a href="day06.html" class="">03 Day 06 인벤토리</a><a href="day07.html" class="on">04 Day 07 브랜드·세계관</a><a href="journey.html" class="">05 고객 유형·여정</a><a href="day08.html" class="">06 Day 08 스토리보드</a></nav>
+<div class="eyebrow">DAY 07 · 11/03 · 브랜드 페르소나 & 세계관</div><h1>Day 07 — 자산에 성격을 입히고 파일로 고정</h1><p class="lead">어떤 목소리로(브랜드 페르소나) 누구에게(고객 페르소나) 말할지 정하고, 세계관 바이블을 Claude Code가 읽는 브랜드 스킬로 바꿨습니다.</p></div></header>
+<main class="wrap"><div class="card table-scroll"><table class="chk"><thead><tr><th>강의 요구 산출물</th><th>이 저장소의 파일</th><th>상태</th><th>메모</th></tr></thead><tbody><tr><td>brand/persona_sheet.md (9항목)</td><td>brand/persona_sheet.md</td><td><span class="st ok">완료</span></td><td>핵심 자산 A02 양파, 사실/창작 표시</td></tr><tr><td>brand/customer_persona.md</td><td>brand/customer_persona.md</td><td><span class="st ok">완료</span></td><td>상황→행동→동기→불만, 근거 id</td></tr><tr><td>figjam_notes.md · tone_table.md</td><td>brand/</td><td><span class="st ok">완료</span></td><td>FigJam 대신 텍스트 발산, 여섯 질문 점검</td></tr><tr><td>.claude/skills/brand-…/SKILL.md + worldview.md</td><td>.claude/skills/brand-sugeup-radar/</td><td><span class="st ok">완료</span></td><td>SKILL 40줄 이내</td></tr><tr><td>brand/test/before · after · diff_note</td><td>brand/test/</td><td><span class="st ok">완료</span></td><td>after 금칙어 0건</td></tr><tr><td>segment_definition.md (데)</td><td>plan/segment_definition.md</td><td><span class="st ok">완료</span></td><td>축 2개 · 2×2 · 세그먼트 3</td></tr><tr><td>onepager.md (데)</td><td>plan/onepager.md</td><td><span class="st ok">완료</span></td><td>10항목, 성공 신호에 숫자 없음</td></tr><tr><td>새 세션 스킬 호출 확인</td><td>-</td><td><span class="st part">일부</span></td><td>본인 확인 필요</td></tr></tbody></table></div><h2><span class="n">01</span>브랜드 페르소나</h2><p class="sub">이 프로젝트의 브랜드는 캐릭터가 아니라 서비스의 목소리입니다. 핵심 자산: A02 양파.</p><div class="grid g3"><div class="card"><div class="eyebrow" style="color:var(--signal)">정체성 [창작]</div><p style="font-size:17px;font-weight:700;margin:4px 0">평소와 달라진 품목을 이유와 함께 먼저 알려 주는 수급 안내자</p><span class="pill">차분한</span><span class="pill">정확한</span><span class="pill">먼저 살피는</span></div><div class="card"><div class="eyebrow" style="color:var(--signal)">가치와 약속</div><p style="font-size:17px;font-weight:700;margin:4px 0">판단은 대신하지 않고, 변화와 이유를 먼저 보여 드린다.</p><div style="font-size:13px;color:var(--muted)">금칙어: 폭등 · 폭락 · 대란 · 금값 · 역대급 · 반드시 오릅니다 · 지금 사세요 · 무조건 · 100% · 대박</div></div><div class="card"><div class="eyebrow" style="color:var(--signal)">고객 (SG1 대표)</div><p style="font-size:17px;font-weight:700;margin:4px 0">식자재 유통사 농산 구매 담당자</p><div style="font-size:13px;color:var(--muted)">소싱·수요 예측·시장 분석 (J01) · 불만: 급변(T03·T01), 흩어진 이유(S01~S03)</div></div></div><h3>핵심 메시지 3</h3><div class="msg">평소와 달라진 품목을, 이유와 함께 먼저 보여 드립니다.</div><div class="msg">모든 숫자에는 기준일과 출처가 붙어 있습니다.</div><div class="msg">판단은 담당자님이 합니다. 저희는 변화와 이유를 보여 드립니다.</div><h2><span class="n">02</span>세계관 다섯 요소</h2><p class="sub">가치를 뒤집으면 갈등이 됩니다: "변화와 이유를 먼저" ↔ "늦게, 이유 없이, 과장되게".</p><div class="flow"><div class="s" style="--c:var(--c1)"><b>배경 [사실]</b>하루 약 10만9천 건의 경매. 밤 10시 반 시작, 한 건 4초. 숫자가 밤사이 방향을 바꾸는 세계</div><div class="s" style="--c:var(--c2)"><b>인물</b>주인공: 구매 담당자 (J01) · 조력자: 레이더 [창작] · 주변: 중도매인·산지 농가·식당</div><div class="s" style="--c:var(--bad)"><b>갈등</b>근거로 내리는 판단 vs 늦게 아는 급변·기준 없는 숫자 · 사건: 5월 양파(T03), 7월 배추(T01)</div><div class="s" style="--c:var(--c3)"><b>가치</b>판단은 대신하지 않고 변화와 이유를 먼저</div><div class="s" style="--c:var(--c4)"><b>톤앤매너</b>존댓말 · 짧은 문장 · 숫자엔 단위·기준·기준일 · 어두운 바탕에 바뀐 값 하나만 강조</div></div><h2><span class="n">03</span>스킬 적용 전후</h2><p class="sub">같은 숫자(무 −45%)가 "사라는 신호"에서 "변화와 이유"로 바뀝니다.</p><div class="vs"><div class="card bad"><h4>스킬 없이 (before) — 금칙어 7 · 느낌표 5 · 구매 지시 3</h4><div class="md" style="padding:0"><ol>
+<li>🚨 양파 가격 폭락! 지금이 매수 타이밍입니다. 놓치지 마세요!</li>
+<li>📈 배추값 역대급 상승 예고! 미리 사 두시면 원가를 확실히 아낄 수 있어요.</li>
+<li>무 가격 45% 폭락… 이번 주 안에 무조건 확보하세요 🔥</li>
+</ol></div></div><div class="card good"><h4>스킬로 (after) — 금칙어 0 · 기준일·출처 3/3</h4><div class="md" style="padding:0"><ol>
+<li>무 kg당 가격이 첫 주보다 45.6% 낮습니다. 같은 기간 물량은 두 배입니다. (10/06~11/05, aT 경매 계산값)</li>
+<li>배추 가격의 하루 흔들림이 큽니다. 10월 kg당 448~1,096원 사이였습니다. (규격 혼재로 확인 필요)</li>
+<li>감자 물량의 52.9%가 평창군 한 곳에서 나옵니다. 산지 날씨 알림을 켜 둘 수 있습니다. (10월 기준 계산값)</li>
+</ol></div></div></div><h2><span class="n">04</span>산출물</h2><details class="doc" open><summary><span>브랜드 페르소나 시트 (9항목)</span><span class="path">brand/persona_sheet.md</span></summary><div class="md"><p>핵심 자산: <strong>양파 (A02)</strong> — Top 3 중 근거 파일이 가장 많고(T03·T07·T08·R01·S06·metrics) 데이터 품질 리스크가 가장 작아서 골랐습니다 (<a href="../inventory/top3_rationale.md">top3_rationale.md</a>).</p>
+<h1>브랜드 페르소나 시트 (Day 07)</h1>
+<ul>
+<li>작성일: 2026-11-09 · 작성: Claude Code 초안 → 본인 확정 필요</li>
+<li>표시: <code>[사실]</code> 근거 id 있음 / <code>[창작]</code> 팀(본인)이 정하는 항목</li>
+<li>이 프로젝트의 브랜드는 캐릭터가 아니라 <strong>서비스의 목소리</strong>입니다 (<a href="../ROADMAP.md">ROADMAP 단계 4</a>).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>항목</th>
+<th>내용</th>
+<th>표시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>브랜드명 (가칭)</td>
+<td><strong>수급 레이더</strong> · 후보 2: 평소선</td>
+<td>[창작] 기존 가칭 유지, 자산명(양파)과 다름</td>
+</tr>
+<tr>
+<td>2</td>
+<td>핵심 자산</td>
+<td>A02 양파 · 결정적 근거 T03, research/metrics.md · 함께 다루는 품목 A03 배추, A04 무</td>
+<td>[사실]</td>
+</tr>
+<tr>
+<td>3</td>
+<td>정체성 한 줄</td>
+<td><strong>평소와 달라진 품목을 이유와 함께 먼저 알려 주는 수급 안내자</strong></td>
+<td>[창작]</td>
+</tr>
+<tr>
+<td>4</td>
+<td>성격 형용사 3</td>
+<td><strong>차분한 · 정확한 · 먼저 살피는</strong> — 감정(차분), 근거(정확), 시점(먼저)으로 결이 다름</td>
+<td>[창작]</td>
+</tr>
+<tr>
+<td>5</td>
+<td>말투</td>
+<td>존댓말. 한 문장 40자 안팎, 한 문장에 정보 하나. 감탄사·느낌표·이모지 없음. 숫자에는 단위와 기준일</td>
+<td>[창작]</td>
+</tr>
+<tr>
+<td>6</td>
+<td>가치와 약속</td>
+<td><strong>판단은 대신하지 않고, 변화와 이유를 먼저 보여 드린다.</strong></td>
+<td>[창작]</td>
+</tr>
+<tr>
+<td>7</td>
+<td>금칙어</td>
+<td>폭등 · 폭락 · 대란 · 금값/金배추 · 역대급 · 반드시 오릅니다 · 지금 사세요 · 무조건 · 100% · 대박</td>
+<td>[창작] 아카이브 기사 제목의 과장 표현에서 뽑음 (T01 "금값", T03·T08 "폭락", T07 "갈아엎는")</td>
+</tr>
+<tr>
+<td>8</td>
+<td>핵심 메시지 3</td>
+<td>① 평소와 달라진 품목을, 이유와 함께 먼저 보여 드립니다.<br>② 모든 숫자에는 기준일과 출처가 붙어 있습니다.<br>③ 판단은 담당자님이 합니다. 저희는 변화와 이유를 보여 드립니다.</td>
+<td>[창작]</td>
+</tr>
+<tr>
+<td>9</td>
+<td>비주얼 키워드</td>
+<td><strong>경매 낙찰 숫자표 · 밤 경매 시간 · 그물망 포장 · 산지 시군구 지도 · 평년선</strong></td>
+<td>[사실] T12(밤 10시 반 경매, 응찰기 화면), data_spec(그물망 10kg 배추), origin CSV(시군구 산지), T03(평년 대비)</td>
+</tr>
+</tbody>
+</table>
+<h2>점검</h2>
+<table>
+<thead>
+<tr>
+<th>질문</th>
+<th>결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>형용사 셋이 서로 다른 결인가</td>
+<td>예 — 차분한(감정) · 정확한(근거) · 먼저 살피는(시점)</td>
+</tr>
+<tr>
+<td>금칙어 5개 이상</td>
+<td>10개</td>
+</tr>
+<tr>
+<td>메시지가 광고 문구가 아닌가</td>
+<td>"지금 사세요" 류 없음</td>
+</tr>
+<tr>
+<td>비주얼 키워드가 근거 파일에 있는가</td>
+<td>5개 모두 근거 있음 ("평년선"은 T03의 "평년 대비"를 시각화한 표현)</td>
+</tr>
+</tbody>
+</table></div></details><details class="doc"><summary><span>고객 페르소나</span><span class="path">brand/customer_persona.md</span></summary><div class="md"><h1>고객 페르소나 (Day 07)</h1>
+<ul>
+<li>작성일: 2026-11-09 · 대표 세그먼트: <strong>SG1 계획형 구매 담당</strong> (<a href="../plan/segment_definition.md">segment_definition.md</a>)</li>
+<li>규칙: 상황 → 행동 → 동기 → 불만 순서. 항목마다 근거 id. 인구통계는 근거가 없어 비움.</li>
+<li>근거 수준: ✅ 원문 확인 / 🔎 검색 요약만 / [I] 해석</li>
+</ul>
+<h2>페르소나 1 · 식자재 유통사 농산 구매 담당자 (대표)</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>내용</th>
+<th>근거 id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>상황</td>
+<td>외식업체에 식자재를 대는 유통사에서 농산 카테고리를 맡음. 매출·이익 목표가 있고 원가를 낮춰야 함</td>
+<td>J01 ✅</td>
+</tr>
+<tr>
+<td>행동</td>
+<td>상품을 소싱하고 협력사를 찾고, <strong>수요 예측과 시장·경쟁사 분석</strong>을 함. 공영도매시장 낙찰가를 가격 기준으로 봄 [I]</td>
+<td>J01 ✅ · T10 🔎</td>
+</tr>
+<tr>
+<td>동기</td>
+<td>같은 품질을 더 싸게, 덜 흔들리게 들여오는 것. 거래처(식당·급식)에 넘기는 가격을 지키는 것 [I]</td>
+<td>J01 ✅ · T02 ✅</td>
+</tr>
+<tr>
+<td>불만 · 장벽</td>
+<td>① 같은 품목이 한 해에 폭락(5월)과 급등(7월)을 오감 ② 가격 숫자는 여러 사이트에 흩어져 있고 "왜"는 따로 찾아야 함 ③ 낙찰가가 날마다 크게 흔들림</td>
+<td>T03 ✅ · T01 ✅ · S01~S03 🔎 · T10 🔎</td>
+</tr>
+<tr>
+<td>인구통계</td>
+<td>(근거 없음 — 비움)</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p><strong>대표 한 문장 (원문 요지, 직접 인용 아님):</strong> "우수 상품 소싱을 통한 원가 절감, 수요 예측 및 시장·경쟁사 분석" — J01 공고의 주요 업무 문구</p>
+<blockquote>
+<p>구매 담당자 본인의 말은 아직 수집하지 못했습니다. 유튜브·커뮤니티 보강 뒤 교체합니다 (<a href="../research/fieldwork_plan.md">fieldwork_plan.md</a> Q5·Q6).</p>
+</blockquote>
+<h2>페르소나 2 · 소규모 한식당 운영자 (참고)</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>내용</th>
+<th>근거 id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>상황</td>
+<td>김치·겉절이를 기본 반찬으로 내는 수도권 한식당</td>
+<td>T01 ✅</td>
+</tr>
+<tr>
+<td>행동</td>
+<td>배춧값이 오르자 다른 채소로 대체할지 고민</td>
+<td>T01 ✅</td>
+</tr>
+<tr>
+<td>동기</td>
+<td>메뉴 가격을 올리지 않고 버티기 — 올리면 손님이 줄까 걱정</td>
+<td>T02 ✅</td>
+</tr>
+<tr>
+<td>불만 · 장벽</td>
+<td>5명 미만 사업장 약 52%가 원가 상승분을 판매가에 반영 못 함 (KREI 2023 인용)</td>
+<td>T02 ✅</td>
+</tr>
+</tbody>
+</table>
+<p><strong>대표 한 문장 (기사 속 발언 요지):</strong> 김치는 빼기 어려운 필수 반찬이라 다른 채소로 바꿀 수 있을지 고민 — T01</p></div></details><details class="doc"><summary><span>세계관 바이블 worldview.md</span><span class="path">.claude/skills/brand-sugeup-radar/worldview.md</span></summary><div class="md"><h1>수급 레이더 — 세계관 바이블</h1>
+<ul>
+<li>버전: v1 · 2026-11-09 · 사람이 읽는 문서 (스킬은 같은 폴더의 SKILL.md)</li>
+<li>표시: <code>[사실]</code>(근거 id) / <code>[창작]</code> / 근거 id 앞의 ✅는 원문 확인, 🔎는 검색 요약만 확인</li>
+<li>근거 id는 <code>archive/metadata.csv</code>, 파일 경로는 저장소 루트 기준</li>
+</ul>
+<h2>1. 배경 — 숫자가 밤사이 바뀌는 세계</h2>
+<p>[사실] 전국 공영도매시장에서는 하루 약 10만9천 건의 경매 낙찰이 기록됩니다 (research/data/data_spec.md). 가락시장 채소 경매는 밤 10시 반쯤 시작하고, 한 건이 평균 4초 안팎에 끝납니다 (T12 🔎). 농민과 상인은 이 낙찰가를 가격의 기준으로 씁니다 (T10 🔎).</p>
+<p>[사실] 이 세계의 숫자는 크게, 자주 방향을 바꿉니다. 2026년 5월 양파 도매가는 평년보다 47.3% 낮았고 (T03 ✅), 7월 배추 중품은 6월 하순보다 137.8% 올랐습니다 (T01 ✅). 10월 한 달 사이 무는 kg당 740원대에서 400원대로 내렸고 물량은 두 배가 됐습니다 (research/metrics.md, 계산값).</p>
+<p>[사실] 물량은 몇 곳에 몰립니다. 10월 감자 물량의 52.9%가 강원 평창군, 양파의 32.3%가 전남 무안군에서 나왔습니다 (research/metrics.md, 계산값, 약 한 달 치).</p>
+<p>[사실] 정보는 흩어져 있습니다. 도매·소매 가격, 도매시장 경락, 산지 동향을 보는 곳이 서로 다릅니다 (S01·S02·S03 🔎). 경매 기록은 약 한 달만 조회되고 오래된 날은 사라지는 것으로 보입니다 (data_spec [I]).</p>
+<p>[창작] <strong>세계의 규칙:</strong> 모든 숫자는 기준일과 출처를 달고 다닌다. 기준이 없는 숫자는 이 세계에서 말할 수 없다.</p>
+<h2>2. 인물</h2>
+<table>
+<thead>
+<tr>
+<th>역할</th>
+<th>누구</th>
+<th>성격·행동</th>
+<th>표시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>주인공</td>
+<td>식자재 유통사 농산 구매 담당자 ("담당자님")</td>
+<td>원가 절감 소싱, 수요 예측, 시장 분석을 한다</td>
+<td>[사실] J01 ✅</td>
+</tr>
+<tr>
+<td>조력자</td>
+<td><strong>레이더</strong> — 밤사이 경매 숫자를 정리해 아침에 먼저 알려 주는 서비스의 목소리</td>
+<td>차분하다 · 정확하다 · 먼저 살핀다. 사람처럼 감정을 드러내지 않는다</td>
+<td>[창작]</td>
+</tr>
+<tr>
+<td>주변 인물 1</td>
+<td>밤 경매의 중도매인</td>
+<td>거래처 수요를 보고 값을 부른다</td>
+<td>[사실] T11 🔎 (중도매인 측 주장)</td>
+</tr>
+<tr>
+<td>주변 인물 2</td>
+<td>산지 농가</td>
+<td>값이 무너지면 밭을 갈아엎기도 한다</td>
+<td>[사실] T07 🔎</td>
+</tr>
+<tr>
+<td>주변 인물 3</td>
+<td>거래처 식당 운영자</td>
+<td>오른 원가를 판매가에 넘기지 못하고 반찬을 바꿀지 고민한다</td>
+<td>[사실] T01 ✅ · T02 ✅</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 갈등</h2>
+<ul>
+<li><strong>지키려는 것</strong> [창작]: 근거를 보고 내리는 구매 판단.</li>
+<li><strong>위협</strong> [창작 해석]: 급변을 늦게 아는 것, 기준 없이 부풀려진 숫자, 이유 없이 놓인 가격표.</li>
+<li><strong>사건 1 · 봄</strong> [사실 T03 ✅]: 양파값이 평년의 절반 가까이로 내려가고, 정부가 조생종 1만5000t의 출하를 멈춘다.</li>
+<li><strong>사건 2 · 여름</strong> [사실 T01 ✅]: 장마와 폭염 뒤 배춧값이 6월 하순에서 7월 10일 사이 두 배 넘게 오르고, 식당은 김치 반찬을 다른 채소로 바꿀지 고민한다.</li>
+</ul>
+<h2>4. 가치</h2>
+<p>[창작] <strong>판단은 대신하지 않고, 변화와 이유를 먼저 보여 준다.</strong> 레이더는 사라고도 기다리라고도 말하지 않는다. 평소와 얼마나 다른지, 왜 그런지, 언제 기준인지를 말한다.</p>
+<h2>5. 톤앤매너</h2>
+<p>[창작] 존댓말, 짧은 문장, 숫자는 단위·비교 기준·기준일과 함께. 밤 경매의 어두운 바탕 위에 바뀐 값 하나만 밝게 표시한다. 자세한 Do/Don't는 <code>brand/tone_table.md</code>.</p>
+<h2>금지된 일</h2>
+<ul>
+<li>가격을 확정해서 말하기, 구매·투자 지시하기 (claude.md 표현 규칙)</li>
+<li>근거 없는 산지 사연·시장 유래 만들기</li>
+</ul>
+<h2>확인 필요</h2>
+<ul>
+<li>가락시장 경매 시작 시각·건당 시간 (T12 원문 확인 전)</li>
+<li>중도매인이 가격을 정한다는 주장은 한쪽 주장 (T11)</li>
+<li>"평년"의 정의 — KAMIS 평년 가격 확보 전에는 서비스에서 "첫 주 대비"만 사용</li>
+</ul></div></details><details class="doc"><summary><span>브랜드 스킬 SKILL.md (Claude Code 지시서)</span><span class="path">.claude/skills/brand-sugeup-radar/SKILL.md</span></summary><div class="md"><pre><code>---
+name: brand-sugeup-radar
+description: &quot;수급 레이더&quot; 서비스의 목소리로 화면 문구·알림·리포트·소개글·스토리보드 대사·기획서 문장을 쓸 때 사용. 농산물 가격·물량 변화를 설명하는 모든 사용자 대상 문장에 적용한다.
+---
+
+# 역할
+수급 레이더의 목소리로 쓴다. 평소와 달라진 품목을 이유와 함께 먼저 알려 주는 안내자. 차분하고, 정확하고, 먼저 살핀다.
+
+# 톤앤매너 (Do / Don&#x27;t)
+- 문장: 짧게, 한 문장에 정보 하나 / 쉼표로 이어지는 긴 문장 금지
+- 호칭: &quot;담당자님&quot;, 존댓말 / &quot;여러분!&quot;, 반말 금지
+- 감정: 숫자로 담담하게 / 감탄사·느낌표·이모지 금지
+- 숫자: 단위 + 비교 기준 + 기준일을 함께 / 기준 없는 퍼센트 금지
+- 예측: 범위·이유·&quot;가능성&quot; / 한 점 예측·확정 표현 금지
+- 행동: 정보 제공까지 / 구매·투자 지시 금지
+
+# 금칙어
+폭등, 폭락, 대란, 금값, 金배추, 역대급, 반드시 오릅니다, 지금 사세요, 무조건, 100%, 대박
+
+# 핵심 메시지 (하나 이상 포함)
+1. 평소와 달라진 품목을, 이유와 함께 먼저 보여 드립니다.
+2. 모든 숫자에는 기준일과 출처가 붙어 있습니다.
+3. 판단은 담당자님이 합니다. 저희는 변화와 이유를 보여 드립니다.
+
+# 출력 규칙
+- 숫자·사실은 worldview.md의 [사실] 절과 research/metrics.csv에서만 가져온다.
+- 없는 사실·산지 사연·시장 유래를 만들지 않는다. 모르면 &quot;확인 필요&quot;라고 쓴다.
+- 계산값에는 &quot;계산값&quot;, 약 한 달 치 데이터에는 기간(예: 10/06~11/05)을 붙인다.
+- &quot;평년 대비&quot;는 평년 자료가 있을 때만 쓴다. 없으면 &quot;첫 주 대비&quot;처럼 실제 기준을 쓴다.
+- 화면 문구는 한 줄 25자 안팎, 알림은 두 문장 이내.
+- 금칙어를 인용해야 하면 출처와 함께 따옴표로만 쓴다.
+
+# 참고
+- 세계관 전체: 같은 폴더의 worldview.md
+- Do/Don&#x27;t 전체 표: brand/tone_table.md
+- 페르소나: brand/persona_sheet.md, brand/customer_persona.md
+</code></pre></div></details><details class="doc"><summary><span>발산 메모 → 다섯 요소</span><span class="path">brand/figjam_notes.md</span></summary><div class="md"><h1>세계관 발산 메모 → 다섯 요소 분류 (Day 07 · 2교시)</h1>
+<ul>
+<li>FigJam 보드 대신 텍스트로 발산했습니다 (혼자 진행).</li>
+<li><code>[사실]</code> 근거 id가 archive/metadata.csv 또는 research/에 실제로 있음 / <code>[창작]</code> 본인이 정함 / <code>확인 필요</code></li>
+</ul>
+<h2>배경 — 사실 10개 이상</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>메모</th>
+<th>표시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>전국 공영도매시장에서 하루 약 10만9천 건의 경매가 기록된다</td>
+<td>[사실] research/data/data_spec.md</td>
+</tr>
+<tr>
+<td>2</td>
+<td>가락시장 채소 경매는 밤 10시 반쯤 시작하고, 한 건이 평균 4초 안팎이다</td>
+<td>[사실] T12 🔎</td>
+</tr>
+<tr>
+<td>3</td>
+<td>전국 농민과 상인이 가락시장 낙찰가를 가격의 기준으로 쓴다</td>
+<td>[사실] T10 🔎</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2026년 5월 양파 도매가는 평년보다 47.3% 낮았다</td>
+<td>[사실] T03 ✅</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2026년 7월 배추 중품은 6월 하순보다 137.8% 올랐다</td>
+<td>[사실] T01 ✅</td>
+</tr>
+<tr>
+<td>6</td>
+<td>10월 한 달 사이 무는 kg당 740원대에서 400원대로 내렸고 물량은 두 배가 됐다</td>
+<td>[사실] research/metrics.md (계산값)</td>
+</tr>
+<tr>
+<td>7</td>
+<td>10월 감자 물량의 52.9%가 강원 평창군 한 곳에서 나왔다</td>
+<td>[사실] research/metrics.md (계산값)</td>
+</tr>
+<tr>
+<td>8</td>
+<td>정부는 조생종 양파 1만5000t의 출하를 멈췄다</td>
+<td>[사실] T03 ✅</td>
+</tr>
+<tr>
+<td>9</td>
+<td>작은 사업장의 약 52%는 오른 원가를 판매가에 넘기지 못했다</td>
+<td>[사실] T02 ✅ (KREI 2023 인용)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>경매 데이터는 약 한 달만 조회되고 오래된 날짜는 사라진다</td>
+<td>[사실] research/data/data_spec.md [I]</td>
+</tr>
+<tr>
+<td>11</td>
+<td>가격 정보는 KAMIS·aT 경락·농넷에 나뉘어 있다</td>
+<td>[사실] S01·S02·S03 🔎</td>
+</tr>
+</tbody>
+</table>
+<h2>인물</h2>
+<table>
+<thead>
+<tr>
+<th>메모</th>
+<th>표시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>주인공: 아침에 시세를 확인하는 식자재 유통사 농산 구매 담당자</td>
+<td>[사실] J01 + [창작] "아침" 시간대</td>
+</tr>
+<tr>
+<td>조력자: 밤사이 경매 숫자를 정리해 두는 "레이더" — 서비스 자체</td>
+<td>[창작]</td>
+</tr>
+<tr>
+<td>주변: 밤 경매의 중도매인 / 산지 농가 / 출하를 조절하는 정부 / 거래처 식당</td>
+<td>[사실] T11 · T07 · T03 · T01</td>
+</tr>
+</tbody>
+</table>
+<h2>갈등</h2>
+<table>
+<thead>
+<tr>
+<th>메모</th>
+<th>표시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>지키려는 것: 근거를 보고 내리는 구매 판단</td>
+<td>[창작]</td>
+</tr>
+<tr>
+<td>위협: 늦게 알게 되는 급변, "금값"·"폭락" 같은 과장된 숫자, 이유 없는 가격표</td>
+<td>[사실] T01·T03 제목의 표현 + [창작] 해석</td>
+</tr>
+<tr>
+<td>사건 1: 5월, 양파값이 평년의 절반 가까이로 떨어진 봄</td>
+<td>[사실] T03</td>
+</tr>
+<tr>
+<td>사건 2: 7월, 장마와 폭염 뒤 배춧값이 두 배 넘게 뛴 여름</td>
+<td>[사실] T01</td>
+</tr>
+</tbody>
+</table>
+<h2>가치</h2>
+<table>
+<thead>
+<tr>
+<th>메모</th>
+<th>표시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>판단은 대신하지 않고, 변화와 이유를 먼저 보여 준다</td>
+<td>[창작] persona_sheet 6</td>
+</tr>
+</tbody>
+</table>
+<h2>톤앤매너</h2>
+<table>
+<thead>
+<tr>
+<th>메모</th>
+<th>표시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>차분한 존댓말, 짧은 문장, 숫자에는 단위·기준일</td>
+<td>[창작] persona_sheet 5</td>
+</tr>
+<tr>
+<td>색: 밤 경매의 어두운 바탕 + 변화만 강조하는 한 가지 색</td>
+<td>[창작]</td>
+</tr>
+</tbody>
+</table>
+<h2>비어 있거나 약한 요소</h2>
+<ul>
+<li>인물의 "말"이 없음 — 구매 담당자 본인의 발언 수집 전까지 대사 없이 행동만 씀</li>
+<li>갈등의 "위협"은 해석이 섞여 있음 → 바이블에서 [창작]으로 표시</li>
+</ul></div></details><details class="doc"><summary><span>톤앤매너 Do / Don&#x27;t · 여섯 질문</span><span class="path">brand/tone_table.md</span></summary><div class="md"><h1>톤앤매너 Do / Don't (Day 07)</h1>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>Do</th>
+<th>Don't</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>문장</td>
+<td>짧게, 한 문장에 정보 하나</td>
+<td>쉼표로 이어지는 긴 문장</td>
+</tr>
+<tr>
+<td>호칭</td>
+<td>"담당자님", 존댓말</td>
+<td>"여러분!", "사장님들~", 반말</td>
+</tr>
+<tr>
+<td>감정</td>
+<td>변화의 크기를 숫자로 담담하게</td>
+<td>감탄사 · 느낌표 · 이모지</td>
+</tr>
+<tr>
+<td>단어</td>
+<td>평소 대비 · 물량 · 산지 · 기준일 · 범위</td>
+<td>폭등 · 폭락 · 대란 · 금값 · 역대급 · 확정</td>
+</tr>
+<tr>
+<td>숫자</td>
+<td>단위 + 비교 기준 + 기준일 ("kg당 402원, 첫 주보다 −45.6%, 11/05 기준")</td>
+<td>기준 없는 퍼센트 ("45% 폭락!")</td>
+</tr>
+<tr>
+<td>예측</td>
+<td>범위와 이유, "가능성"</td>
+<td>"반드시 오릅니다", 한 점 예측</td>
+</tr>
+<tr>
+<td>행동 제안</td>
+<td>정보 제공까지 ("알림을 켜 두면 다시 알려 드립니다")</td>
+<td>구매 지시 ("지금 사세요")</td>
+</tr>
+<tr>
+<td>색 · 이미지</td>
+<td>어두운 바탕, 변화한 값 하나만 강조색, 그래프에 평소선</td>
+<td>빨강·초록 남발, 과포화, 불꽃·로켓 아이콘</td>
+</tr>
+</tbody>
+</table>
+<h2>일관성 여섯 질문 점검 (Claude Code 점검 · 본인 재확인 필요)</h2>
+<table>
+<thead>
+<tr>
+<th>질문</th>
+<th>결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>배경의 모든 문장에 근거 파일이 있거나 "창작" 표시가 있는가</td>
+<td>예 (figjam_notes 배경 11개 모두 근거 id)</td>
+</tr>
+<tr>
+<td>주인공의 성격이 형용사 3개와 맞는가</td>
+<td>조력자 "레이더"가 차분·정확·먼저 살핌 — 예</td>
+</tr>
+<tr>
+<td>가치를 뒤집으면 갈등이 되는가</td>
+<td>"변화와 이유를 먼저" ↔ "늦게, 이유 없이, 과장되게" — 예</td>
+</tr>
+<tr>
+<td>톤이 인물의 성격에서 나오는가</td>
+<td>차분한 인물 → 느낌표 없음 — 예</td>
+</tr>
+<tr>
+<td>고객 페르소나가 이 세계에서 주인공을 만날 자리가 있는가</td>
+<td>아침 시세 확인 시간에 레이더 알림을 받음 — 예</td>
+</tr>
+<tr>
+<td>금칙어가 바이블 본문에 쓰이지 않았는가</td>
+<td>사건 설명에서 "폭락" 대신 "평년의 절반 가까이" 사용 — 예 (기사 제목 인용은 근거 표에만)</td>
+</tr>
+</tbody>
+</table></div></details><details class="doc"><summary><span>적용 전후 비교표</span><span class="path">brand/test/diff_note.md</span></summary><div class="md"><h1>스킬 적용 전후 비교 (Day 07 · 3교시)</h1>
+<table>
+<thead>
+<tr>
+<th>점검</th>
+<th>before</th>
+<th>after</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1) 금칙어 사용</td>
+<td><strong>7회</strong> — 폭등 1, 폭락 3, 금값 1, 역대급 1, 무조건 1 (그 밖에 확정 표현 "확실히")</td>
+<td><strong>0회</strong></td>
+</tr>
+<tr>
+<td>2) 말투 위반</td>
+<td>느낌표 5개, 이모지 3개, "~하세요" 명령 4회</td>
+<td>0건</td>
+</tr>
+<tr>
+<td>3) 핵심 메시지 포함</td>
+<td>없음</td>
+<td>소개 글에 ①②③ 모두, 알림 3에 정보 제공형 행동</td>
+</tr>
+<tr>
+<td>4) 근거 없는 사실</td>
+<td>"실시간 분석", "미리 알려 드리는" (예측 기능 없음), "역대급 상승 예고" (근거 없음)</td>
+<td>0건 — 모든 숫자가 metrics.csv 계산값</td>
+</tr>
+<tr>
+<td>5) 구매 지시</td>
+<td>3건 ("매수 타이밍", "미리 사 두시면", "확보하세요")</td>
+<td>0건</td>
+</tr>
+<tr>
+<td>6) 기준일·출처</td>
+<td>없음</td>
+<td>알림 3개 모두 기간·출처</td>
+</tr>
+</tbody>
+</table>
+<h2>가장 크게 달라진 문장 (회고 1)</h2>
+<ul>
+<li>before: "무 가격 45% 폭락… 이번 주 안에 무조건 확보하세요 🔥"</li>
+<li>after: "무 kg당 가격이 첫 주보다 45.6% 낮습니다. 같은 기간 물량은 두 배입니다."</li>
+<li>같은 숫자(45%)가 <strong>"사라는 신호"에서 "변화와 이유"로</strong> 바뀌었습니다.</li>
+</ul>
+<h2>스킬 규칙을 고친 것</h2>
+<ul>
+<li>before의 "폭락"이 금칙어 목록에 없어 걸러지지 않는 문제를 발견해, persona_sheet·SKILL.md 금칙어에 <strong>"폭락"</strong> 을 넣었습니다 (원래는 "폭락 확정"만 있었음).</li>
+<li>기사들은 "평년 대비"를 쓰지만(T03) 이 프로젝트의 경매 데이터에는 평년 자료가 없습니다. 같은 실수를 막으려고 SKILL.md 출력 규칙에 <strong>"평년 대비는 평년 자료가 있을 때만, 없으면 실제 기준(첫 주 대비)을 쓴다"</strong> 를 미리 넣었습니다. 실제 생성에서 이 위반이 나온 기록은 없습니다.</li>
+</ul>
+<h2>남은 확인</h2>
+<ul>
+<li>before를 새 세션에서 스킬 없이 다시 생성해 비교 (지금 before는 같은 세션 결과)</li>
+<li>본인의 Claude Code 새 세션에서 <code>brand-sugeup-radar</code> 스킬이 보이는지 호출 확인</li>
+</ul></div></details><details class="doc"><summary><span>사용자 세그먼트 정의 (데이터·서비스 과제)</span><span class="path">plan/segment_definition.md</span></summary><div class="md"><h1>대시보드 사용자 세그먼트 정의 (Day 07 데이터·서비스 과제)</h1>
+<ul>
+<li>작성일: 2026-11-09 · 재료: <a href="../research/voices/voices_tagged.csv">voices_tagged.csv</a>, <a href="../archive/metadata.csv">archive/metadata.csv</a></li>
+<li>인구통계가 아니라 <strong>수집물에서 읽은 행동 축 두 개</strong>로 나눕니다.</li>
+</ul>
+<h2>1. 행동 변수 후보 5개 → 축 2개</h2>
+<table>
+<thead>
+<tr>
+<th>후보</th>
+<th>근거</th>
+<th>선택</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>구매 주체 (조직 구매 / 개인 사업자)</td>
+<td>J01·J03·J04·T13 vs T01·T02</td>
+<td>✅ X축 — 근거가 양쪽에 고르게 있음</td>
+</tr>
+<tr>
+<td>가격 급변 대응 방식 (소싱·예측 / 메뉴·재료 대체)</td>
+<td>J01·S04~S06 vs T01·T13</td>
+<td>✅ Y축 — 서비스가 줄 정보가 달라짐</td>
+</tr>
+<tr>
+<td>원가 전가 가능 여부</td>
+<td>T02 (52%)</td>
+<td>X축과 겹침 (작은 사업자일수록 전가 어려움)</td>
+</tr>
+<tr>
+<td>정보 출처 (KAMIS·도매시장 낙찰가)</td>
+<td>S01·T10</td>
+<td>근거가 한쪽에만 있음</td>
+</tr>
+<tr>
+<td>구매 주기 (매일·주간)</td>
+<td>없음 [U]</td>
+<td>수치 근거 없음</td>
+</tr>
+</tbody>
+</table>
+<h2>2. 2×2 매트릭스</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>조직 구매</strong> (유통사·급식·프랜차이즈)</th>
+<th><strong>개인 사업자</strong> (소규모 식당)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>소싱·예측으로 대응</strong></td>
+<td><strong>SG1 계획형 구매 담당</strong> — J01 · J03 · J04 · S04 · S05</td>
+<td>(빈칸 — 근거 없음, 세그먼트 아님)</td>
+</tr>
+<tr>
+<td><strong>메뉴·재료 대체로 대응</strong></td>
+<td><strong>SG2 단가 고정형 급식</strong> — T13 · T14 · A25(NEIS)</td>
+<td><strong>SG3 버티는 소규모 식당</strong> — T01 · T02 · T06</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 세그먼트 3개</h2>
+<table>
+<thead>
+<tr>
+<th>세그먼트</th>
+<th>행동 특징</th>
+<th>근거 id (3개 이상)</th>
+<th>대표 불만</th>
+<th>대시보드에서 먼저 보여 줄 것</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SG1 계획형 구매 담당</strong> ⭐대표</td>
+<td>소싱·협력사 개발, 수요 예측·시장 분석을 직무로 함</td>
+<td>J01 · J03 · J04 · S04 · S05</td>
+<td>숫자는 많은데 "왜 변했는지"와 산지 상황은 따로 찾아야 함</td>
+<td>평소 대비 변화율 + 이유 한 줄 + 산지 쏠림</td>
+</tr>
+<tr>
+<td><strong>SG2 단가 고정형 급식</strong></td>
+<td>정해진 식품비 안에서 식단을 바꿔 버팀</td>
+<td>T13 · T14 · research/opendata_catalog.md(eaT·NEIS)</td>
+<td>식품비는 8.7% 올랐는데 배춧값은 78% 오름(2022)</td>
+<td>다음 달 식단에 영향 줄 품목, 대체 품목 흐름</td>
+</tr>
+<tr>
+<td><strong>SG3 버티는 소규모 식당</strong></td>
+<td>가격을 못 올리고 재료를 바꿀지 고민</td>
+<td>T01 · T02 · T06</td>
+<td>오른 값을 판매가에 못 넘김 (약 52%)</td>
+<td>이번 주 급변 품목 1~2개, 쉬운 말</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 결정</h2>
+<ul>
+<li><strong>첫 대상은 SG1</strong>입니다. 근거가 가장 많고(원문 확인 J01), ROADMAP의 첫 사용자 가설(중소 식품 제조사·식자재 유통사 구매 담당자)과 같습니다.</li>
+<li>SG2·SG3는 같은 데이터를 쓰되 화면 문구와 알림 빈도만 다르게 둘 후보입니다.</li>
+<li>대시보드 필터: <code>segment ∈ {SG1, SG2, SG3}</code> — 첫 버전은 가입 때 본인이 고르는 방식 (행동 기록으로 자동 분류는 사용자 데이터가 생긴 뒤).</li>
+</ul>
+<h2>5. 한계</h2>
+<ul>
+<li>SG2·SG3의 근거는 대부분 검색 요약 또는 2022년 자료입니다. 사용자 인터뷰 전까지 가설입니다.</li>
+</ul></div></details><details class="doc"><summary><span>한 장 기획서 (데이터·서비스 과제)</span><span class="path">plan/onepager.md</span></summary><div class="md"><h1>수급 레이더 — 품목 수급 알림 앱 화면 (한 장 기획서 v1)</h1>
+<ul>
+<li>작성일: 2026-11-09 · 대표 세그먼트 SG1 기준 · 문장은 <code>brand-sugeup-radar</code> 스킬로 다듬음</li>
+<li>성공 신호에는 숫자를 넣지 않습니다 (수업 규칙 — 시장 리서치 뒤에 붙임).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>항목</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>제목</td>
+<td>수급 레이더 — 품목 수급 알림 앱 화면</td>
+</tr>
+<tr>
+<td>2</td>
+<td>핵심 자산</td>
+<td>A02 양파 (함께: A03 배추 · A04 무). 결정적 근거 T03 · research/metrics.md (<a href="../inventory/top3_rationale.md">top3_rationale.md</a>)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>대상</td>
+<td>식자재 유통사의 농산 구매 담당자 — 아침에 시세를 확인하고 소싱·수요 예측을 하는 사람 (<a href="../brand/customer_persona.md">customer_persona.md</a>, J01)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>문제 · 욕구</td>
+<td>같은 품목이 한 해에 평년 대비 −47.3%(T03)와 +137.8%(T01)를 오간다. 가격·경락·산지 정보는 흩어져 있고 "왜"는 따로 찾아야 한다 (S01~S03)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>제공 가치</td>
+<td>담당자님께 평소와 달라진 품목을, 이유와 기준일을 붙여 아침에 먼저 보여 드립니다.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>형태</td>
+<td><strong>서비스 — 모바일 앱 화면</strong> (알림 + 품목 수급판)</td>
+</tr>
+<tr>
+<td>7</td>
+<td>핵심 구성 3</td>
+<td>① <strong>오늘 달라진 품목</strong> — 가격·물량의 첫 주 대비 변화 (M1·M3)<br>② <strong>이유 한 줄</strong> — 물량 변화·산지 쏠림으로 설명 (M4·M5)<br>③ <strong>변화 알림</strong> — 담당 품목이 기준을 넘으면 알림</td>
+</tr>
+<tr>
+<td>8</td>
+<td>AI가 하는 일</td>
+<td>① 숫자 계산은 스크립트(AI 아님) → 사람이 표본 대조<br>② 이유 한 줄 초안을 Claude가 브랜드 스킬로 작성 → 사람이 근거 id 확인 후 게시<br>③ 기사·보도자료 요약·분류(Claude) → 사람이 원문 대조</td>
+</tr>
+<tr>
+<td>9</td>
+<td>성공 신호</td>
+<td>① 담당자가 알림만 보고 "왜 변했는지"를 다른 사이트 없이 말할 수 있다<br>② 화면의 모든 숫자에서 기준일·출처를 찾을 수 있다</td>
+</tr>
+<tr>
+<td>10</td>
+<td>리스크 · 확인</td>
+<td>경매 데이터 약 한 달만 조회 → 누적 수집 필요 (본인) · kg당 가격 해석 미검증 → KAMIS 대조 (본인) · 배추 규격 혼재 → 소분류 분리 (본인) · 구매 지시로 읽히지 않게 문구 검수 (스킬 + 본인)</td>
+</tr>
+</tbody>
+</table>
+<h2>하지 않을 일</h2>
+<p>가격을 확정해 맞히기 · 구매·투자 지시 · 첫 버전에서 수산·축산까지 다루기 (<a href="../goals.md">goals.md</a>)</p>
+<h2>공통 점검</h2>
+<table>
+<thead>
+<tr>
+<th>질문</th>
+<th>결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>제공 가치에 브랜드 말투가 보이는가</td>
+<td>예 — "담당자님", 존댓말, 핵심 메시지 ①</td>
+</tr>
+<tr>
+<td>핵심 구성 3이 고객의 불만과 짝이 맞는가</td>
+<td>① 급변(T03·T01) ↔ 달라진 품목 / ② 흩어진 이유(S01~S03) ↔ 이유 한 줄 / ③ 늦게 앎 ↔ 알림</td>
+</tr>
+<tr>
+<td>리스크가 비어 있지 않은가</td>
+<td>4개, 담당 표시</td>
+</tr>
+</tbody>
+</table>
+<h2>회고 3 — 고객 불만 중 기획서에 못 담은 것</h2>
+<p>SG3 소규모 식당의 "오른 값을 메뉴 가격에 못 넘긴다"(T02). 대체 품목 추천은 구매 지시로 읽힐 위험이 있어 첫 버전에서 뺐습니다.</p></div></details><details class="doc"><summary><span>진행 기록</span><span class="path">brand/progress.md</span></summary><div class="md"><h1>진행 (brand)</h1>
+<h2>완료</h2>
+<ul>
+<li>[x] persona_sheet.md — 9항목, 핵심 자산 A02 양파</li>
+<li>[x] customer_persona.md — 대표 SG1 구매 담당자 + 참고 식당 운영자</li>
+<li>[x] figjam_notes.md · tone_table.md — 다섯 요소, Do/Don't, 여섯 질문</li>
+<li>[x] .claude/skills/brand-sugeup-radar/SKILL.md · worldview.md</li>
+<li>[x] test/before.md · after.md · diff_note.md — after 금칙어 0건</li>
+<li>[x] plan/segment_definition.md · plan/onepager.md</li>
+</ul>
+<h2>다음</h2>
+<ul>
+<li>[ ] 새 세션에서 스킬 호출 확인, before를 새 세션 결과로 교체</li>
+<li>[ ] 구매 담당자 본인의 말 수집 후 customer_persona 대표 문장 교체</li>
+<li>[ ] 브랜드명 확정 (수급 레이더 / 평소선)</li>
+</ul>
+<h2>결정</h2>
+<ul>
+<li>호칭 "담당자님" 확정</li>
+<li>금칙어에 "폭락" 추가 (before 비교에서 발견)</li>
+<li>평년 자료가 없으면 "평년" 대신 실제 비교 기준을 씀</li>
+</ul></div></details>
+<p class="foot">수급 레이더 · 강의 과제용 개인 프로젝트 · 전체 흐름은 루트 <a href="../index.html">index.html</a> · 이 페이지는 <code>python scripts/build_local_package.py</code>로 md·csv 원본에서 생성했습니다. 원본 파일이 기준입니다.</p>
+</main>
+<button class="theme" id="theme" type="button">밝기 전환</button>
+<script>document.getElementById('theme').onclick=()=>{const r=document.documentElement;const d=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=d?'light':'dark';};</script>
+</body></html>

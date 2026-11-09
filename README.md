@@ -54,7 +54,7 @@
 
 1. **이 README:** 프로젝트 목적, 수업과의 관계, 구현 현황을 확인합니다.
 2. **[강의와 프로젝트 연결 안내](docs/COURSE_GUIDE.md):** 수업별로 무엇을 적용하고 있는지 확인합니다.
-3. **[기업 리서치 통합 화면](https://htmlpreview.github.io/?https://github.com/so-jung0729/cj_ax/blob/main/index.html):** 조사한 기업과 밸류체인을 둘러봅니다. `index.html`은 현재 서비스가 아니라 조사 산출물입니다.
+3. **[과제 결과 통합 화면](https://htmlpreview.github.io/?https://github.com/so-jung0729/cj_ax/blob/main/index.html):** Day 04~10 과제 결과를 문제 → 근거 → 자산 → 목소리 → 고객 → 화면 → 기업의 한 줄기로 봅니다. `index.html`은 현재 서비스가 아니라 과제 산출물이며 `python scripts/build_index.py`로 만듭니다.
 4. **[병목 분석](research/bottlenecks.md) → [공공데이터 목록](research/opendata_catalog.md):** 왜 이 문제와 데이터를 선택했는지 읽습니다.
 5. **[데이터 명세](research/data/data_spec.md):** 실제로 확보한 데이터, 계산 방법과 한계를 확인합니다.
 6. **[로드맵](ROADMAP.md) · [결정 기록](DECISIONS.md) · [목표 초안](goals.md):** 다음 작업과 아직 결정하지 않은 내용을 확인합니다.
@@ -106,7 +106,7 @@ k-뉴딜/                           프로젝트 루트 (GitHub 저장소: cj_ax
   inventory/                     품목·데이터 후보 선정용 폴더
   brand/                         고객·브랜드 기획용 폴더
   plan/                          서비스 기획·화면 설계용 폴더
-  index.html                     기업 리서치 통합 화면
+  index.html                     과제 결과 통합 화면 (scripts/build_index.py 생성물)
 ```
 
 `archive/`, `inventory/`, `brand/`, `plan/`은 후속 작업용 틀이며 일부가 비어 있습니다. `research/data/archive/`는 경매 원본 압축본, 루트 `archive/`는 앞으로 수집할 현장 자료를 위한 위치입니다.

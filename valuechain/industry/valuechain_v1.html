@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>농식품 공급 산업 밸류체인</title>
+<style>
+  :root{color-scheme:light;--ink:#111418;--ink2:#4A5159;--ink3:#6B727A;--line:#E6E8EB;--band:#F5F6F7;--accent:#FFD400;
+    --money:#E8590C;--data:#1C64C8;--bn-f:#FEF3DC;--bn-s:#E89B00;--co-f:#FCEBE5;--co-s:#E8603C;--op-f:#EEF7E2;--op-s:#9BD24B;--as-f:#D5F0EA;--as-s:#00806A}
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;color:var(--ink);font-family:Pretendard,"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif;font-size:14px;line-height:1.45;word-break:keep-all;overflow-wrap:anywhere}
+  .page{max-width:1320px;margin:0 auto;padding:24px 20px 40px}
+  .eyebrow{margin:0;color:var(--ink3);font-weight:800;font-size:13px}
+  h1{margin:2px 0 4px;font-size:28px;font-weight:900;letter-spacing:-.03em}
+  .lead{margin:0 0 4px;font-size:16px;color:var(--ink2);max-width:980px}
+  .lead b{color:var(--ink);background:linear-gradient(transparent 60%,var(--accent) 60%)}
+  .scroll{overflow-x:auto;margin-top:16px;padding-bottom:6px}
+  .map{min-width:1180px;display:grid;grid-template-columns:96px repeat(6,minmax(0,1fr));column-gap:10px;row-gap:8px;position:relative}
+  .lab{font-weight:900;font-size:13px;color:var(--ink2);padding:10px 0 0;line-height:1.3}
+  .lab small{display:block;font-weight:700;color:var(--ink3);font-size:11.5px}
+  .band{grid-column:1/-1;height:1px;background:var(--line);margin:2px 0}
+  .stage{position:relative;background:var(--ink);color:#fff;border-radius:12px;padding:10px 12px;font-weight:900;font-size:15px}
+  .stage span{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--ink);font-size:12px;margin-right:6px}
+  .stage:not(:last-child):after{content:"";position:absolute;right:-10px;top:50%;margin-top:-7px;border:7px solid transparent;border-left:9px solid var(--ink)}
+  .cell{background:var(--band);border-radius:10px;padding:9px 11px;font-size:13px}
+  .cell b{font-weight:800}
+  .cell .inf{color:var(--ink3);font-size:12px;display:block;margin-top:3px}
+  .asset{background:var(--as-f);box-shadow:inset 0 0 0 2px var(--as-s)}
+  .money{background:#FFF4E6;color:#7A2E00;position:relative;padding-left:24px}
+  .money:before{content:"⇐";position:absolute;left:7px;top:8px;color:var(--money);font-weight:900}
+  .money.start{box-shadow:inset 0 0 0 2px var(--money)}
+  .money.end{box-shadow:inset 0 0 0 2px var(--money);background:#FFE8CC}
+  .flow{grid-column:2/-1;position:relative;height:30px}
+  .flow svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .flow .t{position:absolute;top:6px;font-size:12px;font-weight:800;white-space:nowrap;background:#fff;padding:0 6px}
+  .data{background:#EAF2FD;color:#0F3F82;border:1.5px dashed var(--data)}
+  .data .pub{display:inline-block;font-size:11px;font-weight:800;border-radius:99px;padding:0 7px;margin-top:4px}
+  .data .pub.y{background:var(--data);color:#fff} .data .pub.n{background:#fff;color:var(--ink3);border:1px solid #CED4DA}
+  .mk{display:flex;flex-direction:column;gap:6px}
+  .m{border-radius:10px;padding:7px 10px;font-size:12.5px;font-weight:700}
+  .m small{display:block;font-size:11px;font-weight:900;letter-spacing:.02em}
+  .m.bn{background:var(--bn-f);box-shadow:inset 0 0 0 2px var(--bn-s)}
+  .m.co{background:var(--co-f);box-shadow:inset 0 0 0 2px var(--co-s)}
+  .m.op{background:var(--op-f);box-shadow:inset 0 0 0 1px var(--op-s)}
+  .m.star{box-shadow:inset 0 0 0 3px #5C940D;background:#D8F5A2}
+  .cos{display:flex;flex-wrap:wrap;gap:4px}
+  .cos i{font-style:normal;font-size:11.5px;font-weight:800;background:#fff;border:1px solid var(--line);border-radius:99px;padding:1px 8px}
+  .foot{display:grid;grid-template-columns:1.2fr 1fr;gap:14px;margin-top:16px}
+  .box{background:var(--band);border-radius:14px;padding:14px 16px}
+  .box h3{margin:0 0 8px;font-size:15px}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:12.5px;font-weight:700}
+  .legend span{display:flex;align-items:center;gap:6px}
+  .sw{display:inline-block;width:22px;height:14px;border-radius:4px}
+  .mx{width:100%;border-collapse:collapse;font-size:13px}
+  .mx th,.mx td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
+  .mx th{font-size:12px;color:var(--ink3)}
+  .note{margin:12px 0 0;font-size:12px;color:var(--ink3)}
+  @media (max-width:760px){.page{padding:16px}.foot{grid-template-columns:1fr} h1{font-size:23px}}
+</style>
+</head>
+<body>
+<main class="page">
+  <p class="eyebrow">Day 10 · 산업 밸류체인 맵 v1 · 데이터·서비스 트랙 (대시보드 데이터 흐름도) · 2026-11-09</p>
+  <h1>농식품 공급 산업 — 산지에서 식탁까지 한 줄기</h1>
+  <p class="lead">Day 09 기업 6곳을 같은 줄기에 겹쳤습니다. <b>누구나 볼 수 있는 데이터는 ② 경매 하나뿐</b>이고, 주문·수요는 ④·⑤에 쌓여 산지로 돌아가지 않습니다. 6곳의 우선 기회가 모두 모인 자리에 수급 레이더가 들어갑니다.</p>
+
+  <div class="scroll"><div class="map">
+    <div></div>
+    <div class="stage"><span>1</span>산지 생산·출하</div>
+    <div class="stage"><span>2</span>도매시장·산지 유통</div>
+    <div class="stage"><span>3</span>가공·제조</div>
+    <div class="stage"><span>4</span>유통·플랫폼</div>
+    <div class="stage"><span>5</span>주문·소비</div>
+    <div class="stage"><span>6</span>물류·배송</div>
+
+    <div class="lab">① 활동</div>
+    <div class="cell">재배·수확·출하 결정</div>
+    <div class="cell">경매·낙찰·중도매</div>
+    <div class="cell">세척·전처리·제품 생산</div>
+    <div class="cell">매입·상품 등록·노출·발주</div>
+    <div class="cell">비교·발주·결제·메뉴 결정</div>
+    <div class="cell">보관·콜드체인·배송</div>
+
+    <div class="band"></div>
+    <div class="lab">② 이해관계자<small>하는 사람 · (영향)</small></div>
+    <div class="cell"><b>농가·영농조합·계약재배 농가</b><span class="inf">(농식품부·지자체 수급 정책 — 양파 출하 정지 T03)</span></div>
+    <div class="cell asset"><b>도매시장법인·중도매인</b><span class="inf">(aT 경매정보 공개)</span></div>
+    <div class="cell"><b>풀무원 · 오리온 · CJ 프레시플러스 · 현대 스마트푸드센터 · 컬리 넥스트키친</b><span class="inf">(식품안전 인증)</span></div>
+    <div class="cell"><b>B2B</b> CJ프레시웨이(식봄) · 현대그린푸드 · 푸드머스<br><b>B2C</b> 컬리 · 오아시스<span class="inf">(대규모유통업법·공정위)</span></div>
+    <div class="cell"><span class="asset" style="display:block;border-radius:8px;padding:4px 6px;margin:-2px -4px 4px"><b>식자재 구매 담당 (SG1)</b> ← 첫 고객</span><b>급식(SG2) · 소규모 식당(SG3) · 가정 · 대리점</b><span class="inf">(결제사·여신)</span></div>
+    <div class="cell"><b>기업 물류센터 · 3PL</b><span class="inf">(콜드체인 장비 · CJ대한통운 등)</span></div>
+
+    <div class="band"></div>
+    <div class="lab" style="color:var(--money)">③ 돈 흐름<small>고객 → 원천 (역방향)</small></div>
+    <div class="cell money end"><b>끝점</b> 경매 대금 · 계약재배 대금<span class="inf">생산자 몫 [U]</span></div>
+    <div class="cell money">위탁수수료 · 중도매 마진<span class="inf">비율 [U]</span></div>
+    <div class="cell money">납품 단가</div>
+    <div class="cell money">유통 마진 · 플랫폼 수수료 차감</div>
+    <div class="cell money start"><b>시작점</b> 고객사 대금 · 소비자 결제</div>
+    <div class="cell money">운반비 · 보관료 <span class="inf">별도 차감</span></div>
+
+    <div class="band"></div>
+    <div class="lab" style="color:var(--data)">④ 데이터<small>이름 / 보유자</small></div>
+    <div class="cell data">재배면적·작황 / 통계청<br><span class="pub y">공개</span></div>
+    <div class="cell data asset" style="border-style:solid">경락가·반입량·산지 / <b>aT 공개 API</b><br><span class="pub y">공개 · 팀 자산</span><span class="inf" style="color:#0F3F82">전국 하루 109,160행 (11/05)</span></div>
+    <div class="cell data">생산실적·가동률·로트 / 제조사<br><span class="pub n">내부</span></div>
+    <div class="cell data">상품·재고·수요 예측 / 유통사·플랫폼<br><span class="pub n">내부</span></div>
+    <div class="cell data">주문·재구매·식수 / 유통사·플랫폼<br><span class="pub n">내부</span></div>
+    <div class="cell data">배송·재고·폐기 / 물류·플랫폼 [I]<br><span class="pub n">내부</span></div>
+
+    <div class="lab" style="color:var(--data);font-size:12px">흐름</div>
+    <div class="flow" style="height:64px">
+      <svg viewBox="0 0 1000 64" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <marker id="ab" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#1C64C8"/></marker>
+          <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#C92A2A"/></marker>
+          <marker id="ag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#5C940D"/></marker>
+        </defs>
+        <path d="M250 4 C 300 30, 700 30, 750 6" fill="none" stroke="#5C940D" stroke-width="3" stroke-dasharray="7 5" marker-end="url(#ag)" vector-effect="non-scaling-stroke"/>
+        <path d="M583 8 C 540 34, 460 34, 420 8" fill="none" stroke="#1C64C8" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ab)" vector-effect="non-scaling-stroke"/>
+        <path d="M583 10 C 500 72, 160 72, 86 8" fill="none" stroke="#C92A2A" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ar)" vector-effect="non-scaling-stroke"/>
+      </svg>
+      <span class="t" style="left:36%;top:0;color:#5C940D">★ 수급 레이더: ② 공개 데이터 → ⑤ 구매 담당</span>
+      <span class="t" style="left:40%;top:22px;color:#1C64C8">피드백 ④→③ 수요 예측 → 생산 계획 [I]</span>
+      <span class="t" style="left:14%;top:44px;color:#C92A2A">✕ 단절: 주문·수요 → 산지 (6곳 모두 경로 미확인)</span>
+    </div>
+
+    <div class="band"></div>
+    <div class="lab">마커<small>병목 2 · 비용 2 · 기회 3</small></div>
+    <div class="mk"><div class="m op"><small>기회 O2</small>계약 품목 산지 기상·시세 위험 알림</div></div>
+    <div class="mk"><div class="m bn"><small>병목 B1 · 정보 재입력</small>가격·경락·산지가 흩어져 있고 날마다 크게 흔들림 (배추 변동계수 27.5%, 계산)</div></div>
+    <div class="mk"></div>
+    <div class="mk"><div class="m co"><small>비용 C1 · 중간 차감 중첩</small>수수료가 매출보다 빠르게 증가 (현대그린푸드 약 +11.2% vs +2.6%, 계산)</div></div>
+    <div class="mk"><div class="m op star"><small>★ 우선 기회 O1 · 영향 3 · 실현 3</small>평소 대비 변화 + 이유 알림 (무 −45.6%, 물량 +100.5%, 계산)</div><div class="m bn"><small>병목 B2 · 데이터 단절</small>주문·수요가 산지로 돌아가지 않음</div></div>
+    <div class="mk"><div class="m co"><small>비용 C2 · 중간 차감 중첩</small>운반·보관비 증가 (CJ 운반비 +11.5% vs 매출 +7.9%, 계산)</div><div class="m op"><small>기회 O3</small>생산자 수요 공유 리포트</div></div>
+
+    <div class="band"></div>
+    <div class="lab">Day 09 기업<small>서 있는 칸</small></div>
+    <div class="cos"><i>풀무원</i><i>오리온</i><i>현대그린푸드</i></div>
+    <div class="cos"><i>6곳 모두 매입 [I]</i></div>
+    <div class="cos"><i>풀무원</i><i>오리온</i><i>CJ</i><i>현대</i><i>컬리</i></div>
+    <div class="cos"><i>CJ프레시웨이</i><i>현대그린푸드</i><i>풀무원(푸드머스)</i><i>컬리</i><i>오아시스</i></div>
+    <div class="cos"><i>CJ·현대 → 식당·급식</i><i>컬리·오아시스 → 가정</i><i>오리온 → 대리점</i></div>
+    <div class="cos"><i>CJ</i><i>현대</i><i>컬리</i><i>오아시스</i></div>
+  </div></div>
+
+  <div class="foot">
+    <div class="box">
+      <h3>우선순위 (영향 × 실현, 각 1~3)</h3>
+      <table class="mx"><thead><tr><th>기회</th><th>영향</th><th>실현</th><th>판단</th></tr></thead><tbody>
+        <tr><td><b>★ O1 수급 레이더</b></td><td>3</td><td>3</td><td><b>먼저 간다</b> — 공개 API, 27영업일 이미 수집</td></tr>
+        <tr><td>O2 산지 위험 알림</td><td>3</td><td>2</td><td>기상 API 측정 뒤</td></tr>
+        <tr><td>O3 생산자 수요 공유</td><td>2</td><td>1</td><td>보류 — 기업 내부 데이터 필요</td></tr>
+      </tbody></table>
+    </div>
+    <div class="box">
+      <h3>범례</h3>
+      <div class="legend">
+        <span><i class="sw" style="background:var(--bn-f);box-shadow:inset 0 0 0 2px var(--bn-s)"></i>병목</span>
+        <span><i class="sw" style="background:var(--co-f);box-shadow:inset 0 0 0 2px var(--co-s)"></i>비용</span>
+        <span><i class="sw" style="background:var(--op-f);box-shadow:inset 0 0 0 1px var(--op-s)"></i>기회</span>
+        <span><i class="sw" style="background:var(--as-f);box-shadow:inset 0 0 0 2px var(--as-s)"></i>팀 자산</span>
+        <span><i class="sw" style="background:#FFF4E6"></i><b style="color:var(--money)">⇐</b> 돈 (고객 → 원천)</span>
+        <span><i class="sw" style="background:#EAF2FD;border:1.5px dashed var(--data)"></i>데이터</span>
+      </div>
+      <p class="note">숫자는 출처가 있는 계산값만: 무·배추 = aT 경매 2026-10-06~11-05 (research/metrics.csv), 비용 증가율 = 기업별 analysis.md의 공시 계산. 생산자 몫·수수료율은 공개 자료에서 찾지 못해 [U]. 근거 표: valuechain/industry/analysis.md</p>
+    </div>
+  </div>
+</main>
+</body>
+</html>

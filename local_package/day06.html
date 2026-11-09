@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 06</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body>
+<header class="hero"><div class="wrap"><nav class="tabs"><a href="../index.html" class="">← 한 줄기 전체 보기</a><a href="day04.html" class="">01 Day 04 조사</a><a href="day05.html" class="">02 Day 05 아카이브</a><a href="day06.html" class="on">03 Day 06 인벤토리</a><a href="day07.html" class="">04 Day 07 브랜드·세계관</a><a href="journey.html" class="">05 고객 유형·여정</a><a href="day08.html" class="">06 Day 08 스토리보드</a></nav>
+<div class="eyebrow">DAY 06 · 11/02 · 지역 자산 인벤토리</div><h1>Day 06 — 수집물 더미를 자산 목록으로</h1><p class="lead">수집물과 경매 데이터에서 품목·산지·데이터 자산 30개를 꺼내 1·3·5점 척도로 채점하고, 대시보드 핵심 데이터 자산 Top 3를 골랐습니다.</p></div></header>
+<main class="wrap"><div class="card table-scroll"><table class="chk"><thead><tr><th>강의 요구 산출물</th><th>이 저장소의 파일</th><th>상태</th><th>메모</th></tr></thead><tbody><tr><td>inventory_v1.xlsx (inventory · scoring · top3 시트)</td><td>inventory/inventory_v1.xlsx</td><td><span class="st ok">완료</span></td><td>scripts/build_inventory.py로 생성, 총점은 시트 수식</td></tr><tr><td>자산 30개 · 근거 id 2개 이상</td><td>inventory/inventory_v1.csv</td><td><span class="st ok">완료</span></td><td>6유형: 품목·산지·시장·위험요인·수요신호·안전규제</td></tr><tr><td>candidates.md · evidence_check.md "통과"</td><td>inventory/</td><td><span class="st ok">완료</span></td><td>근거 파일 존재 자동 검증</td></tr><tr><td>top3_rationale.md (7항목)</td><td>inventory/top3_rationale.md</td><td><span class="st ok">완료</span></td><td>공통·트랙 Top 3 나란히</td></tr><tr><td>2인 독립 채점 · 캘리브레이션</td><td>-</td><td><span class="st no">미완</span></td><td>혼자 진행 — 본인 채점 비교 예정</td></tr><tr><td>Google Sheets 공유</td><td>-</td><td><span class="st no">미완</span></td><td>개인 프로젝트라 생략</td></tr></tbody></table></div><h2><span class="n">01</span>Top 3 (트랙 가중치)</h2><p class="sub">데이터 가용성 35 · 수요 규모 25 · 위험 크기 20 · 시장성 10 · 스토리성 10</p><div class="grid g3"><div class="card"><div class="eyebrow" style="color:var(--signal)">1위 · A02</div><h3 style="margin:2px 0">양파</h3><div class="kpi"><b>4.90</b><span>트랙 총점 · 공통 1위 · 균등 1위</span></div><div style="font-size:13px;color:var(--muted);margin-top:6px">일평균 1187847kg · 5월 도매 504원/kg 평년 대비 -47.3%</div></div><div class="card"><div class="eyebrow" style="color:var(--signal)">2위 · A04</div><h3 style="margin:2px 0">무</h3><div class="kpi"><b>4.70</b><span>트랙 총점 · 공통 4위 · 균등 3위</span></div><div style="font-size:13px;color:var(--muted);margin-top:6px">일평균 1445749kg · 10월 가격 -45.6% · 물량 +100.5%</div></div><div class="card"><div class="eyebrow" style="color:var(--signal)">3위 · A03</div><h3 style="margin:2px 0">배추</h3><div class="kpi"><b>4.65</b><span>트랙 총점 · 공통 2위 · 균등 2위</span></div><div style="font-size:13px;color:var(--muted);margin-top:6px">일평균 1147004kg · 10월 가격 -44.1% · 7월 +137.8%</div></div></div><h2><span class="n">02</span>자산 30개 점수</h2><p class="sub">가중치를 바꿔도 양파·배추는 Top 3에 남습니다. 무와 가락시장이 3위를 두고 바뀝니다.</p><div class="card"><svg class="chart" viewBox="0 0 640 668" role="img" aria-label="자산 30개 트랙 가중 총점"><text x="0" y="18" font-size="12" font-weight="700" fill="var(--ink)">1. 양파</text><rect x="190" y="7" width="401.8" height="14" rx="3" fill="var(--c1)"/><text x="597.8" y="18" font-size="11.5" fill="var(--muted)">4.90</text><text x="0" y="40" font-size="12" font-weight="700" fill="var(--ink)">2. 무</text><rect x="190" y="29" width="385.4" height="14" rx="3" fill="var(--c1)"/><text x="581.4" y="40" font-size="11.5" fill="var(--muted)">4.70</text><text x="0" y="62" font-size="12" font-weight="700" fill="var(--ink)">3. 배추</text><rect x="190" y="51" width="381.3" height="14" rx="3" fill="var(--c1)"/><text x="577.3" y="62" font-size="11.5" fill="var(--muted)">4.65</text><text x="0" y="84" font-size="12" fill="var(--ink)">4. 서울 가락시장</text><rect x="190" y="73" width="360.8" height="14" rx="3" fill="var(--c3)"/><text x="556.8" y="84" font-size="11.5" fill="var(--muted)">4.40</text><text x="0" y="106" font-size="12" fill="var(--ink)">5. 전국 공영도매시장 경매</text><rect x="190" y="95" width="336.2" height="14" rx="3" fill="var(--c3)"/><text x="532.2" y="106" font-size="11.5" fill="var(--muted)">4.10</text><text x="0" y="128" font-size="12" fill="var(--ink)">6. 폭염·장마</text><rect x="190" y="117" width="315.7" height="14" rx="3" fill="var(--c4)"/><text x="511.7" y="128" font-size="11.5" fill="var(--muted)">3.85</text><text x="0" y="150" font-size="12" fill="var(--ink)">7. 전남 무안군</text><rect x="190" y="139" width="311.6" height="14" rx="3" fill="var(--c2)"/><text x="507.6" y="150" font-size="11.5" fill="var(--muted)">3.80</text><text x="0" y="172" font-size="12" fill="var(--ink)">8. 학교급식 식단(NEIS)</text><rect x="190" y="161" width="307.5" height="14" rx="3" fill="var(--c5)"/><text x="503.5" y="172" font-size="11.5" fill="var(--muted)">3.75</text><text x="0" y="194" font-size="12" fill="var(--ink)">9. 감자</text><rect x="190" y="183" width="303.4" height="14" rx="3" fill="var(--c1)"/><text x="499.4" y="194" font-size="11.5" fill="var(--muted)">3.70</text><text x="0" y="216" font-size="12" fill="var(--ink)">10. 강원 평창군</text><rect x="190" y="205" width="303.4" height="14" rx="3" fill="var(--c2)"/><text x="499.4" y="216" font-size="11.5" fill="var(--muted)">3.70</text><text x="0" y="238" font-size="12" fill="var(--ink)">11. 외식업 원가 부담</text><rect x="190" y="227" width="287.0" height="14" rx="3" fill="var(--c5)"/><text x="483.0" y="238" font-size="11.5" fill="var(--muted)">3.50</text><text x="0" y="260" font-size="12" fill="var(--ink)">12. 강원 홍천군</text><rect x="190" y="249" width="278.8" height="14" rx="3" fill="var(--c2)"/><text x="474.8" y="260" font-size="11.5" fill="var(--muted)">3.40</text><text x="0" y="282" font-size="12" fill="var(--ink)">13. 공급과잉·출하조절 정책</text><rect x="190" y="271" width="266.5" height="14" rx="3" fill="var(--c4)"/><text x="462.5" y="282" font-size="11.5" fill="var(--muted)">3.25</text><text x="0" y="304" font-size="12" fill="var(--ink)">14. 원달러 환율</text><rect x="190" y="293" width="266.5" height="14" rx="3" fill="var(--c4)"/><text x="462.5" y="304" font-size="11.5" fill="var(--muted)">3.25</text><text x="0" y="326" font-size="12" fill="var(--ink)">15. 온라인쇼핑 음식료품 거래액</text><rect x="190" y="315" width="246.0" height="14" rx="3" fill="var(--c5)"/><text x="442.0" y="326" font-size="11.5" fill="var(--muted)">3.00</text><text x="0" y="348" font-size="12" fill="var(--ink)">16. 공공급식 전자조달(eaT)</text><rect x="190" y="337" width="241.9" height="14" rx="3" fill="var(--c3)"/><text x="437.9" y="348" font-size="11.5" fill="var(--muted)">2.95</text><text x="0" y="370" font-size="12" fill="var(--ink)">17. 쌀</text><rect x="190" y="359" width="237.8" height="14" rx="3" fill="var(--c1)"/><text x="433.8" y="370" font-size="11.5" fill="var(--muted)">2.90</text><text x="0" y="392" font-size="12" fill="var(--ink)">18. 국제 곡물 가격</text><rect x="190" y="381" width="237.8" height="14" rx="3" fill="var(--c4)"/><text x="433.8" y="392" font-size="11.5" fill="var(--muted)">2.90</text><text x="0" y="414" font-size="12" fill="var(--ink)">19. 재배면적 변화</text><rect x="190" y="403" width="229.6" height="14" rx="3" fill="var(--c4)"/><text x="425.6" y="414" font-size="11.5" fill="var(--muted)">2.80</text><text x="0" y="436" font-size="12" fill="var(--ink)">20. 대파</text><rect x="190" y="425" width="225.5" height="14" rx="3" fill="var(--c1)"/><text x="421.5" y="436" font-size="11.5" fill="var(--muted)">2.75</text><text x="0" y="458" font-size="12" fill="var(--ink)">21. 식품 회수·판매중지</text><rect x="190" y="447" width="221.4" height="14" rx="3" fill="var(--c6)"/><text x="417.4" y="458" font-size="11.5" fill="var(--muted)">2.70</text><text x="0" y="480" font-size="12" fill="var(--ink)">22. 양배추</text><rect x="190" y="469" width="217.3" height="14" rx="3" fill="var(--c1)"/><text x="413.3" y="480" font-size="11.5" fill="var(--muted)">2.65</text><text x="0" y="502" font-size="12" fill="var(--ink)">23. 마늘</text><rect x="190" y="491" width="209.1" height="14" rx="3" fill="var(--c1)"/><text x="405.1" y="502" font-size="11.5" fill="var(--muted)">2.55</text><text x="0" y="524" font-size="12" fill="var(--ink)">24. 콩나물</text><rect x="190" y="513" width="184.5" height="14" rx="3" fill="var(--c1)"/><text x="380.5" y="524" font-size="11.5" fill="var(--muted)">2.25</text><text x="0" y="546" font-size="12" fill="var(--ink)">25. 식자재 구매 MD 업무</text><rect x="190" y="535" width="180.4" height="14" rx="3" fill="var(--c5)"/><text x="376.4" y="546" font-size="11.5" fill="var(--muted)">2.20</text><text x="0" y="568" font-size="12" fill="var(--ink)">26. 충남 서산시</text><rect x="190" y="557" width="176.3" height="14" rx="3" fill="var(--c2)"/><text x="372.3" y="568" font-size="11.5" fill="var(--muted)">2.15</text><text x="0" y="590" font-size="12" fill="var(--ink)">27. HACCP 인증업체</text><rect x="190" y="579" width="176.3" height="14" rx="3" fill="var(--c6)"/><text x="372.3" y="590" font-size="11.5" fill="var(--muted)">2.15</text><text x="0" y="612" font-size="12" fill="var(--ink)">28. 숙주나물</text><rect x="190" y="601" width="164.0" height="14" rx="3" fill="var(--c1)"/><text x="360.0" y="612" font-size="11.5" fill="var(--muted)">2.00</text><text x="0" y="634" font-size="12" fill="var(--ink)">29. 민간 농산물 가격 예측 서비스</text><rect x="190" y="623" width="164.0" height="14" rx="3" fill="var(--c3)"/><text x="360.0" y="634" font-size="11.5" fill="var(--muted)">2.00</text><text x="0" y="656" font-size="12" fill="var(--ink)">30. 경북 경주시</text><rect x="190" y="645" width="110.7" height="14" rx="3" fill="var(--c2)"/><text x="306.7" y="656" font-size="11.5" fill="var(--muted)">1.35</text></svg><div class="legend"><span><i style="background:var(--c1)"></i>품목</span><span><i style="background:var(--c2)"></i>산지</span><span><i style="background:var(--c3)"></i>시장</span><span><i style="background:var(--c4)"></i>위험요인</span><span><i style="background:var(--c5)"></i>수요신호</span><span><i style="background:var(--c6)"></i>안전규제</span></div></div><h2><span class="n">03</span>산출물</h2><details class="doc" open><summary><span>핵심 자산 선정 근거표</span><span class="path">inventory/top3_rationale.md</span></summary><div class="md"><h1>핵심 데이터 자산 Top 3 선정 근거표 (Day 06)</h1>
+<ul>
+<li>작성일: 2026-11-09 · 계산: <code>python scripts/build_inventory.py</code> → <a href="../inventory/scoring.csv">scoring.csv</a>, <a href="../inventory/inventory_v1.xlsx">inventory_v1.xlsx</a></li>
+<li>점수: Claude 초안을 기준표(scoring 시트 1·3·5점 문장)에 맞춰 매김. <strong>본인 채점과의 비교(캘리브레이션)는 아직 하지 않았습니다.</strong></li>
+<li>트랙 가중치(데이터·서비스): 데이터 가용성 35 · 수요 규모 25 · 위험 크기 20 · 시장성 10 · 스토리성 10</li>
+<li>공통 가중치: 스토리성 · 시장성 · 데이터 가용성 각 1/3</li>
+</ul>
+<h2>두 가중치의 Top 3</h2>
+<table>
+<thead>
+<tr>
+<th>순위</th>
+<th>트랙 가중치</th>
+<th>총점</th>
+<th>공통 가중치</th>
+<th>총점</th>
+<th>5기준 균등 (민감도)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>양파 (A02)</td>
+<td>4.90</td>
+<td>양파 (A02)</td>
+<td>4.67</td>
+<td>양파</td>
+</tr>
+<tr>
+<td>2</td>
+<td>무 (A04)</td>
+<td>4.70</td>
+<td>배추 (A03)</td>
+<td>4.67</td>
+<td>배추</td>
+</tr>
+<tr>
+<td>3</td>
+<td>배추 (A03)</td>
+<td>4.65</td>
+<td>서울 가락시장 (A16)</td>
+<td>4.33</td>
+<td>무</td>
+</tr>
+<tr>
+<td>4</td>
+<td>서울 가락시장 (A16)</td>
+<td>4.40</td>
+<td>무 (A04)</td>
+<td>4.00</td>
+<td>가락시장</td>
+</tr>
+<tr>
+<td>5</td>
+<td>전국 공영도매시장 경매 (A17)</td>
+<td>4.10</td>
+<td>외식업 원가 부담 (A26)</td>
+<td>4.00</td>
+<td>폭염·장마</td>
+</tr>
+</tbody>
+</table>
+<p><strong>[I] 가중치를 바꿔도 양파·배추는 Top 3에 남습니다.</strong> 무와 가락시장이 3위를 두고 바뀝니다. 무는 데이터·물량이 강하고, 가락시장은 이야기(밤 경매·4초 경매)가 강합니다.</p>
+<p><strong>Top 3가 모두 "품목"인 이유:</strong> 대시보드의 기본 단위가 품목이기 때문입니다. 4·5위의 가락시장·공영도매시장 경매는 세 품목 모두의 <strong>데이터 출처</strong>라서 자산이 아니라 공통 기반으로 씁니다.</p>
+<hr />
+<h2>1위 · 양파 (A02)</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>총점</td>
+<td>트랙 4.90 · 공통 4.67 (둘 다 1위)</td>
+</tr>
+<tr>
+<td>결정적 근거</td>
+<td><strong>T03</strong> — 5월 상순 양파 도매 504원/kg, 평년 대비 −47.3%, 조생종 1만5000t 출하 정지 (원문 확인)<br><strong>research/metrics.md</strong> — 10월 경매 일평균 1,187,847kg, 무안군 32.3%, 시군구 산지 비율 76%</td>
+</tr>
+<tr>
+<td>선정 이유</td>
+<td>데이터 가용성·물량·위험 크기 모두 5점인 유일한 품목입니다. 배추와 달리 상품 규격이 섞이는 품질 문제가 없습니다. 폭락(T03)·산지 피해(T07)·예측 시도(T08·R01·S06)까지 근거가 가장 많습니다.</td>
+</tr>
+<tr>
+<td>리스크 · 확인 과제</td>
+<td>10월 데이터에서는 변동계수 3.3%로 조용함 → 한 달 데이터로는 위험을 보여 주기 어려움. KAMIS 과거 가격 확보가 필요 (담당: 본인, 방법: KAMIS API 신청)</td>
+</tr>
+<tr>
+<td>다음 단계 가설</td>
+<td><strong>타깃:</strong> 양파를 대량으로 쓰는 식자재 유통사·가공업체 구매 담당자. <strong>데이터 소스:</strong> aT 경매(일), KAMIS(평년), 기상청 특보(무안·합천 등 산지)</td>
+</tr>
+<tr>
+<td>탈락 후보 비교</td>
+<td>4위 가락시장은 이야기가 강하지만 "무엇이 변했나"를 품목 없이 말할 수 없음</td>
+</tr>
+</tbody>
+</table>
+<h2>2위 · 무 (A04)</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>총점</td>
+<td>트랙 4.70 (2위) · 공통 4.00 (4위)</td>
+</tr>
+<tr>
+<td>결정적 근거</td>
+<td><strong>research/metrics.md</strong> — 10/06→11/05 kg당 가격 −45.6%, 물량 +100.5% (계산값)<br><strong>T04</strong> — 10월 무 7.1% 하락, 출하 증가로 안정세 전망 (검색 요약)</td>
+</tr>
+<tr>
+<td>선정 이유</td>
+<td>일평균 1,446t으로 물량이 가장 크고, 한 달 사이 "물량이 늘며 값이 내린" 공급 증가형 변화(M5)가 가장 선명합니다. 이유 한 줄을 데이터만으로 말할 수 있는 품목입니다.</td>
+</tr>
+<tr>
+<td>리스크 · 확인 과제</td>
+<td>경매 코드에서 "무순"과 혼동 위험(코드 11/01 확인 완료). 스토리 근거(사람들의 말)가 적음 — 기사 보강 필요</td>
+</tr>
+<tr>
+<td>다음 단계 가설</td>
+<td><strong>타깃:</strong> 급식·식당에 무를 대는 식자재 유통 MD. <strong>데이터 소스:</strong> aT 경매, 기상청(홍천 등 강원 산지)</td>
+</tr>
+<tr>
+<td>탈락 후보 비교</td>
+<td>공통 가중치에서는 가락시장이 앞서지만, 대시보드 지표를 실제로 계산할 수 있는 쪽은 무</td>
+</tr>
+</tbody>
+</table>
+<h2>3위 · 배추 (A03)</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>총점</td>
+<td>트랙 4.65 (3위) · 공통 4.67 (2위)</td>
+</tr>
+<tr>
+<td>결정적 근거</td>
+<td><strong>T01</strong> — 7월 배추 중품 6월 하순 대비 +137.8%, 한식당 운영자가 김치 반찬 대체 고민 (원문 확인)<br><strong>research/metrics.md</strong> — 10월 한 달 kg당 가격 −44.1%, 변동계수 27.5%</td>
+</tr>
+<tr>
+<td>선정 이유</td>
+<td>같은 해에 급등과 급락을 모두 보인 품목이고, 구매자(식당·급식 T13)의 곤란이 가장 직접적으로 기록되어 있습니다. 시장성·스토리성 5점입니다.</td>
+</tr>
+<tr>
+<td>리스크 · 확인 과제</td>
+<td><strong>상품이 섞여 kg당 가격이 왜곡됨</strong> (그물망 10kg 약 498원/kg vs 상자 1~2kg 8,000원/kg 이상, data_spec). 소분류·단량 분리 전에는 숫자를 그대로 보여 주면 안 됨</td>
+</tr>
+<tr>
+<td>다음 단계 가설</td>
+<td><strong>타깃:</strong> 김치·반찬을 만드는 급식·외식 구매자. <strong>데이터 소스:</strong> aT 경매(규격 분리 후), KAMIS</td>
+</tr>
+<tr>
+<td>탈락 후보 비교</td>
+<td>5위 공영도매시장 경매는 데이터 기반이지 사용자가 관심을 두는 대상이 아님</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Day 07로 넘기는 결정</h2>
+<p><strong>브랜드 페르소나의 핵심 자산은 양파(A02)로 정합니다.</strong> Top 3 중 근거 파일이 가장 많고(T03·T07·T08·R01·S06·metrics), 데이터 품질 리스크가 가장 작습니다(배추는 규격 혼재). 세 품목 모두 같은 화면에서 다루지만, 브랜드 문구와 스토리보드의 예시 품목은 양파를 먼저 씁니다.</p></div></details><details class="doc"><summary><span>inventory 시트 — 30개 · 11열</span><span class="path">inventory/inventory_v1.csv</span></summary><div class="md"><table><thead><tr><th>asset_id</th><th>자산명</th><th>유형</th><th>소재지</th><th>한줄설명</th><th>근거파일</th><th>스토리성</th><th>시장성</th><th>데이터가용성</th><th>연계사업</th><th>비고</th></tr></thead><tbody><tr><td>A01</td><td>감자</td><td>품목</td><td>전국 (주산지 강원)</td><td>경매 일평균 486t·kg당 1151원 거래되는 서류 품목</td><td>research/data/auction_item_daily.csv;research/metrics.md</td><td>3</td><td>3</td><td>5</td><td>식품;서비스</td><td>평창군 한 곳이 물량 52.9% — 산지 날씨 민감</td></tr><tr><td>A02</td><td>양파</td><td>품목</td><td>전국 (주산지 전남 무안)</td><td>경매 일평균 1188t 거래되는 조미채소. 2026년 공급과잉으로 5월 평년 대비 47.3% 하락</td><td>T03;T07;T08;research/metrics.md</td><td>5</td><td>4</td><td>5</td><td>식품;서비스</td><td>10월 경매 기준 kg당 가격 변동계수 3.3%</td></tr><tr><td>A03</td><td>배추</td><td>품목</td><td>전국 (주산지 강원)</td><td>경매 일평균 1147t. 7월 6월 하순 대비 137.8% 상승 후 10월 한 달 44.1% 하락</td><td>T01;T04;research/metrics.md</td><td>5</td><td>5</td><td>4</td><td>식품;서비스</td><td>소포장 상품 혼재로 kg당 가격 왜곡 — 소분류 분리 필요</td></tr><tr><td>A04</td><td>무</td><td>품목</td><td>전국 (주산지 강원 홍천)</td><td>경매 일평균 1446t. 10월 한 달 kg당 가격 45.6% 하락·물량 2배</td><td>T04;research/metrics.md;research/data/auction_item_daily.csv</td><td>3</td><td>4</td><td>5</td><td>식품;서비스</td><td>중분류 코드 혼동(무순) 주의</td></tr><tr><td>A05</td><td>콩나물</td><td>품목</td><td>전국</td><td>경매 일평균 20t. 공장형 생산으로 산지 시군구 비율 6%</td><td>research/data/data_spec.md;research/metrics.md</td><td>2</td><td>3</td><td>3</td><td>식품</td><td>산지·기상 지표 부적합</td></tr><tr><td>A06</td><td>숙주나물</td><td>품목</td><td>전국</td><td>경매 일평균 14t. 산지 시군구 비율 10%</td><td>research/data/data_spec.md;research/metrics.md</td><td>1</td><td>2</td><td>3</td><td>식품</td><td>산지·기상 지표 부적합</td></tr><tr><td>A07</td><td>대파</td><td>품목</td><td>전국</td><td>7월 도매가 6월 하순 대비 19.3% 상승 보도. 경매 데이터 미수집</td><td>T01;research/opendata_catalog.md</td><td>2</td><td>3</td><td>2</td><td>식품</td><td>수집 품목에 추가하면 데이터가용성 상향 가능</td></tr><tr><td>A08</td><td>양배추</td><td>품목</td><td>전국</td><td>7월 도매가 6월 하순 대비 67.7% 상승 보도. 경매 데이터 미수집</td><td>T01;research/opendata_catalog.md</td><td>2</td><td>2</td><td>2</td><td>식품</td><td>수집 품목 추가 후보</td></tr><tr><td>A09</td><td>마늘</td><td>품목</td><td>전국</td><td>깐마늘 1kg 소매 1만2755원 전년 대비 9.9% 상승 보도. KREI 관측 대상</td><td>T02;research/opendata_catalog.md</td><td>2</td><td>3</td><td>2</td><td>식품</td><td>관측 자료는 PDF</td></tr><tr><td>A10</td><td>쌀</td><td>품목</td><td>전국</td><td>20kg 6만2751원 전년 대비 16.1% 상승 보도. 국제 쌀 FOB 자료 존재</td><td>T02;research/opendata_catalog.md</td><td>2</td><td>3</td><td>3</td><td>식품</td><td>도매 경매 대상이 아님 — 별도 데이터 필요</td></tr><tr><td>A11</td><td>강원 평창군</td><td>산지</td><td>강원특별자치도 평창군</td><td>10월 경매 감자 물량 52.9%·배추 25.6%를 차지한 산지</td><td>research/data/auction_item_origin_daily.csv;research/metrics.md</td><td>3</td><td>2</td><td>4</td><td>식품;물류</td><td>약 한 달 치 기준이라 연간 주산지 아님</td></tr><tr><td>A12</td><td>강원 홍천군</td><td>산지</td><td>강원특별자치도 홍천군</td><td>10월 경매 무 물량 38.4%를 차지한 산지</td><td>research/data/auction_item_origin_daily.csv;research/metrics.md</td><td>2</td><td>2</td><td>4</td><td>식품;물류</td><td>약 한 달 치 기준</td></tr><tr><td>A13</td><td>전남 무안군</td><td>산지</td><td>전남광주통합특별시 무안군</td><td>10월 경매 양파 물량 32.3%를 차지한 산지. 6월 공급과잉 보도 지역(전남)</td><td>research/data/auction_item_origin_daily.csv;T07</td><td>4</td><td>2</td><td>4</td><td>식품;물류</td><td>T07은 전남 전체 서술 — 무안군 단위는 확인 필요</td></tr><tr><td>A14</td><td>충남 서산시</td><td>산지</td><td>충청남도 서산시</td><td>11/5 경매 배추 표본 상위 산지</td><td>research/data/data_spec.md;research/data/auction_item_origin_daily.csv</td><td>1</td><td>1</td><td>3</td><td>식품</td><td>앞쪽 1000행 표본 순위 — 전국 순위 아님</td></tr><tr><td>A15</td><td>경북 경주시</td><td>산지</td><td>경상북도 경주시</td><td>10월 경매 콩나물 물량 35.3% 산지(시군구 분류 6% 안에서)</td><td>research/data/auction_item_origin_daily.csv;research/metrics.md</td><td>1</td><td>1</td><td>2</td><td>식품</td><td>공장 소재지일 가능성 [I]</td></tr><tr><td>A16</td><td>서울 가락시장</td><td>시장</td><td>서울 송파구</td><td>하루 경매 2만8302~3만3208행. 경매 한 건 평균 4초 안팎·밤 경매</td><td>research/data/data_spec.md;T10;T11;T12</td><td>4</td><td>4</td><td>5</td><td>식품;물류;서비스</td><td>낙찰가 등락 폭이 크다는 지적(T10)</td></tr><tr><td>A17</td><td>전국 공영도매시장 경매</td><td>시장</td><td>전국 32개 시장</td><td>하루 전국 10만9160행 낙찰 기록이 API로 공개되는 거래</td><td>research/data/data_spec.md;research/opendata_catalog.md</td><td>2</td><td>3</td><td>5</td><td>식품;서비스</td><td>약 한 달만 조회됨 — 누적 수집 필요</td></tr><tr><td>A18</td><td>공공급식 전자조달(eaT)</td><td>시장</td><td>전국</td><td>입찰·낙찰·발주계획·계약 정보를 제공하는 공공급식 조달 API</td><td>research/opendata_catalog.md;T13</td><td>2</td><td>3</td><td>3</td><td>식품;서비스</td><td>세부 응답 필드 미확인</td></tr><tr><td>A19</td><td>폭염·장마</td><td>위험요인</td><td>전국 산지</td><td>7월 장마·폭염 뒤 배추·양배추·무·대파 동반 상승 보도. 기상청 예보·특보 API 존재</td><td>T01;research/opendata_catalog.md</td><td>4</td><td>3</td><td>4</td><td>식품;서비스</td><td>산지-특보 구역 연결 미검증</td></tr><tr><td>A20</td><td>공급과잉·출하조절 정책</td><td>위험요인</td><td>전국</td><td>조생종 양파 1만5000t 출하 정지·비축 15% 확대 등 정부 수급 대책</td><td>T03;T07</td><td>5</td><td>3</td><td>2</td><td>식품</td><td>정책 발표는 텍스트 — 날짜 이벤트로 기록 필요</td></tr><tr><td>A21</td><td>재배면적 변화</td><td>위험요인</td><td>전국</td><td>가을배추 재배면적 5.5% 증가·가을무 1.3% 감소 발표</td><td>T05;T09</td><td>2</td><td>2</td><td>3</td><td>식품</td><td>T05·T09는 같은 통계 인용 — 독립 출처 1건</td></tr><tr><td>A22</td><td>원달러 환율</td><td>위험요인</td><td>국외</td><td>ECOS 일별 환율. 수입 원재료 원가 요인</td><td>research/opendata_catalog.md;research/bottlenecks.md</td><td>2</td><td>2</td><td>5</td><td>식품</td><td>채소 가격과의 직접 관련은 약함</td></tr><tr><td>A23</td><td>국제 곡물 가격</td><td>위험요인</td><td>국외</td><td>밀·옥수수·대두 선물·쌀 FOB 가격 CSV</td><td>research/opendata_catalog.md;research/bottlenecks.md</td><td>2</td><td>2</td><td>4</td><td>식품</td><td>2단계 기능 후보</td></tr><tr><td>A24</td><td>식자재 구매 MD 업무</td><td>수요신호</td><td>수도권 등</td><td>원가 절감 소싱·수요 예측·시장 분석을 맡는 구매 직무 채용</td><td>J01;J04</td><td>3</td><td>4</td><td>1</td><td>서비스</td><td>J04는 제목만 확인</td></tr><tr><td>A25</td><td>학교급식 식단(NEIS)</td><td>수요신호</td><td>전국 학교</td><td>급식일자·인원·메뉴·원산지를 매일 적재하는 API</td><td>research/opendata_catalog.md;T13</td><td>3</td><td>3</td><td>5</td><td>식품;서비스</td><td>과거 보존 범위 미확인</td></tr><tr><td>A26</td><td>외식업 원가 부담</td><td>수요신호</td><td>전국</td><td>종사자 5명 미만 사업장 약 52%가 원가 상승분 미반영(KREI 2023 인용)</td><td>T02;T01</td><td>5</td><td>5</td><td>2</td><td>식품;서비스</td><td>원 조사 원문 미확인</td></tr><tr><td>A27</td><td>온라인쇼핑 음식료품 거래액</td><td>수요신호</td><td>전국</td><td>KOSIS 월별 음·식료품 거래액. 2026년 9월 잠정 3조7801억 원</td><td>research/opendata_catalog.md;research/bottlenecks.md</td><td>1</td><td>3</td><td>4</td><td>식품;서비스</td><td>월 단위라 일 단위 화면과 맞지 않음</td></tr><tr><td>A28</td><td>식품 회수·판매중지</td><td>안전규제</td><td>전국</td><td>제품명·회수사유·회수등급을 제공하는 식약처 API</td><td>research/opendata_catalog.md;research/bottlenecks.md</td><td>2</td><td>2</td><td>4</td><td>식품;서비스</td><td>3단계 기능 후보</td></tr><tr><td>A29</td><td>HACCP 인증업체</td><td>안전규제</td><td>전국</td><td>1997년 이후 인증업체·업종·인증일 API</td><td>research/opendata_catalog.md;research/bottlenecks.md</td><td>1</td><td>2</td><td>4</td><td>식품</td><td>가격 위험과 직접 관련 없음</td></tr><tr><td>A30</td><td>민간 농산물 가격 예측 서비스</td><td>시장</td><td>국내</td><td>테란·비굿·한니발 등 AI 가격 예측 서비스. 성능은 회사 발표</td><td>S04;S05;S06</td><td>3</td><td>3</td><td>2</td><td>서비스</td><td>경쟁 범위 확인 필요(고객이 생산자인지 구매자인지)</td></tr></tbody></table></div></details><details class="doc"><summary><span>scoring 시트 — 기준별 점수·총점</span><span class="path">inventory/scoring.csv</span></summary><div class="md"><table><thead><tr><th>asset_id</th><th>자산명</th><th>유형</th><th>데이터가용성</th><th>수요규모</th><th>위험크기</th><th>시장성</th><th>스토리성</th><th>트랙총점</th><th>트랙순위</th><th>공통순위</th><th>균등순위</th><th>근거수치</th></tr></thead><tbody><tr><td>A02</td><td>양파</td><td>품목</td><td>5</td><td>5</td><td>5</td><td>4</td><td>5</td><td>4.9</td><td>1</td><td>1</td><td>1</td><td>일평균 1187847kg · 5월 도매 504원/kg 평년 대비 -47.3%</td></tr><tr><td>A04</td><td>무</td><td>품목</td><td>5</td><td>5</td><td>5</td><td>4</td><td>3</td><td>4.7</td><td>2</td><td>4</td><td>3</td><td>일평균 1445749kg · 10월 가격 -45.6% · 물량 +100.5%</td></tr><tr><td>A03</td><td>배추</td><td>품목</td><td>4</td><td>5</td><td>5</td><td>5</td><td>5</td><td>4.65</td><td>3</td><td>2</td><td>2</td><td>일평균 1147004kg · 10월 가격 -44.1% · 7월 +137.8%</td></tr><tr><td>A16</td><td>서울 가락시장</td><td>시장</td><td>5</td><td>5</td><td>3</td><td>4</td><td>4</td><td>4.4</td><td>4</td><td>3</td><td>4</td><td>하루 28302~33208행</td></tr><tr><td>A17</td><td>전국 공영도매시장 경매</td><td>시장</td><td>5</td><td>5</td><td>3</td><td>3</td><td>2</td><td>4.1</td><td>5</td><td>10</td><td>8</td><td>전국 하루 109160행</td></tr><tr><td>A19</td><td>폭염·장마</td><td>위험요인</td><td>4</td><td>3</td><td>5</td><td>3</td><td>4</td><td>3.85</td><td>6</td><td>7</td><td>6</td><td>7월 배추 중품 +137.8% 원인으로 지목</td></tr><tr><td>A13</td><td>전남 무안군</td><td>산지</td><td>4</td><td>4</td><td>4</td><td>2</td><td>4</td><td>3.8</td><td>7</td><td>9</td><td>7</td><td>양파 물량 32.3%</td></tr><tr><td>A25</td><td>학교급식 식단(NEIS)</td><td>수요신호</td><td>5</td><td>4</td><td>2</td><td>3</td><td>3</td><td>3.75</td><td>8</td><td>8</td><td>12</td><td>전국 학교 매일 적재 (건수 미집계)</td></tr><tr><td>A01</td><td>감자</td><td>품목</td><td>5</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3.7</td><td>9</td><td>6</td><td>10</td><td>일평균 485848kg · 가격 변동계수 3.6% · 최대 산지 52.9%</td></tr><tr><td>A11</td><td>강원 평창군</td><td>산지</td><td>4</td><td>4</td><td>4</td><td>2</td><td>3</td><td>3.7</td><td>10</td><td>12</td><td>11</td><td>감자 물량 52.9% · 배추 25.6%</td></tr><tr><td>A26</td><td>외식업 원가 부담</td><td>수요신호</td><td>2</td><td>4</td><td>4</td><td>5</td><td>5</td><td>3.5</td><td>11</td><td>5</td><td>5</td><td>5명 미만 사업장 약 52% 원가 미반영</td></tr><tr><td>A12</td><td>강원 홍천군</td><td>산지</td><td>4</td><td>4</td><td>3</td><td>2</td><td>2</td><td>3.4</td><td>12</td><td>16</td><td>13</td><td>무 물량 38.4%</td></tr><tr><td>A20</td><td>공급과잉·출하조절 정책</td><td>위험요인</td><td>2</td><td>3</td><td>5</td><td>3</td><td>5</td><td>3.25</td><td>13</td><td>11</td><td>9</td><td>조생종 양파 1만5000t 출하 정지</td></tr><tr><td>A22</td><td>원달러 환율</td><td>위험요인</td><td>5</td><td>2</td><td>3</td><td>2</td><td>2</td><td>3.25</td><td>14</td><td>13</td><td>17</td><td>수치 미수집</td></tr><tr><td>A27</td><td>온라인쇼핑 음식료품 거래액</td><td>수요신호</td><td>4</td><td>4</td><td>1</td><td>3</td><td>1</td><td>3.0</td><td>15</td><td>20</td><td>23</td><td>2026-09 음·식료품 3조7801억 원</td></tr><tr><td>A18</td><td>공공급식 전자조달(eaT)</td><td>시장</td><td>3</td><td>4</td><td>2</td><td>3</td><td>2</td><td>2.95</td><td>16</td><td>17</td><td>16</td><td>수치 없음 [U]</td></tr><tr><td>A10</td><td>쌀</td><td>품목</td><td>3</td><td>3</td><td>3</td><td>3</td><td>2</td><td>2.9</td><td>17</td><td>15</td><td>15</td><td>쌀 20kg +16.1% (전년 대비)</td></tr><tr><td>A23</td><td>국제 곡물 가격</td><td>위험요인</td><td>4</td><td>2</td><td>3</td><td>2</td><td>2</td><td>2.9</td><td>18</td><td>18</td><td>21</td><td>수치 미수집</td></tr><tr><td>A21</td><td>재배면적 변화</td><td>위험요인</td><td>3</td><td>3</td><td>3</td><td>2</td><td>2</td><td>2.8</td><td>19</td><td>25</td><td>20</td><td>가을배추 면적 +5.5% · 가을무 -1.3%</td></tr><tr><td>A07</td><td>대파</td><td>품목</td><td>2</td><td>3</td><td>4</td><td>3</td><td>2</td><td>2.75</td><td>20</td><td>23</td><td>14</td><td>7월 +19.3% (6월 하순 대비)</td></tr><tr><td>A28</td><td>식품 회수·판매중지</td><td>안전규제</td><td>4</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2.7</td><td>21</td><td>21</td><td>24</td><td>수치 미수집</td></tr><tr><td>A08</td><td>양배추</td><td>품목</td><td>2</td><td>3</td><td>4</td><td>2</td><td>2</td><td>2.65</td><td>22</td><td>28</td><td>18</td><td>7월 +67.7% (6월 하순 대비)</td></tr><tr><td>A09</td><td>마늘</td><td>품목</td><td>2</td><td>3</td><td>3</td><td>3</td><td>2</td><td>2.55</td><td>23</td><td>24</td><td>19</td><td>깐마늘 소매 +9.9% (전년 대비)</td></tr><tr><td>A05</td><td>콩나물</td><td>품목</td><td>3</td><td>2</td><td>1</td><td>3</td><td>2</td><td>2.25</td><td>24</td><td>14</td><td>25</td><td>일평균 20356kg · 변동계수 3.8%</td></tr><tr><td>A24</td><td>식자재 구매 MD 업무</td><td>수요신호</td><td>1</td><td>3</td><td>2</td><td>4</td><td>3</td><td>2.2</td><td>25</td><td>19</td><td>22</td><td>수치 없음 (직무 공고)</td></tr><tr><td>A14</td><td>충남 서산시</td><td>산지</td><td>3</td><td>2</td><td>2</td><td>1</td><td>1</td><td>2.15</td><td>26</td><td>29</td><td>28</td><td>배추 표본 상위 (순위 수치 없음)</td></tr><tr><td>A29</td><td>HACCP 인증업체</td><td>안전규제</td><td>4</td><td>1</td><td>1</td><td>2</td><td>1</td><td>2.15</td><td>27</td><td>26</td><td>29</td><td>수치 미수집</td></tr><tr><td>A06</td><td>숙주나물</td><td>품목</td><td>3</td><td>1</td><td>2</td><td>2</td><td>1</td><td>2.0</td><td>28</td><td>27</td><td>27</td><td>일평균 14146kg · 변동계수 5.2%</td></tr><tr><td>A30</td><td>민간 농산물 가격 예측 서비스</td><td>시장</td><td>2</td><td>2</td><td>1</td><td>3</td><td>3</td><td>2.0</td><td>29</td><td>22</td><td>26</td><td>예측 오차 5%·7%대 (회사 발표)</td></tr><tr><td>A15</td><td>경북 경주시</td><td>산지</td><td>2</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1.35</td><td>30</td><td>30</td><td>30</td><td>콩나물 물량 35.3% (시군구 분류분 안)</td></tr></tbody></table></div></details><details class="doc"><summary><span>후보 정리 기록</span><span class="path">inventory/candidates.md</span></summary><div class="md"><h1>자산 후보 목록 (Day 06 · 2교시)</h1>
+<ul>
+<li>출발점: <a href="../archive/metadata.csv">archive/metadata.csv</a> 25건, <a href="../research/metrics.md">research/metrics.md</a>, <a href="../research/opendata_catalog.md">opendata_catalog.md</a>, <a href="../research/bottlenecks.md">bottlenecks.md</a></li>
+<li>수업의 "지역 자산"을 <a href="../ROADMAP.md">ROADMAP</a>대로 <strong>품목·산지·시장·위험 요인·수요 신호·안전 규제</strong> 6유형으로 바꿨습니다.</li>
+</ul>
+<h2>1. 집계</h2>
+<table>
+<thead>
+<tr>
+<th>집계</th>
+<th>결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>가장 많이 나온 품목</td>
+<td>배추(T01·T04·T05·T06·T09·T13), 양파(T03·T07·T08·R01·S06), 무(T03·T04·T05·T09)</td>
+</tr>
+<tr>
+<td>가장 많이 나온 지역</td>
+<td>전국 17 · 서울 5 (가락시장·도매시장 3) · 전남·제주·경남 1</td>
+</tr>
+<tr>
+<td>많은 유형 태그</td>
+<td>서비스 7 · 구매자 6 · 품목 5 / 적은 태그: 산지 1 · 정책 1</td>
+</tr>
+</tbody>
+</table>
+<h2>2. 후보 정리 (사람 편집 기록)</h2>
+<table>
+<thead>
+<tr>
+<th>편집</th>
+<th>내용</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>묶기</td>
+<td>"가을배추 재배면적"(T05)과 "배추·무 면적"(T09) → A21 재배면적 변화</td>
+<td>같은 통계 인용</td>
+</tr>
+<tr>
+<td>나누기</td>
+<td>"가락시장"(A16)과 "전국 공영도매시장 경매"(A17)</td>
+<td>하나는 장소·이야기, 하나는 데이터셋</td>
+</tr>
+<tr>
+<td>삭제</td>
+<td>새우젓(T06)</td>
+<td>농산물 수급 범위 밖</td>
+</tr>
+<tr>
+<td>삭제</td>
+<td>시금치·청상추(T01)</td>
+<td>근거 1건뿐, 경매 미수집</td>
+</tr>
+<tr>
+<td>바꾸기</td>
+<td>병해충 → 식자재 구매 MD 업무(A24)</td>
+<td>병해충은 독립 근거 1건(T03)뿐</td>
+</tr>
+<tr>
+<td>바꾸기</td>
+<td>수입식품 부적합 → 민간 가격 예측 서비스(A30)</td>
+<td>수입식품은 근거 파일 1개뿐</td>
+</tr>
+<tr>
+<td>추가</td>
+<td>강원 평창·홍천, 전남 무안 등 산지 5곳</td>
+<td>경매 산지 집계(origin CSV)에서 물량 상위</td>
+</tr>
+</tbody>
+</table>
+<p>결과: 30개 → <a href="../inventory/inventory_v1.csv">inventory_v1.csv</a>. 근거 검증은 <a href="../inventory/evidence_check.md">evidence_check.md</a> "통과".</p>
+<p><strong>주의:</strong> 이 편집 기록은 Claude Code가 제안하고 적은 것입니다. 수업 원칙상 묶기·나누기·삭제는 사람이 결정하므로, 본인이 다시 확인해야 합니다.</p></div></details><details class="doc"><summary><span>근거 검증 보고서</span><span class="path">inventory/evidence_check.md</span></summary><div class="md"><h1>근거 검증 보고서 (Day 06)</h1>
+<ul>
+<li>생성: <code>python scripts/build_inventory.py</code></li>
+<li>대상: inventory_v1.csv 30행 · metadata id 25개</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>asset_id</th>
+<th>문제</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>없음</td>
+</tr>
+</tbody>
+</table>
+<h2>참고</h2>
+<ul>
+<li>한줄설명 60자 초과는 수업 규칙 위반이지만 수치를 남기려고 둔 행이 있으면 여기 표시됩니다.</li>
+<li><code>T05</code>·<code>T09</code>처럼 같은 통계를 인용한 근거는 개수로는 2개지만 독립 출처는 1건입니다(A21 비고).</li>
+</ul>
+<p>통과</p></div></details><details class="doc"><summary><span>점수 계산·검증 스크립트</span><span class="path">scripts/build_inventory.py</span></summary><div class="md"><pre><code>&quot;&quot;&quot;Day 06 인벤토리 점수 계산·근거 검증·xlsx 생성.
+
+저장소 루트에서 실행:
+    python scripts/build_inventory.py
+
+입력: inventory/inventory_v1.csv (사실 열 + 공통 점수 3열), inventory/scoring_input.csv (트랙 점수 2열)
+출력: inventory/scoring.csv, inventory/top3.csv, inventory/evidence_check.md, inventory/inventory_v1.xlsx
+점수는 사람이 입력한 값이며, 이 스크립트는 계산과 검증만 한다.
+&quot;&quot;&quot;
+import csv
+import os
+import sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+INV = os.path.join(ROOT, &quot;inventory&quot;)
+
+CRITERIA = [&quot;데이터가용성&quot;, &quot;수요규모&quot;, &quot;위험크기&quot;, &quot;시장성&quot;, &quot;스토리성&quot;]
+TRACK_W = {&quot;데이터가용성&quot;: 0.35, &quot;수요규모&quot;: 0.25, &quot;위험크기&quot;: 0.20, &quot;시장성&quot;: 0.10, &quot;스토리성&quot;: 0.10}
+COMMON_W = {&quot;스토리성&quot;: 1 / 3, &quot;시장성&quot;: 1 / 3, &quot;데이터가용성&quot;: 1 / 3}
+EQUAL_W = {c: 0.2 for c in CRITERIA}
+
+
+def read_csv(path):
+    with open(path, encoding=&quot;utf-8-sig&quot;, newline=&quot;&quot;) as f:
+        return list(csv.DictReader(f))
+
+
+def write_csv(path, rows, fields):
+    with open(path, &quot;w&quot;, encoding=&quot;utf-8-sig&quot;, newline=&quot;&quot;) as f:
+        w = csv.DictWriter(f, fieldnames=fields)
+        w.writeheader()
+        w.writerows(rows)
+
+
+def weighted(row, weights):
+    return round(sum(float(row[c]) * w for c, w in weights.items()), 2)
+
+
+def main():
+    inv = read_csv(os.path.join(INV, &quot;inventory_v1.csv&quot;))
+    extra = {r[&quot;asset_id&quot;]: r for r in read_csv(os.path.join(INV, &quot;scoring_input.csv&quot;))}
+    meta_ids = {r[&quot;id&quot;] for r in read_csv(os.path.join(ROOT, &quot;archive&quot;, &quot;metadata.csv&quot;))}
+
+    # 1) 근거 검증
+    problems = []
+    for r in inv:
+        refs = [x.strip() for x in r[&quot;근거파일&quot;].split(&quot;;&quot;) if x.strip()]
+        if len(refs) &lt; 2:
+            problems.append((r[&quot;asset_id&quot;], &quot;근거 2개 미만&quot;))
+        for ref in refs:
+            ok = ref in meta_ids if &quot;/&quot; not in ref else os.path.exists(os.path.join(ROOT, ref))
+            if not ok:
+                problems.append((r[&quot;asset_id&quot;], f&quot;근거 없음: {ref}&quot;))
+        for c in [&quot;스토리성&quot;, &quot;시장성&quot;, &quot;데이터가용성&quot;]:
+            if r[c] not in {&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;}:
+                problems.append((r[&quot;asset_id&quot;], f&quot;{c} 점수 형식 오류&quot;))
+        if not r[&quot;한줄설명&quot;] or len(r[&quot;한줄설명&quot;]) &gt; 60:
+            problems.append((r[&quot;asset_id&quot;], f&quot;한줄설명 길이 {len(r[&#x27;한줄설명&#x27;])}자&quot;))
+    dup = [r[&quot;근거파일&quot;] for r in inv]
+    lines = [&quot;# 근거 검증 보고서 (Day 06)&quot;, &quot;&quot;, &quot;- 생성: `python scripts/build_inventory.py`&quot;,
+             f&quot;- 대상: inventory_v1.csv {len(inv)}행 · metadata id {len(meta_ids)}개&quot;, &quot;&quot;,
+             &quot;| asset_id | 문제 |&quot;, &quot;|---|---|&quot;]
+    lines += [f&quot;| {a} | {p} |&quot; for a, p in problems] or [&quot;| - | 없음 |&quot;]
+    lines += [&quot;&quot;, &quot;## 참고&quot;, &quot;- 한줄설명 60자 초과는 수업 규칙 위반이지만 수치를 남기려고 둔 행이 있으면 여기 표시됩니다.&quot;,
+              &quot;- `T05`·`T09`처럼 같은 통계를 인용한 근거는 개수로는 2개지만 독립 출처는 1건입니다(A21 비고).&quot;, &quot;&quot;]
+    hard = [p for p in problems if not p[1].startswith(&quot;한줄설명&quot;)]
+    lines.append(&quot;통과&quot; if not hard else &quot;불통과&quot;)
+    with open(os.path.join(INV, &quot;evidence_check.md&quot;), &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:
+        f.write(&quot;\n&quot;.join(lines) + &quot;\n&quot;)
+
+    # 2) 점수 계산
+    rows = []
+    for r in inv:
+        e = extra[r[&quot;asset_id&quot;]]
+        row = {&quot;asset_id&quot;: r[&quot;asset_id&quot;], &quot;자산명&quot;: r[&quot;자산명&quot;], &quot;유형&quot;: r[&quot;유형&quot;],
+               &quot;데이터가용성&quot;: r[&quot;데이터가용성&quot;], &quot;수요규모&quot;: e[&quot;수요규모&quot;], &quot;위험크기&quot;: e[&quot;위험크기&quot;],
+               &quot;시장성&quot;: r[&quot;시장성&quot;], &quot;스토리성&quot;: r[&quot;스토리성&quot;]}
+        row[&quot;트랙총점&quot;] = weighted(row, TRACK_W)
+        row[&quot;공통총점&quot;] = weighted(row, COMMON_W)
+        row[&quot;균등총점&quot;] = weighted(row, EQUAL_W)
+        row[&quot;근거수치&quot;] = e[&quot;근거수치&quot;]
+        row[&quot;수치출처&quot;] = e[&quot;수치출처&quot;]
+        row[&quot;근거id&quot;] = r[&quot;근거파일&quot;]
+        row[&quot;채점자&quot;] = &quot;Claude 초안(본인 검수 전)&quot;
+        rows.append(row)
+    for key in [&quot;트랙총점&quot;, &quot;공통총점&quot;, &quot;균등총점&quot;]:
+        ranked = sorted(rows, key=lambda x: (-x[key], x[&quot;asset_id&quot;]))
+        for i, x in enumerate(ranked, 1):
+            x[key.replace(&quot;총점&quot;, &quot;순위&quot;)] = i
+    fields = [&quot;asset_id&quot;, &quot;자산명&quot;, &quot;유형&quot;] + CRITERIA + [&quot;트랙총점&quot;, &quot;트랙순위&quot;, &quot;공통총점&quot;, &quot;공통순위&quot;,
+                                                    &quot;균등총점&quot;, &quot;균등순위&quot;, &quot;근거수치&quot;, &quot;수치출처&quot;, &quot;근거id&quot;, &quot;채점자&quot;]
+    rows.sort(key=lambda x: x[&quot;트랙순위&quot;])
+    write_csv(os.path.join(INV, &quot;scoring.csv&quot;), rows, fields)
+
+    top = [r for r in rows if r[&quot;트랙순위&quot;] &lt;= 5]
+    write_csv(os.path.join(INV, &quot;top3.csv&quot;), top, fields)
+
+    print(&quot;evidence:&quot;, &quot;통과&quot; if not hard else f&quot;불통과 {hard}&quot;)
+    for r in rows[:6]:
+        print(r[&quot;트랙순위&quot;], r[&quot;asset_id&quot;], r[&quot;자산명&quot;], r[&quot;트랙총점&quot;], &quot;공통&quot;, r[&quot;공통순위&quot;], &quot;균등&quot;, r[&quot;균등순위&quot;])
+    print(&quot;공통 Top3:&quot;, [r[&quot;자산명&quot;] for r in sorted(rows, key=lambda x: x[&quot;공통순위&quot;])[:3]])
+
+    # 3) xlsx
+    try:
+        from openpyxl import Workbook
+        from openpyxl.styles import Font, PatternFill
+    except ImportError:
+        print(&quot;openpyxl 없음 — xlsx 생략&quot;, file=sys.stderr)
+        return
+    wb = Workbook()
+    ws = wb.active
+    ws.title = &quot;inventory&quot;
+    head = list(inv[0].keys())
+    ws.append(head)
+    for r in inv:
+        ws.append([int(r[h]) if h in (&quot;스토리성&quot;, &quot;시장성&quot;, &quot;데이터가용성&quot;) else r[h] for h in head])
+    ws2 = wb.create_sheet(&quot;scoring&quot;)
+    ws2.append([&quot;기준&quot;, &quot;1점&quot;, &quot;3점&quot;, &quot;5점&quot;, &quot;트랙 가중치&quot;, &quot;공통 가중치&quot;, &quot;이유&quot;])
+    for line in SCALE:
+        ws2.append(line)
+    ws2.append([])
+    ws2.append(fields)
+    start = ws2.max_row + 1
+    for i, r in enumerate(rows):
+        n = start + i
+        vals = [r[f] for f in fields]
+        ws2.append([int(v) if f in CRITERIA else v for f, v in zip(fields, vals)])
+        # 트랙 총점은 시트 수식으로도 계산 (D~H = 데이터가용성~스토리성)
+        ws2.cell(row=n, column=9).value = f&quot;=ROUND(D{n}*0.35+E{n}*0.25+F{n}*0.2+G{n}*0.1+H{n}*0.1,2)&quot;
+    ws3 = wb.create_sheet(&quot;top3&quot;)
+    ws3.append([&quot;구분&quot;, &quot;1위&quot;, &quot;2위&quot;, &quot;3위&quot;])
+    for key, label in [(&quot;트랙순위&quot;, &quot;트랙 가중치 (데이터·서비스)&quot;), (&quot;공통순위&quot;, &quot;공통 가중치&quot;), (&quot;균등순위&quot;, &quot;5기준 균등 (민감도)&quot;)]:
+        ranked = sorted(rows, key=lambda x: x[key])[:3]
+        ws3.append([label] + [f&quot;{x[&#x27;자산명&#x27;]} ({x[&#x27;asset_id&#x27;]})&quot; for x in ranked])
+    for sh in (ws, ws2, ws3):
+        sh.freeze_panes = &quot;A2&quot;
+        for c in sh[1]:
+            c.font = Font(bold=True)
+            c.fill = PatternFill(&quot;solid&quot;, fgColor=&quot;E3F1EE&quot;)
+    wb.save(os.path.join(INV, &quot;inventory_v1.xlsx&quot;))
+    print(&quot;xlsx 저장&quot;)
+
+
+SCALE = [
+    [&quot;데이터가용성&quot;, &quot;텍스트 서술만 있음&quot;, &quot;반정형 자료(목록·보도 수치)나 월 단위 통계&quot;, &quot;일 단위 API·CSV를 실제 확보했거나 호출 확인&quot;, 0.35, 1 / 3, &quot;대시보드가 매일 갱신돼야 함&quot;],
+    [&quot;수요규모&quot;, &quot;거래·이용 수치 없음&quot;, &quot;보도 수치 또는 중간 규모 거래(일 100t 미만)&quot;, &quot;일 1000t 이상 거래 또는 전국 단위 이용 수치&quot;, 0.25, 0, &quot;많이 쓰는 품목일수록 사용자가 많음&quot;],
+    [&quot;위험크기&quot;, &quot;한 달 가격 변동계수 5% 미만, 급변 보도 없음&quot;, &quot;변동계수 5~20% 또는 급변 보도 1건&quot;, &quot;변동계수 20% 이상 또는 평년·전월 대비 40% 이상 급변 근거&quot;, 0.20, 0, &quot;알릴 가치가 있는 변화가 있는가&quot;],
+    [&quot;시장성&quot;, &quot;구매자의 비용·업무와 연결된 근거 없음&quot;, &quot;구매자 관련 보도 1건&quot;, &quot;구매자(식당·급식·MD)의 비용 부담 근거 2건 이상&quot;, 0.10, 1 / 3, &quot;사람이 돈·시간을 쓰는 대상인가&quot;],
+    [&quot;스토리성&quot;, &quot;이름·수치만 있음&quot;, &quot;변화의 원인 하나가 자료에 등장&quot;, &quot;원인·당사자·사건이 여러 소스에서 반복&quot;, 0.10, 1 / 3, &quot;이유를 설명할 재료가 있는가&quot;],
+]
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre></div></details>
+<p class="foot">수급 레이더 · 강의 과제용 개인 프로젝트 · 전체 흐름은 루트 <a href="../index.html">index.html</a> · 이 페이지는 <code>python scripts/build_local_package.py</code>로 md·csv 원본에서 생성했습니다. 원본 파일이 기준입니다.</p>
+</main>
+<button class="theme" id="theme" type="button">밝기 전환</button>
+<script>document.getElementById('theme').onclick=()=>{const r=document.documentElement;const d=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=d?'light':'dark';};</script>
+</body></html>

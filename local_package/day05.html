@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 05</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body>
+<header class="hero"><div class="wrap"><nav class="tabs"><a href="../index.html" class="">← 한 줄기 전체 보기</a><a href="day04.html" class="">01 Day 04 조사</a><a href="day05.html" class="on">02 Day 05 아카이브</a><a href="day06.html" class="">03 Day 06 인벤토리</a><a href="day07.html" class="">04 Day 07 브랜드·세계관</a><a href="journey.html" class="">05 고객 유형·여정</a><a href="day08.html" class="">06 Day 08 스토리보드</a></nav>
+<div class="eyebrow">DAY 05 · 10/30 · 콘텐츠 아카이빙</div><h1>Day 05 — 수집한 것을 다시 찾을 수 있는 상태로</h1><p class="lead">수집물 한 건 = metadata.csv 한 줄. 소스·URL·일시·저작권을 남기고, 기사는 요약만 저장했습니다.</p></div></header>
+<main class="wrap"><div class="card table-scroll"><table class="chk"><thead><tr><th>강의 요구 산출물</th><th>이 저장소의 파일</th><th>상태</th><th>메모</th></tr></thead><tbody><tr><td>archive/video · image · text 폴더와 파일</td><td>archive/text/ 노트 4건</td><td><span class="st part">일부</span></td><td>video·image 0건 — 보강 목록</td></tr><tr><td>archive/metadata.csv 20행 이상</td><td>archive/metadata.csv</td><td><span class="st ok">완료</span></td><td>25행 · 14열 · id 중복 0</td></tr><tr><td>tags.md · check_report.md "통과"</td><td>archive/tags.md · check_report.md</td><td><span class="st ok">완료</span></td><td>조건부 통과 (검색 요약 행 단독 근거 금지)</td></tr><tr><td>collect_sheet.csv · questions.md</td><td>archive/collect_sheet.csv · questions.md</td><td><span class="st ok">완료</span></td><td>질문 7개</td></tr><tr><td>파일명 5요소</td><td>archive/text/20261109_기사_전국_배추급등_T01.md 등</td><td><span class="st ok">완료</span></td><td>수집일_소스_장소_주제_id</td></tr></tbody></table></div><h2><span class="n">01</span>한눈에</h2><div class="grid g4"><div class="card kpi"><b>25행</b><span>metadata.csv</span></div><div class="card kpi"><b>7종</b><span>자산 유형 태그</span></div><div class="card kpi"><b>56%</b><span>가장 많은 소스(기사) 비중</span></div><div class="card kpi"><b>0건</b><span>이름·닉네임</span></div></div><h2><span class="n">02</span>분포</h2><div class="grid g2"><div class="card"><h4 style="margin:0 0 8px">유형 태그</h4><svg class="chart" viewBox="0 0 460 190" role="img"><text x="0" y="20" font-size="12.5" fill="var(--ink)">서비스</text><rect x="110" y="8" width="290.0" height="16" rx="4" fill="var(--c3)"/><text x="406.0" y="21" font-size="12" fill="var(--muted)">7건</text><text x="0" y="46" font-size="12.5" fill="var(--ink)">구매자</text><rect x="110" y="34" width="248.6" height="16" rx="4" fill="var(--c3)"/><text x="364.6" y="47" font-size="12" fill="var(--muted)">6건</text><text x="0" y="72" font-size="12.5" fill="var(--ink)">품목</text><rect x="110" y="60" width="207.1" height="16" rx="4" fill="var(--c3)"/><text x="323.1" y="73" font-size="12" fill="var(--muted)">5건</text><text x="0" y="98" font-size="12.5" fill="var(--ink)">시장</text><rect x="110" y="86" width="124.3" height="16" rx="4" fill="var(--c3)"/><text x="240.3" y="99" font-size="12" fill="var(--muted)">3건</text><text x="0" y="124" font-size="12.5" fill="var(--ink)">데이터</text><rect x="110" y="112" width="82.9" height="16" rx="4" fill="var(--c3)"/><text x="198.9" y="125" font-size="12" fill="var(--muted)">2건</text><text x="0" y="150" font-size="12.5" fill="var(--ink)">정책</text><rect x="110" y="138" width="41.4" height="16" rx="4" fill="var(--c3)"/><text x="157.4" y="151" font-size="12" fill="var(--muted)">1건</text><text x="0" y="176" font-size="12.5" fill="var(--ink)">산지</text><rect x="110" y="164" width="41.4" height="16" rx="4" fill="var(--c3)"/><text x="157.4" y="177" font-size="12" fill="var(--muted)">1건</text></svg></div><div class="card"><h4 style="margin:0 0 8px">저작권 표기</h4><svg class="chart" viewBox="0 0 460 60" role="img"><text x="0" y="20" font-size="12.5" fill="var(--ink)">요약만(저작권)</text><rect x="110" y="8" width="290.0" height="16" rx="4" fill="var(--c4)"/><text x="406.0" y="21" font-size="12" fill="var(--muted)">18건</text><text x="0" y="46" font-size="12.5" fill="var(--ink)">확인필요</text><rect x="110" y="34" width="112.8" height="16" rx="4" fill="var(--c4)"/><text x="228.8" y="47" font-size="12" fill="var(--muted)">7건</text></svg></div></div><h2><span class="n">03</span>산출물</h2><details class="doc" open><summary><span>metadata.csv — 수집물 25건</span><span class="path">archive/metadata.csv</span></summary><div class="md"><table><thead><tr><th>id</th><th>type</th><th>source</th><th>title</th><th>creator</th><th>published_at</th><th>license</th><th>tags</th><th>summary</th></tr></thead><tbody><tr><td>T01</td><td>text</td><td>기사</td><td>김치 반찬을 뭐로 대체하죠 금값된 배추값 6월 하순보다 최대 138% 상승</td><td>뉴데일리</td><td>2026-07-13</td><td>요약만(저작권)</td><td>유형:품목|주제:급등|활용:가격</td><td>KAMIS 7/10 도매가 기준 배추 중품이 6월 하순 대비 137.8% 오름. 양배추·무·시금치·대파도 동반 상승. 수도권 한식당 운영자는 김치 반찬 대체를 고민. 원인으로 장마·폭염 지목</td></tr><tr><td>T02</td><td>text</td><td>기사</td><td>가격 올리면 손님 안 오잖아요 원가 폭등 버티는 사장님</td><td>머니투데이</td><td>2026-04-03</td><td>요약만(저작권)</td><td>유형:구매자|주제:원가전가|활용:운영</td><td>쌀·깐마늘·계란 가격 상승. KREI 2023년 조사 인용 종사자 5명 미만 사업장 약 52%가 원가 상승분을 판매가에 반영 못 함. 영세 업체는 부담이 누적되는 구조라는 연구자 발언</td></tr><tr><td>T03</td><td>text</td><td>기사</td><td>배추·무·양파값 폭락 선제 대응 비축 확대·출하 정지 추진</td><td>뉴시스</td><td>2026-05-12</td><td>요약만(저작권)</td><td>유형:정책|주제:폭락|활용:가격</td><td>5월 상순 양파 도매 kg당 504원으로 평년 대비 47.3% 하락. 배추·무도 평년보다 낮음. 정부는 비축 시기를 앞당기고 물량을 15% 늘리며 조생종 양파 1만5000t 출하 정지</td></tr><tr><td>T04</td><td>text</td><td>기사</td><td>배추 10.3%·무 7.1% 하락 출하 늘어 안정세 전망</td><td>경북매일</td><td>2026-10-18</td><td>요약만(저작권)</td><td>유형:품목|주제:하락|활용:가격</td><td>10월 중순 배추 10.3% 무 7.1% 하락하고 출하가 늘어 안정세 전망. 소매·도매 기준 여부는 원문 재확인 필요(검색 요약만 확인)</td></tr><tr><td>T05</td><td>text</td><td>기사</td><td>2026년 가을배추·무 재배면적조사</td><td>한국농어민신문 계열 매체(재확인 필요)</td><td>2026-10</td><td>요약만(저작권)</td><td>유형:품목|주제:공급|활용:가격</td><td>국가데이터처 조사 가을배추 재배면적 1만3909ha로 전년 대비 5.5% 증가. 가을무 5749ha로 1.3% 감소(검색 요약만 확인)</td></tr><tr><td>T06</td><td>text</td><td>기사</td><td>배추·무값 내렸는데 새우젓 32.5% 급등 김장철 촉각</td><td>뉴스토마토</td><td>2026-10</td><td>요약만(저작권)</td><td>유형:품목|주제:하락|활용:가격</td><td>김장철을 앞두고 배추·무 가격은 내렸지만 새우젓 등 부재료가 올랐다는 보도(제목·검색 요약만 확인)</td></tr><tr><td>T07</td><td>text</td><td>기사</td><td>중국산보다 싼 국산 양파 공급과잉에 밭 갈아엎는 농민들</td><td>서울신문</td><td>2026-06-23</td><td>요약만(저작권)</td><td>유형:산지|주제:폭락|활용:가격</td><td>2026년산 양파 단위면적당 수확량 증가로 공급과잉. 가격 전년보다 30% 이상 하락. 산지에서 수확 포기 사례(검색 요약만 확인)</td></tr><tr><td>T08</td><td>text</td><td>기사</td><td>양파가격 얘기만 하면 눈물난다 폭락 양파 디지털로 생산량 예측</td><td>헤럴드경제</td><td>2026-06-16</td><td>요약만(저작권)</td><td>유형:데이터|주제:예측|활용:가격</td><td>양파 생산량 통계를 만드는 현장 르포. 디지털 방식으로 생산량을 예측해 가격 전망에 쓰려는 시도(검색 요약만 확인)</td></tr><tr><td>T09</td><td>text</td><td>기사</td><td>가격 오른 배추 재배면적 증가 내림세 무는 감소</td><td>SBS Biz</td><td>2026-10</td><td>요약만(저작권)</td><td>유형:품목|주제:공급|활용:가격</td><td>가을배추 재배면적 증가와 무 재배면적 감소를 다룬 보도. T05와 같은 통계청 발표를 인용한 것으로 보여 교차검증에서는 1건으로 셈(검색 요약만 확인)</td></tr><tr><td>T10</td><td>text</td><td>기사</td><td>가락시장만 잡으면 농산물 유통 문제 해결될까</td><td>주간경향</td><td>2025-09-15</td><td>요약만(저작권)</td><td>유형:시장|주제:변동성|활용:가격</td><td>전국 농민과 상인이 가락시장 낙찰가를 가격 기준으로 쓰지만 그날 수요·공급에 따라 등락 폭이 크다는 지적(검색 요약만 확인)</td></tr><tr><td>T11</td><td>text</td><td>기사</td><td>농수산물도매시장 채소·과일 경매 현장 르포</td><td>아시아경제</td><td>2025-10-17</td><td>요약만(저작권)</td><td>유형:시장|주제:가격결정|활용:가격</td><td>경매 가격 결정의 핵심 주체로 중도매인을 꼽음. 낙찰가가 생산량보다 중도매인 거래처 수요에 좌우된다는 중도매인 측 주장 소개(검색 요약만 확인)</td></tr><tr><td>T12</td><td>text</td><td>기사</td><td>상생의 가락시장 유통 패러다임 바꾼 가락시장 40년</td><td>서울신문</td><td>2025-06-16</td><td>요약만(저작권)</td><td>유형:시장|주제:경매구조|활용:운영</td><td>밤 10시 반 채소동 경매 시작. 중도매인 30여 명이 응찰기로 참여하고 경매 한 건이 평균 4초 안팎이라는 현장 묘사(검색 요약만 확인)</td></tr><tr><td>T13</td><td>text</td><td>기사</td><td>초·중·고 급식비 물가상승 비해 턱없이 부족(2022 국감)</td><td>한국교육신문</td><td>2022-10</td><td>요약만(저작권)</td><td>유형:구매자|주제:원가전가|활용:운영</td><td>2022년 2학기 학교급식 식품비는 평균 8.7% 인상됐지만 배춧값은 전년 동월 대비 78% 상승. 급식 부실화 우려(검색 요약만 확인 오래된 자료)</td></tr><tr><td>T14</td><td>text</td><td>기사</td><td>공공급식 딜레마 커진 매출 얇아진 마진 수익성 한계</td><td>뉴스토마토(이비토마토)</td><td>미확인</td><td>요약만(저작권)</td><td>유형:구매자|주제:마진|활용:운영</td><td>급식업체 매출은 늘었지만 마진이 얇아지는 구조를 다룬 기획 기사(제목만 확인 본문 미확인)</td></tr><tr><td>J01</td><td>text</td><td>채용공고</td><td>스마트푸드네트웍스 농산 MD</td><td>원티드</td><td>상시</td><td>확인필요</td><td>유형:구매자|주제:업무|활용:운영</td><td>외식업 식자재 유통 기업의 농산 MD 공고. 주요 업무에 우수 상품 소싱을 통한 원가 절감과 수요 예측·시장·경쟁사 분석이 포함. 농산물 구매 경험 요구</td></tr><tr><td>J02</td><td>text</td><td>채용공고</td><td>마켓보로 채용(B2B 식자재 유통 푸드테크)</td><td>데모데이</td><td>미확인</td><td>확인필요</td><td>유형:서비스|주제:업무|활용:운영</td><td>B2B 식자재 유통 문제를 푸는 플랫폼 기업의 채용 페이지. 직무 상세는 미확인(검색 결과 제목만 확인)</td></tr><tr><td>J03</td><td>text</td><td>채용공고</td><td>국내 유명 프랜차이즈 구매 담당(헤드헌팅)</td><td>리멤버 커리어</td><td>미확인</td><td>확인필요</td><td>유형:구매자|주제:업무|활용:운영</td><td>프랜차이즈 본사 구매 직무 헤드헌팅 공고. 업무 상세는 미확인(검색 결과 제목만 확인)</td></tr><tr><td>J04</td><td>text</td><td>채용공고</td><td>식자재마트 농산 구매MD 경력사원 모집</td><td>캐치</td><td>미확인</td><td>확인필요</td><td>유형:구매자|주제:업무|활용:운영</td><td>식자재마트 농산 구매MD 경력 공고. 상세 업무는 미확인(검색 요약에서 제목만 확인)</td></tr><tr><td>S01</td><td>text</td><td>기존서비스</td><td>KAMIS 농산물유통정보 소개 기사</td><td>한국경제</td><td>2025-09-07</td><td>요약만(저작권)</td><td>유형:서비스|주제:가격정보|활용:가격</td><td>aT가 운영하는 KAMIS는 소매 95품목·도매 76품목 가격을 평일 조사해 공개. 홈페이지 공개는 2003년 가격조사는 1983년 시작. 마트 할인가 일부는 반영하지 않음(검색 요약만 확인)</td></tr><tr><td>S02</td><td>text</td><td>기존서비스</td><td>aT 농수산물 종합정보(도매시장 경락)</td><td>한국농수산식품유통공사</td><td>상시</td><td>확인필요</td><td>유형:서비스|주제:가격정보|활용:가격</td><td>도매시장 경락 정보를 보여 주는 aT 사이트로 안내됨. 화면 기능은 직접 확인하지 않음[U]</td></tr><tr><td>S03</td><td>text</td><td>기존서비스</td><td>농넷(산지 동향)</td><td>한국농수산식품유통공사</td><td>상시</td><td>확인필요</td><td>유형:서비스|주제:산지정보|활용:가격</td><td>산지 동향을 보여 주는 사이트로 안내됨. 화면 기능은 직접 확인하지 않음[U]</td></tr><tr><td>S04</td><td>text</td><td>기존서비스</td><td>데이터가 농업을 바꾼다 록야가 심는 혁신의 씨앗</td><td>바이라인네트워크</td><td>2024-02-02</td><td>요약만(저작권)</td><td>유형:서비스|주제:예측|활용:가격</td><td>록야(팜에어)의 농산물 데이터 플랫폼 테란은 변수 데이터를 AI로 분석해 평균 가격을 예측한다는 소개(검색 요약만 확인 회사 측 설명)</td></tr><tr><td>S05</td><td>text</td><td>기존서비스</td><td>못난이농산물 살리는 에스앤이컴퍼니 AI 가격예측 ISO 인증</td><td>유니콘팩토리</td><td>2025-01-24</td><td>요약만(저작권)</td><td>유형:서비스|주제:예측|활용:가격</td><td>과일·채소 상위 10개 품목 D+30 가격 예측 평균 오차 7%대라는 보도. ISO 25023 인증. 수치는 회사 측 발표(검색 요약만 확인)</td></tr><tr><td>S06</td><td>text</td><td>기존서비스</td><td>바르카 대표 인터뷰 AI 농산물 가격·생산 예측</td><td>한경매거진</td><td>2025-03-13</td><td>요약만(저작권)</td><td>유형:서비스|주제:예측|활용:가격</td><td>2022년 설립 스타트업. 양파·마늘 가격과 생산 정보를 5% 이내 오차로 예측한다고 소개. 회사 측 주장이며 소프트웨어는 시제품 단계(검색 요약만 확인)</td></tr><tr><td>R01</td><td>text</td><td>연구보고서</td><td>KREI 양파 가격 예측 정확도 향상 AI 연구(E2026-03)</td><td>한국농촌경제연구원</td><td>2026-06</td><td>확인필요</td><td>유형:데이터|주제:예측|활용:가격</td><td>양파 가격 예측 정확도를 높이는 AI 기반 연구 보고서. 본문 미확인(검색 요약만 확인)</td></tr></tbody></table></div></details><details class="doc"><summary><span>점검 보고서</span><span class="path">archive/check_report.md</span></summary><div class="md"><h1>아카이브 점검 보고서 (Day 05 · Day 06 피드백 기준)</h1>
+<ul>
+<li>점검일: 2026-11-09 · 대상: <a href="../archive/metadata.csv">metadata.csv</a> 25행</li>
+<li>점검: Claude Code 자동 점검 + 원문 대조 표본 4건 (웹 읽기)</li>
+</ul>
+<h2>1. 형식 점검</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>기준</th>
+<th>결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>행 수</td>
+<td>20 이상</td>
+<td>25 ✅</td>
+</tr>
+<tr>
+<td>id 중복</td>
+<td>0</td>
+<td>0 ✅</td>
+</tr>
+<tr>
+<td>url 빈칸</td>
+<td>0</td>
+<td>0 ✅</td>
+</tr>
+<tr>
+<td>license 값</td>
+<td>세 값 중 하나로 통일</td>
+<td><code>요약만(저작권)</code> 18 · <code>확인필요</code> 7 ✅</td>
+</tr>
+<tr>
+<td>열</td>
+<td>14열</td>
+<td>14열 ✅</td>
+</tr>
+<tr>
+<td>이름·닉네임</td>
+<td>0건</td>
+<td>0건 ✅ (역할로만 표기)</td>
+</tr>
+<tr>
+<td>원본 파일 저장</td>
+<td>공공누리 자료만</td>
+<td>이미지·영상 원본 0건 ✅</td>
+</tr>
+</tbody>
+</table>
+<h2>2. 다섯 관점 점검 (Day 06 피드백 기준)</h2>
+<table>
+<thead>
+<tr>
+<th>관점</th>
+<th>좋은 상태</th>
+<th>결과</th>
+<th>판정</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>근거</td>
+<td>모든 행에 URL·게시일·license</td>
+<td>게시일 <code>미확인</code> 4행 (T14, J02~J04)</td>
+<td>⚠ 보강</td>
+</tr>
+<tr>
+<td>다양성</td>
+<td>한 소스 70% 이하, 장소 3곳 이상, 유형 태그 3종 이상</td>
+<td>기사 56% · 장소 6종 · 유형 7종</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>기록 품질</td>
+<td>표본 3건 대조 일치</td>
+<td>원문 확인 4건(T01·T02·T03·J01) 모두 일치. 단 T02는 제목과 본문 화자가 달라 태그 수정</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>활용 가능성</td>
+<td>트랙 태그 10건 이상, 수치 표</td>
+<td><code>활용:가격</code> 17건 · <code>활용:운영</code> 8건, 수치 표 <a href="../research/metrics.md">metrics.md</a></td>
+<td>✅</td>
+</tr>
+<tr>
+<td>저작권·개인정보</td>
+<td>원본 저장은 공공누리만</td>
+<td>요약만 저장</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h2>3. 원문 대조 표본</h2>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>요약의 핵심 수치</th>
+<th>원문</th>
+<th>결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T01</td>
+<td>배추 중품 +137.8% (6월 하순 대비, KAMIS 7/10)</td>
+<td>같음</td>
+<td>일치</td>
+</tr>
+<tr>
+<td>T02</td>
+<td>5명 미만 사업장 약 52% 미반영 (KREI 2023 인용)</td>
+<td>같음</td>
+<td>일치, 화자 수정</td>
+</tr>
+<tr>
+<td>T03</td>
+<td>양파 도매 504원/kg, 평년 대비 −47.3%</td>
+<td>같음</td>
+<td>일치</td>
+</tr>
+<tr>
+<td>J01</td>
+<td>원가 절감 소싱, 수요 예측·시장 분석</td>
+<td>같음</td>
+<td>일치</td>
+</tr>
+</tbody>
+</table>
+<h2>4. 보강 목록 (관점 · 대상 행 · 담당 · 완료)</h2>
+<table>
+<thead>
+<tr>
+<th>관점</th>
+<th>대상</th>
+<th>담당</th>
+<th>완료</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>근거</td>
+<td>T04~T14 중 검색 요약 10건 원문 확인</td>
+<td>본인</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>근거</td>
+<td>J02~J04 원문 확인, 게시일 기록</td>
+<td>본인</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>다양성</td>
+<td>유튜브 5건 (video/)</td>
+<td>본인 (Aside)</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>다양성</td>
+<td>구매자 본인의 말 10건 (커뮤니티)</td>
+<td>본인 (Aside)</td>
+<td>☐</td>
+</tr>
+</tbody>
+</table>
+<h2>판정</h2>
+<p><strong>통과 (조건부).</strong> 형식·다양성·기록 품질 기준을 충족합니다. 검색 요약만 본 행은 인벤토리에서 단독 근거로 쓰지 않습니다. 이 판정은 Claude Code의 점검이며, 표본 대조를 본인이 다시 확인해야 최종 통과입니다.</p>
+<p>통과</p></div></details><details class="doc"><summary><span>태그 규칙</span><span class="path">archive/tags.md</span></summary><div class="md"><h1>태그 규칙 (Day 05)</h1>
+<p><code>metadata.csv</code>의 <code>tags</code> 열은 세 층을 <code>|</code>로 잇습니다. 예: <code>유형:품목|주제:급등|활용:가격</code></p>
+<h2>1층 · 유형 (자산 유형, 하나만)</h2>
+<table>
+<thead>
+<tr>
+<th>값</th>
+<th>뜻</th>
+<th>건수</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>품목</td>
+<td>특정 농산물의 가격·공급 이야기</td>
+<td>5</td>
+</tr>
+<tr>
+<td>산지</td>
+<td>재배지 현장</td>
+<td>1</td>
+</tr>
+<tr>
+<td>시장</td>
+<td>도매시장·경매 구조</td>
+<td>3</td>
+</tr>
+<tr>
+<td>정책</td>
+<td>정부 수급 대책</td>
+<td>1</td>
+</tr>
+<tr>
+<td>구매자</td>
+<td>식당·급식·구매 담당자</td>
+<td>6</td>
+</tr>
+<tr>
+<td>서비스</td>
+<td>기존 가격·예측 서비스 (J02 포함)</td>
+<td>7</td>
+</tr>
+<tr>
+<td>데이터</td>
+<td>통계·예측 방법</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<h2>2층 · 주제 (자유 입력, 아래 표준어 우선)</h2>
+<p>급등 · 하락 · 폭락 · 공급 · 변동성 · 가격결정 · 경매구조 · 원가전가 · 마진 · 업무 · 가격정보 · 산지정보 · 예측</p>
+<h2>3층 · 활용 (트랙 활용 태그)</h2>
+<table>
+<thead>
+<tr>
+<th>값</th>
+<th>데이터·서비스 트랙에서 쓰는 곳</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>가격</td>
+<td>품목 수급판·지표 정의의 근거</td>
+</tr>
+<tr>
+<td>운영</td>
+<td>사용자 세그먼트·화면 흐름의 근거</td>
+</tr>
+</tbody>
+</table>
+<h2>파일명 5요소</h2>
+<p><code>&lt;수집일&gt;_&lt;소스&gt;_&lt;장소&gt;_&lt;주제&gt;_&lt;id&gt;.md</code> — 예: <code>20261109_기사_전국_배추급등_T01.md</code></p>
+<h2>폴더 3종</h2>
+<table>
+<thead>
+<tr>
+<th>폴더</th>
+<th>넣는 것</th>
+<th>현재</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>archive/text/</code></td>
+<td>기사·공고·서비스 요약 노트</td>
+<td>원문 확인 4건 노트</td>
+</tr>
+<tr>
+<td><code>archive/image/</code></td>
+<td>공공누리 이미지만 원본 저장, 그 외는 설명 노트</td>
+<td>0건</td>
+</tr>
+<tr>
+<td><code>archive/video/</code></td>
+<td>영상 자막 요약 노트</td>
+<td>0건 (보강 필요)</td>
+</tr>
+</tbody>
+</table></div></details><details class="doc"><summary><span>수집 시트</span><span class="path">archive/collect_sheet.csv</span></summary><div class="md"><table><thead><tr><th>source</th><th>question</th><th>target</th><th>collected</th><th>verified</th><th>folder</th><th>id_range</th><th>next_action</th></tr></thead><tbody><tr><td>기사</td><td>Q1 가격 급변 때 구매자는 무엇이 곤란한가</td><td>10</td><td>14</td><td>3</td><td>archive/text</td><td>T01-T14</td><td>검색 요약 10건 원문 확인</td></tr><tr><td>채용공고</td><td>Q2 구매 담당자의 실제 업무</td><td>5</td><td>4</td><td>1</td><td>archive/text</td><td>J01-J04</td><td>원문 확인 3건과 1건 추가</td></tr><tr><td>기존서비스</td><td>Q3 기존 서비스는 어디까지 하나</td><td>5</td><td>6</td><td>0</td><td>archive/text</td><td>S01-S06</td><td>KAMIS·농넷 화면 직접 확인</td></tr><tr><td>연구보고서</td><td>Q4 예측은 어디까지 믿을 수 있나</td><td>2</td><td>1</td><td>0</td><td>archive/text</td><td>R01</td><td>KREI 보고서 본문 확인</td></tr><tr><td>유튜브</td><td>Q5 시장·산지 사람들의 말</td><td>5</td><td>0</td><td>0</td><td>archive/video</td><td>-</td><td>Node·yt-dlp 설치 후 자막 요약</td></tr><tr><td>커뮤니티</td><td>Q6 식당·급식 운영자의 불만</td><td>10</td><td>0</td><td>0</td><td>archive/text</td><td>-</td><td>Aside로 공개 글 수집</td></tr></tbody></table></div></details><details class="doc"><summary><span>남은 질문</span><span class="path">archive/questions.md</span></summary><div class="md"><h1>남은 질문 (Day 05 → Day 06 이후)</h1>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>질문</th>
+<th>왜 필요한가</th>
+<th>답할 방법</th>
+<th>상태</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>구매 담당자는 시세를 하루 몇 번, 어디서 보나</td>
+<td>알림 빈도와 첫 화면 결정</td>
+<td>채용공고·인터뷰 3명</td>
+<td>미답</td>
+</tr>
+<tr>
+<td>2</td>
+<td>"평소"를 무엇으로 정의해야 납득하나 (평년·전년·4주 평균)</td>
+<td>지표 M1의 기준</td>
+<td>KAMIS 평년 가격 확인, 사용자 질문</td>
+<td>미답</td>
+</tr>
+<tr>
+<td>3</td>
+<td>경매 가격(<code>scsbd_prc</code>)은 정말 단량당 가격인가</td>
+<td>모든 가격 지표의 단위</td>
+<td>KAMIS 같은 날짜 가격과 대조</td>
+<td>미답 [U]</td>
+</tr>
+<tr>
+<td>4</td>
+<td>산지 시군구를 기상특보 구역에 연결할 수 있나</td>
+<td>산지 위험 지도</td>
+<td>기상청 특보 API 시험</td>
+<td>미답 [U]</td>
+</tr>
+<tr>
+<td>5</td>
+<td>KAMIS·농넷이 이미 "이유"를 보여 주나</td>
+<td>차별점 확인</td>
+<td>사이트 화면 직접 확인 (S01~S03)</td>
+<td>미답</td>
+</tr>
+<tr>
+<td>6</td>
+<td>민간 예측 서비스(S04~S06)의 고객은 구매자인가 생산자인가</td>
+<td>경쟁 범위</td>
+<td>서비스 소개 페이지 원문</td>
+<td>미답</td>
+</tr>
+<tr>
+<td>7</td>
+<td>소규모 식당도 대상에 넣을 것인가</td>
+<td>세그먼트 범위</td>
+<td>Day 07 세그먼트 정의에서 결정</td>
+<td><strong>답함</strong> → 3개 세그먼트 중 하나로 두되 첫 대상은 아님 (<a href="../plan/segment_definition.md">segment_definition.md</a>)</td>
+</tr>
+</tbody>
+</table></div></details><details class="doc"><summary><span>요약 노트 예시 · T01</span><span class="path">archive/text/20261109_기사_전국_배추급등_T01.md</span></summary><div class="md"><h1>T01 · 배추값 6월 하순 대비 최대 138% 상승</h1>
+<ul>
+<li>URL: https://biz.newdaily.co.kr/site/data/html/2026/07/13/2026071300099.html</li>
+<li>매체·게재일: 뉴데일리 · 2026-07-13 · 수집일 2026-11-09 · 저작권: 요약만 저장</li>
+<li>근거 수준: 원문 확인 (웹 읽기)</li>
+</ul>
+<h2>요약</h2>
+<ul>
+<li>[F] KAMIS 7월 10일 도매가 기준, 배추 중품 포기당 2,656원으로 6월 하순 1,117원 대비 137.8% 상승. 양배추 +67.7%, 무 중품 +40.8%, 시금치 +34.7%, 대파 +19.3%.</li>
+<li>[F] 청상추·오이·애호박은 하락.</li>
+<li>[F] 6월에는 작황 호조·출하 증가로 낮았다가 7월 장마·폭염으로 반등했다고 설명.</li>
+<li>[F] 수도권 한식당 운영자: 김치·겉절이는 빼기 어려운 반찬이라 다른 채소로 대체할지 고민.</li>
+<li>[F] 원재료 가격이 바로 메뉴 가격에 반영되지는 않고 계약 물량·재고에 따라 시기가 다르다는 업계 설명.</li>
+</ul>
+<h2>이 프로젝트에서</h2>
+<p>급등·급락 전환(인사이트 1), 대체 품목 고민(인사이트 2)의 근거.</p></div></details><details class="doc"><summary><span>요약 노트 예시 · J01</span><span class="path">archive/text/20261109_채용공고_서울_농산MD_J01.md</span></summary><div class="md"><h1>J01 · 농산 MD 채용 (식자재 유통 기업)</h1>
+<ul>
+<li>URL: https://www.wanted.co.kr/wd/387558</li>
+<li>출처·게시: 원티드 · 상시 채용 · 수집일 2026-11-09 · 저작권: 확인 필요 (요약만 저장)</li>
+<li>근거 수준: 원문 확인 (웹 읽기)</li>
+</ul>
+<h2>요약</h2>
+<ul>
+<li>[F] 외식업 식자재 유통·디지털 플랫폼 기업의 농산 MD, 경력 5~11년.</li>
+<li>[F] 주요 업무: 매출·이익 전략, 신상품·협력사 개발, <strong>우수 상품 소싱을 통한 원가 절감, 수요 예측, 시장·트렌드·경쟁사 분석</strong>, 성과 분석.</li>
+<li>[F] 자격: 농산물 구매 경험, 농산 카테고리 구매·MD 2년 이상, 식자재 유통 이해, 운전 가능.</li>
+</ul>
+<h2>이 프로젝트에서</h2>
+<p>구매 담당자 페르소나의 "하는 일"과 "필요한 정보"(수요 예측·시장 분석)의 근거.</p></div></details>
+<p class="foot">수급 레이더 · 강의 과제용 개인 프로젝트 · 전체 흐름은 루트 <a href="../index.html">index.html</a> · 이 페이지는 <code>python scripts/build_local_package.py</code>로 md·csv 원본에서 생성했습니다. 원본 파일이 기준입니다.</p>
+</main>
+<button class="theme" id="theme" type="button">밝기 전환</button>
+<script>document.getElementById('theme').onclick=()=>{const r=document.documentElement;const d=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=d?'light':'dark';};</script>
+</body></html>

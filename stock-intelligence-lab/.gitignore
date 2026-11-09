@@ -1,0 +1,24 @@
+# 비밀정보
+.env
+.env.*
+!.env.example
+*.key
+
+# 작업용 원본 (약관상 재배포 불가 · 용량 큼). 다시 받는 방법은 README "실행해 보기"
+research/data/raw/*
+!research/data/raw/.gitkeep
+
+# Yahoo 데이터 정리본 (약관상 재배포 불가)
+research/data/prices_*.csv
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS / 에디터
+.DS_Store
+Thumbs.db
+.vscode/
+*.log

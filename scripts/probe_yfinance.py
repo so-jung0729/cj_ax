@@ -3,7 +3,7 @@
 사용법:
     python scripts/probe_yfinance.py AAPL MSFT NVDA SPY
 
-결과: archive/yfinance/<ticker>_daily_max.csv (커밋 제외) + 콘솔 요약
+결과: research/data/raw/yfinance/<ticker>_daily_max.csv (커밋 제외) + 콘솔 요약
 """
 import sys
 from datetime import date
@@ -11,7 +11,7 @@ from pathlib import Path
 
 import yfinance as yf
 
-OUT_DIR = Path(__file__).resolve().parents[1] / "archive" / "yfinance"
+OUT_DIR = Path(__file__).resolve().parents[1] / "research" / "data" / "raw" / "yfinance"
 
 
 def probe(ticker: str) -> dict:

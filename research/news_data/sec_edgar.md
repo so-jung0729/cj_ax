@@ -36,4 +36,4 @@
 |---|---|---|---|---|
 | 1 | https://www.sec.gov/search-filings/edgar-search-assistance/accessing-edgar-data | A (공식 안내) | 2024-06-26 최종 검토 | 2026-11-10 |
 | 2 | https://www.sec.gov/files/company_tickers.json | A (실측: 403) | 2026-11-10 | 2026-11-10 |
-| 3 | `https://data.sec.gov/submissions/CIK0000320193.json` 실측 → `archive/sec/20261110_sec_aapl_submissions.json` | A (실측) | 2026-11-06 공시까지 | 2026-11-10 |
+| 3 | `https://data.sec.gov/submissions/CIK0000320193.json` 실측 → `research/data/archive/sec/20261110_sec_aapl_submissions.json` | A (실측) | 2026-11-06 공시까지 | 2026-11-10 |

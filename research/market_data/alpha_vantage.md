@@ -17,7 +17,7 @@
 - 뉴스 AAPL: `feed` 50건, 필드 `title, url, time_published, summary, source, overall_sentiment_score/label, ticker_sentiment[]`
   - `time_published` 형식 `20261109T121405` (초 단위), **시간대 표기 없음**
   - `ticker_sentiment[]` 안에 `ticker, relevance_score, ticker_sentiment_score/label` → 종목 연결과 관련성 점수를 바로 쓸 수 있음 [4]
-- 원본: `archive/20261110_alphavantage_*_demo.json` (커밋 제외)
+- 원본: `research/data/raw/alphavantage/20261110_alphavantage_*_demo.json` (커밋 제외)
 
 ## 3. 서비스 관점에서 눈에 띄는 점
 1. **종목별 관련성 점수(relevance_score)** 가 기사마다 붙어 있어 `news_tickers` 테이블을 거의 그대로 만들 수 있다.

@@ -11,7 +11,7 @@ import pandas as pd
 import yfinance as yf
 
 ROOT = Path(__file__).resolve().parents[1]
-AV_FILE = ROOT / "archive" / "20261110_alphavantage_ibm_daily_demo.json"
+AV_FILE = ROOT / "research" / "data" / "raw" / "alphavantage" / "20261110_alphavantage_ibm_daily_demo.json"
 
 
 def load_alpha_vantage(path: Path) -> pd.DataFrame:

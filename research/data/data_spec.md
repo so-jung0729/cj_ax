@@ -1,6 +1,6 @@
 # 원천 데이터셋 명세 v0 (Day 03 과제)
 
-정리본은 `data/processed/`, 만드는 코드는 `scripts/build_day03_tables.py`, 원본은 `archive/`(커밋 제외).
+데이터는 모두 `research/data/` 한 곳에 있다. 정리본 CSV는 이 폴더 바로 아래, 재배포 가능한 원본은 `archive/`(커밋), 약관상 재배포 불가·작업용 원본은 `raw/`(커밋 제외), 호출 확인 기록은 `checks/`. 만드는 코드는 `scripts/build_day03_tables.py`.
 Day 6 인벤토리의 "데이터 가용성" 점수는 이 명세의 완성도로 매긴다.
 
 ---

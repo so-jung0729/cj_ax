@@ -38,5 +38,5 @@
 |---|---|---|---|---|
 | 1 | https://www.gdeltproject.org/about.html | A (공식 이용 조건) | 확인 시점 현재 | 2026-11-10 |
 | 2 | DOC 2.0 API 실측 (`query="Apple Inc"`, 429 응답) | A (실측) | 2026-11-10 | 2026-11-10 |
-| 3 | `https://data.gdeltproject.org/gdeltv2/lastupdate.txt` + gkg 파일 실측 → `archive/gdelt/` | A (실측) | 2026-11-09 16:00 배치 | 2026-11-10 |
+| 3 | `https://data.gdeltproject.org/gdeltv2/lastupdate.txt` + gkg 파일 실측 → `research/data/archive/gdelt/` | A (실측) | 2026-11-09 16:00 배치 | 2026-11-10 |
 | 4 | http://data.gdeltproject.org/documentation/GDELT-Global_Knowledge_Graph_Codebook-V2.1.pdf | A (공식 코드북) | 2015-03 작성 | 2026-11-10 |

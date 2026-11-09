@@ -1,6 +1,6 @@
-"""Day 03 과제: 원본(archive/)을 열 이름을 통일한 정리본 CSV 3종으로 만든다.
+"""Day 03 과제: 원본(research/data/raw · archive)을 열 이름을 통일한 정리본 CSV 3종으로 만든다.
 
-출력 (data/processed/):
+출력 (research/data/):
   prices_daily.csv          yfinance 일봉, 종목 여러 개를 세로로 합침 (Yahoo 약관상 커밋 제외)
   sec_filings_aapl.csv      SEC EDGAR AAPL 최근 공시 목록
   gdelt_gkg_sample.csv      GDELT GKG 15분 파일 1개에서 뽑은 기사 목록
@@ -18,13 +18,15 @@ from pathlib import Path
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
-ARCHIVE = ROOT / "archive"
-OUT = ROOT / "data" / "processed"
+DATA = ROOT / "research" / "data"
+RAW = DATA / "raw"
+ARCHIVE = DATA / "archive"
+OUT = DATA
 
 
 def build_prices() -> pd.DataFrame:
     frames = []
-    for f in sorted((ARCHIVE / "yfinance").glob("*_daily_max.csv")):
+    for f in sorted((RAW / "yfinance").glob("*_daily_max.csv")):
         df = pd.read_csv(f)
         ticker = f.name.split("_daily_max")[0].upper()
         # 원본 Date는 시간대가 붙은 문자열(예: 1980-12-12 00:00:00-05:00) → 거래소 현지 날짜만 남김

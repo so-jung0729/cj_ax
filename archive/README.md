@@ -1,5 +1,6 @@
-# archive/ — 수집 원본 (강의 Day 04~05)
+# archive/ — 사용자·현장 조사 자료 (강의 Day 04~05)
 
-- 용도: API 응답 샘플(JSON/CSV), 수집한 VOC·뉴스 샘플 + metadata.csv (수집물 1건 = 1행)
-- 파일 예시: 20261110_alphavantage_aapl_daily.json, voc_appreview_toss_001.md
-- 파일명 규칙: 수집일_출처_대상_내용 (영문 소문자 + 밑줄). 라이선스상 공개 불가 원본은 .gitignore 대상
+- 용도: 기존 주식 서비스 리뷰·커뮤니티 글 같은 VOC 수집물과 `metadata.csv` (수집물 1건 = 1행)
+- API로 받은 가격·공시·뉴스 데이터는 여기가 아니라 `research/data/`에 둔다
+- 파일 예시: `voc/voc_reviews.csv`, `text/20261111_review_toss_001.md`
+- 파일명 규칙: 수집일_출처_대상_번호 (영문 소문자 + 밑줄). 개인정보는 지우고 저장

@@ -1,0 +1,216 @@
+<title>Stock Intelligence Lab 학습 노트</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: 읽기 앱처럼 한 열 리스트. 홈 = 회차(Day) 목록, 회차 = 한 화면짜리 읽을거리 */
+:root{
+  --bg:#f6f7f9; --surface:#ffffff; --ink:#15191f; --muted:#5b6472; --line:#e3e6eb;
+  --accent:#0b6e4f; --accent-soft:#e3f2ec; --plan:#7a5c00; --plan-soft:#fbf1d3;
+  --font-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#101318; --surface:#181c22; --ink:#e8ebef; --muted:#9aa3b0; --line:#2a3039;
+  --accent:#4fc79a; --accent-soft:#163428; --plan:#e6c25a; --plan-soft:#352c12; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#101318; --surface:#181c22; --ink:#e8ebef; --muted:#9aa3b0; --line:#2a3039;
+  --accent:#4fc79a; --accent-soft:#163428; --plan:#e6c25a; --plan-soft:#352c12; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.7;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:680px;margin:0 auto}
+a{color:inherit}
+h1,h2,h3{text-wrap:balance;line-height:1.35;margin:0}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+
+/* 상단 */
+.top{padding-block:28px 20px}
+.eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+.top h1{font-size:28px;font-weight:700;margin-top:6px}
+.top p{color:var(--muted);margin:8px 0 0}
+.progress{display:flex;align-items:center;gap:12px;margin-top:18px}
+.bar{flex:1;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent)}
+.progress span{font-family:var(--font-mono);font-size:13px;color:var(--muted)}
+
+/* 회차 목록 */
+.list{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.item a{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:start;text-decoration:none;
+  background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.item a:hover{border-color:var(--accent)}
+.item a:focus-visible,.nav a:focus-visible,.back:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.num{font-family:var(--font-mono);font-weight:600;font-size:22px;line-height:1;color:var(--muted)}
+.num small{display:block;font-size:11px;font-weight:500;margin-top:6px;letter-spacing:.02em}
+.item.done .num{color:var(--accent)}
+.body{min-width:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:13px;color:var(--muted)}
+.chip{font-size:12px;font-weight:600;padding:1px 8px;border-radius:999px}
+.chip.done{background:var(--accent-soft);color:var(--accent)}
+.chip.plan{background:var(--plan-soft);color:var(--plan)}
+.item h2{font-size:18px;font-weight:700;margin-top:4px}
+.core{margin:6px 0 0;color:var(--ink)}
+
+/* 회차 상세 */
+.back{display:inline-flex;gap:6px;align-items:center;margin-top:20px;font-size:14px;color:var(--muted);text-decoration:none}
+.head{padding-block:14px 8px;border-bottom:1px solid var(--line)}
+.head h1{font-size:26px;font-weight:700;margin-top:8px}
+.lead{font-size:19px;font-weight:600;line-height:1.55;margin:18px 0 0;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+section{margin-top:28px}
+section h3{font-size:13px;font-family:var(--font-mono);letter-spacing:.08em;color:var(--muted);text-transform:uppercase;font-weight:600}
+section ul{margin:10px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+section li::marker{color:var(--muted)}
+section p{margin:10px 0 0}
+.files{list-style:none;padding:0}
+.files li{font-family:var(--font-mono);font-size:13.5px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 10px;overflow-wrap:anywhere}
+.tbl{overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;color:var(--muted);font-weight:600}
+td.n{font-family:var(--font-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.note{font-size:14px;color:var(--muted);margin-top:8px}
+.nav{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:36px}
+.nav a{display:block;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-width:0}
+.nav a small{display:block;font-size:12px;color:var(--muted)}
+.nav a.next{text-align:right}
+.nav a:hover{border-color:var(--accent)}
+footer{margin-top:40px;font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.view{animation:in .18s ease-out}@keyframes in{from{transform:translateY(4px)}to{transform:none}}}
+</style>
+
+<div class="wrap" id="app"></div>
+
+<script>
+const DAYS = [
+{ n:1, date:"10/26", lecture:"온보딩", title:"목표와 계획 세우기", status:"done",
+  core:"6주 뒤 결과물을 '만든다 · 검증한다 · 증명한다' 세 가지로 정한다.",
+  lectureCore:["학습계획서 5항목: 6주 뒤 나의 모습, 완성할 결과물, 익힐 역량 3가지, 주간 점검, 도움이 필요한 영역","좋은 목표: 결과물로 확인 가능하고, 6주 안에 가능하고, AI 활용이 드러난다","포트폴리오 한 줄: 무엇을 · AI로 어떻게 · 결과 측정값"],
+  doHere:["프로젝트 한 줄 소개 작성","학습계획서 초안 작성","강의 Day 1~11과 프로젝트 산출물을 잇는 매핑표 작성"],
+  outputs:["docs/day01_learning_plan.md","docs/lecture_mapping.md"],
+  results:["완성할 결과물: 종목 분석 · 예측 · 백테스트를 볼 수 있는 배포된 웹서비스 1개","서비스 가설 3가지를 미검증 상태로 기록: 관심 회사 이슈 키워드, 모델 예측, 로그인 없는 포트폴리오"] },
+
+{ n:2, date:"10/27", lecture:"Local 모듈 오리엔테이션", title:"저장소와 리서치 규칙", status:"done",
+  core:"대화가 아니라 파일로 남기고, 숫자와 라이선스는 A·B 등급 출처에서만 가져온다.",
+  lectureCore:["Git 기초: 저장소 · 커밋 · push · pull, 작은 커밋과 메시지 규칙","리서치 루프 5단계: 질문 정의 → 검색·수집 → 출처 등급 확인 → 교차검증 → 저장·기록","출처 등급: A 공식 원문 · B 공공기관·연구 · C 언론 · D 개인·커뮤니티","할루시네이션 신호: 출처 없는 숫자, 너무 매끄러운 이야기, 열리지 않는 링크, 동명 혼동, 최신성 불명"],
+  doHere:["폴더 뼈대와 폴더별 README 만들기","CLAUDE.md에 리서치 규칙 고정","키워드 맵 6유형: 가격 · 뉴스 · 공시 · 시장 · 사용자 VOC · 경쟁 서비스","가격 데이터 제공처를 실제로 호출해서 노트로 정리"],
+  outputs:["CLAUDE.md","research/keyword_map.md","research/market_data/alpha_vantage.md","research/market_data/yfinance.md","research/market_data/stooq.md","scripts/probe_yfinance.py"],
+  results:["Alpha Vantage: 무료 키는 개인·비상업 용도만 허용. 수정주가와 뉴스 API는 유료","yfinance: 7개 종목 모두 22~45년치 일봉 확보 (아래 표)","Yahoo 약관: 개인 용도 라이선스이고 자동 수집 금지 → 로컬 학습용으로만 사용","Stooq: 스크립트 요청에 브라우저 검증 페이지가 뜸 → 수동 교차검증용 보조 소스"],
+  table:{head:["종목","시작일","기간"],rows:[["AAPL","1980-12-12","45.9년"],["MSFT","1986-03-13","40.7년"],["SPY","1993-01-29","33.8년"],["AMZN","1997-05-15","29.5년"],["NVDA","1999-01-22","27.8년"],["삼성전자","2000-01-04","26.8년"],["GOOGL","2004-08-19","22.2년"]],note:"yfinance 1.8.0, 2026-11-09 종가까지, 2026-11-10 실측"},
+  left:["GitHub 원격 저장소 연결","과제 노트 4개: GDELT · SEC EDGAR · Nasdaq Data Link · Finnhub"] },
+
+{ n:3, date:"10/28", lecture:"지역 자산 조사 방법론 1", title:"데이터 소스 분류와 교차검증", status:"plan",
+  core:"주장 한 줄에 독립 출처 두 개를 나란히 둔다. 데이터 값도 두 소스로 대조한다.",
+  lectureCore:["분류 판정 3기준: 고유성 · 지속성 · 활용성","공공데이터 찾기 5단계: 집계 대상으로 번역 → 자료원 선택 → 명세 읽기 → 내려받기·저장 → 노트 기록","교차검증 표: 주장 한 줄 옆에 출처 두 개","Claude in Chrome으로 로그인·클릭이 필요한 자료 수집"],
+  doHere:["뉴스·공시 소스의 API 명세 읽기 (GDELT, SEC EDGAR)","yfinance 종가·분할 값을 다른 소스와 대조","소스별 상업 이용 조건을 교차검증 표로 정리","뉴스 발행시각의 시간대와 가격 시계열 매칭 가능성 확인"],
+  outputs:["docs/license_matrix.md","research/news_data/gdelt.md","research/news_data/sec_edgar.md","docs/cross_check.md"] },
+
+{ n:4, date:"10/29", lecture:"지역 자산 조사 방법론 2", title:"기존 주식 서비스 사용자 VOC", status:"plan",
+  core:"사람들의 말에서 기존 주식 사이트·앱의 문제를 찾는다.",
+  lectureCore:["디지털 필드워크: 앱 리뷰 · 커뮤니티 · 영상 자막 같은 1차 자료","리뷰 읽기 3축: 감정 × 주제 × 여정 단계","이용약관 · 개인정보 · 저작권의 허용과 금지 경계","AI 분류 검증: 무작위 추출 → 원문 대조 → 오분류 기록 → 기준 문서화"],
+  doHere:["증권앱·주식 사이트 리뷰와 커뮤니티 글 100건 내외를 CSV로 수집","감정 · 주제 · 여정 단계로 태깅하고 표본 검사","차트 3개로 불만이 몰리는 지점 확인","종목 뉴스 샘플 수집과 이용약관 정리"],
+  outputs:["archive/voc/voc_reviews.csv","research/users_competitors/voc_analysis.md"] },
+
+{ n:5, date:"10/30", lecture:"콘텐츠 아카이빙", title:"수집 데이터 아카이빙", status:"plan",
+  core:"모은 데이터를 다시 찾을 수 있는 상태로 만든다. 한 건이 한 행이다.",
+  lectureCore:["폴더 3종과 파일명 5요소","metadata.csv: 수집물 한 건 = 한 행","태그 체계 3층: 유형 · 경험 · 활용","수집은 사람, 정리는 Claude Code, 확인은 다시 사람"],
+  doHere:["가격 · 뉴스 · VOC 원본의 저장 구조와 파일명 규칙 확정","metadata.csv에 출처 · 수집시각 · 데이터 기간 · 라이선스 상태 기록","정리 · CSV 생성 · 검증 3단계 프롬프트로 일괄 정리"],
+  outputs:["archive/metadata.csv","docs/archive_rules.md"] },
+
+{ n:6, date:"11/02", lecture:"지역 자산 인벤토리", title:"데이터 소스 인벤토리와 선정", status:"plan",
+  core:"점수만 남기지 않고, 점수 뒤의 '왜'를 문장으로 남긴다.",
+  lectureCore:["인벤토리 구조: 사실 열과 평가 열을 분리","가중 총점 Σ(점수 × 가중치)","캘리브레이션: 따로 채점하고 차이를 맞추기","Top 3 선정 근거표"],
+  doHere:["소스별 사실 열: 기간 · 필드 · 호출 한도 · 비용 · 상업 이용 조건","평가 열: 학습 적합성 · 서비스 표시 가능성 · 비용 · 안정성","학습용 Top 3와 서비스 표시용 Top 3를 따로 선정"],
+  outputs:["inventory/data_source_inventory.csv","inventory/scoring.md","inventory/top3_rationale.md"] },
+
+{ n:7, date:"11/03", lecture:"브랜드 페르소나 · 세계관", title:"서비스 페르소나와 규칙 파일", status:"plan",
+  core:"말하는 쪽(서비스)과 듣는 쪽(투자자)을 나누고, 둘 다 파일로 고정한다.",
+  lectureCore:["브랜드 페르소나 vs 고객 페르소나","고객 페르소나: 상황 → 행동 → 동기 → 불만, 인구통계는 마지막","톤앤매너 Do / Don't","세계관 바이블을 SKILL.md로 바꿔 AI가 따르게 하기"],
+  doHere:["서비스 톤: 예측에는 근거와 한계를 같이 말하고, 매수·매도 권유 표현은 쓰지 않는다","개인투자자 페르소나 1~2명","화면 문구용 스킬 파일"],
+  outputs:["persona/service_persona.md","persona/user_persona_01.md","persona/skills/"] },
+
+{ n:8, date:"11/04", lecture:"디지털 내러티브 스토리보드", title:"화면 흐름 v0", status:"plan",
+  core:"사용자 여정 → 화면 → 필요한 데이터를 한 표로 잇는다.",
+  lectureCore:["스토리 4단계: 훅 · 전개 · 전환 · 행동유도","데이터·서비스 가이드: 사용자 여정 → 화면 → 데이터","표를 주고 화면 시안 받기"],
+  doHere:["관심 회사 클릭 → 이슈 키워드 → 예측 → 포트폴리오 흐름 그리기","화면마다 필요한 데이터와 출처 표","화면 시안 v0"],
+  outputs:["screens/screen_flow_v0.md","screens/screen_data_map.md"] },
+
+{ n:9, date:"11/05", lecture:"K-라이프스타일 산업 구조", title:"경쟁 서비스 원페이지", status:"plan",
+  core:"사실 · 해석 · 출처를 분리해서 경쟁 서비스를 한 장에 비교한다.",
+  lectureCore:["사업 모델 읽는 6가지 질문","공시·IR은 '사업의 내용'부터 읽기","원페이지 8칸, 출처 번호 필수","서브에이전트로 주제를 나눠 병렬 리서치 후 취합"],
+  doHere:["토스증권 · 네이버페이 증권 · Yahoo Finance · Seeking Alpha 등 비교","종목 이슈 · 전망 · 포트폴리오를 각각 어떻게 보여주는지","수익 모델 비교 (광고 · 수수료 · 구독)","종목별 예측 공개가 투자자문·유사투자자문에 해당하는지 확인"],
+  outputs:["research/users_competitors/onepage.md"] },
+
+{ n:10, date:"11/06", lecture:"산업 밸류체인 맵핑", title:"데이터 흐름도", status:"plan",
+  core:"단계마다 어떤 데이터가 누구 손에 있고, 어디서 돈과 시간이 드는지 표시한다.",
+  lectureCore:["밸류체인 4층: 활동 · 이해관계자 · 돈 · 데이터","단계별 3렌즈: 병목 · 비용 · 기회","기회 우선순위: 영향 × 실현 가능성","Claude Code로 Mermaid 초안 → 사람이 검증"],
+  doHere:["소스 → 수집 → 검증 → DB → 피처 → 모델 → 추론 → 백테스트 → API → 웹","비용 표시: API 요금, 서버, 모델 추론","병목 표시: 호출 한도, 뉴스·가격 시간대 정합","라이선스 경계 표시: 학습용 데이터와 서비스 표시 데이터"],
+  outputs:["docs/data_flow.md"] },
+
+{ n:11, date:"11/09", lecture:"페인포인트 도출", title:"개인투자자 페인포인트", status:"plan",
+  core:"VOC 근거로 문제 Top 3를 먼저 정하고, 기능은 그다음에 고른다.",
+  lectureCore:["고객 여정 지도: 한 사람 · 한 목표 · 단계별 경험","VOC 분류 3축과 페인포인트 진술문: 누가 · 언제 · 무엇을 · 막히는 이유","우선순위: 빈도 · 강도 · 해결 가능성"],
+  doHere:["Day 4 VOC로 개인투자자 여정 지도 작성","기존 서비스 페인포인트 Top 3","서비스 가설 3가지를 채택 · 수정 · 폐기"],
+  outputs:["research/users_competitors/journey_map.html","docs/painpoints.md"] }
+];
+
+const pad = n => String(n).padStart(2,"0");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const chip = s => s==="done" ? '<span class="chip done">완료</span>' : '<span class="chip plan">예정</span>';
+const list = (items, cls="") => `<ul class="${cls}">${items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`;
+
+function home(){
+  const done = DAYS.filter(d=>d.status==="done").length;
+  return `<div class="view">
+  <header class="top">
+    <div class="eyebrow">개인 프로젝트 · 강의 Day별 실습</div>
+    <h1>Stock Intelligence Lab</h1>
+    <p>주가·거래량과 금융 뉴스로 종목을 분석하고, 예측이 실제 투자에 도움이 되는지 백테스트로 확인하는 웹 서비스를 만드는 기록.</p>
+    <div class="progress"><div class="bar"><i style="width:${done/DAYS.length*100}%"></i></div><span>${done} / ${DAYS.length} 완료</span></div>
+  </header>
+  <ol class="list">
+  ${DAYS.map(d=>`<li class="item ${d.status}"><a href="#day-${pad(d.n)}">
+    <div class="num">${pad(d.n)}<small>${d.date}</small></div>
+    <div class="body">
+      <div class="meta">${chip(d.status)}<span>${esc(d.lecture)}</span></div>
+      <h2>${esc(d.title)}</h2>
+      <p class="core">${esc(d.core)}</p>
+    </div></a></li>`).join("")}
+  </ol>
+  <footer>정보 제공 · 학습 목적의 개인 프로젝트이며 투자 권유가 아닙니다.</footer>
+  </div>`;
+}
+
+function detail(d){
+  const i = DAYS.indexOf(d), prev = DAYS[i-1], next = DAYS[i+1];
+  const tbl = d.table ? `<div class="tbl"><table><thead><tr>${d.table.head.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${
+    d.table.rows.map(r=>`<tr><td>${r[0]}</td><td class="n">${r[1]}</td><td class="n">${r[2]}</td></tr>`).join("")}</tbody></table></div><p class="note">${esc(d.table.note)}</p>` : "";
+  return `<div class="view">
+  <a class="back" href="#">← 전체 목록</a>
+  <header class="head">
+    <div class="meta"><span class="mono">DAY ${pad(d.n)} · ${d.date}</span>${chip(d.status)}<span>강의: ${esc(d.lecture)}</span></div>
+    <h1>${esc(d.title)}</h1>
+  </header>
+  <p class="lead">${esc(d.core)}</p>
+  <section><h3>강의 핵심</h3>${list(d.lectureCore)}</section>
+  <section><h3>이 프로젝트에서 할 일</h3>${list(d.doHere)}</section>
+  ${d.results ? `<section><h3>결과</h3>${list(d.results)}${tbl}</section>` : ""}
+  ${d.left ? `<section><h3>남은 일</h3>${list(d.left)}</section>` : ""}
+  <section><h3>${d.status==="done"?"만든 파일":"만들 파일"}</h3>${list(d.outputs,"files")}</section>
+  <nav class="nav">
+    ${prev?`<a href="#day-${pad(prev.n)}"><small>이전 · DAY ${pad(prev.n)}</small>${esc(prev.title)}</a>`:"<span></span>"}
+    ${next?`<a class="next" href="#day-${pad(next.n)}"><small>다음 · DAY ${pad(next.n)}</small>${esc(next.title)}</a>`:"<span></span>"}
+  </nav>
+  </div>`;
+}
+
+function render(){
+  const m = location.hash.match(/^#day-(\d{2})$/);
+  const d = m && DAYS.find(x=>x.n===Number(m[1]));
+  document.getElementById("app").innerHTML = d ? detail(d) : home();
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", render);
+render();
+</script>

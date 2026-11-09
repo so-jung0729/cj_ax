@@ -39,7 +39,7 @@
 ## 처음 방문했다면 이 순서로 보세요
 
 1. **이 README:** 목적, 수업과의 관계, 현재 상태
-2. **[Day별 결과 화면](https://htmlpreview.github.io/?https://github.com/so-jung0729/cj_ax/blob/main/stock-intelligence-lab/index.html):** 교시마다 배운 것 · 이 프로젝트에서 한 것 · 결과. 열리지 않으면 저장소를 내려받아 `stock-intelligence-lab/index.html`을 브라우저로 여세요.
+2. **[Day별 결과 화면 (cjax.vercel.app)](https://cjax.vercel.app):** 교시마다 배운 것 · 이 프로젝트에서 한 것 · 결과. 열리지 않으면 저장소를 내려받아 `stock-intelligence-lab/index.html`을 브라우저로 여세요.
 3. **[교차검증 표](research/crosscheck.md):** 데이터 소스에 대한 주장 20개와 판정
 4. **[데이터 명세](research/data/data_spec.md):** 실제로 확보한 데이터, 열 정의, 한계
 5. **소스별 노트:** [yfinance](research/market_data/yfinance.md) · [Alpha Vantage](research/market_data/alpha_vantage.md) · [SEC EDGAR](research/news_data/sec_edgar.md) · [GDELT](research/news_data/gdelt.md) · [Stooq](research/market_data/stooq.md)

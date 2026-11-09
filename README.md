@@ -2,8 +2,8 @@
 >
 > | 프로젝트 | 내용 | 폴더 | 상태 (2026-11-10) |
 > |---|---|---|---|
-> | **[Stock Intelligence Lab](stock-intelligence-lab/README.md)** | 주가·거래량과 금융 뉴스로 종목을 분석하고, 예측을 백테스트로 검증하는 웹 서비스. 강의 Day 1~11을 따라 진행 | `stock-intelligence-lab/` | 강의 Day 1~3 완료: 가격 22~45년치 · SEC 공시 · GDELT 뉴스 확보, 주장 20개 교차검증 · [Day별 결과 화면](https://htmlpreview.github.io/?https://github.com/so-jung0729/cj_ax/blob/main/stock-intelligence-lab/index.html) |
-> | **수급 레이더 (가칭)** | 농식품 수급 정보 웹 서비스 (아래 본문) | 저장소 루트 | 단계 1: 데이터 검증 중 |
+> | **[Stock Intelligence Lab](stock-intelligence-lab/README.md)** | 주가·거래량과 금융 뉴스로 종목을 분석하고, 예측을 백테스트로 검증하는 웹 서비스. 강의 Day 1~11을 따라 진행 | `stock-intelligence-lab/` | 강의 Day 1~3 완료: 가격 22~45년치 · SEC 공시 · GDELT 뉴스 확보, 주장 20개 교차검증 · [Day별 결과 화면](https://cjax.vercel.app) |
+> | **수급 레이더 (가칭)** | 농식품 수급 정보 웹 서비스 (아래 본문) | 저장소 루트 | 단계 1: 데이터 검증 중 · [과제 결과 화면](https://cjax.vercel.app/index.html) |
 
 # 수급 레이더 (가칭)
 

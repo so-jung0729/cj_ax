@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>업계 밸류체인 v1 · 주식 정보 산업</title>
+<style>
+:root{--ink:#111418;--ink2:#4A5159;--ink3:#6B727A;--line:#E6E8EB;--band:#F5F6F7;--accent:#FFD400;--teal:#00594A;--bad:#D9480F;--ok:#2B8A3E;--blue:#1C64C8}
+*{box-sizing:border-box} html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#fff;color:var(--ink);font-family:Pretendard,"Malgun Gothic","Apple SD Gothic Neo",sans-serif;line-height:1.5;word-break:keep-all}
+header{background:var(--ink);color:#EEF3F1;padding:24px 16px}
+header div,main{max-width:1180px;margin:0 auto}
+.eyebrow{color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.06em}
+h1{margin:4px 0 6px;font-size:clamp(22px,4vw,30px);font-weight:900}
+header p{margin:0;color:#C9D3CF}
+main{padding:20px 16px 48px}
+.scroll{overflow-x:auto}
+.vc{display:grid;grid-template-columns:110px repeat(5,minmax(170px,1fr));gap:6px;min-width:1000px;font-size:13.5px}
+.h{background:var(--ink);color:#fff;border-radius:10px;padding:8px 10px;font-weight:800}
+.h:first-child{background:none}
+.lab{font-weight:800;font-size:12.5px;color:var(--ink2);padding:8px 2px}
+.c{background:var(--band);border-radius:10px;padding:8px 10px}
+.c b{display:block}
+.co{display:inline-block;font-size:12px;font-weight:800;background:#fff;border:1px solid var(--line);border-radius:99px;padding:0 8px;margin:2px 3px 0 0}
+.co.us{background:#E6F4F1;border-color:var(--teal);color:var(--teal)}
+.money{color:var(--bad)} .data{color:var(--blue)}
+.m{display:inline-block;font-size:11px;font-weight:800;border-radius:6px;padding:0 6px;margin:4px 4px 0 0;color:#fff}
+.m.b{background:var(--bad)} .m.k{background:#B08900} .m.o{background:var(--ok)} .m.s{background:#7048E8}
+h2{font-size:18px;margin:28px 0 8px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td,th{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{font-size:12.5px;color:var(--ink2)}
+.tw{overflow-x:auto}
+.note{font-size:13px;color:var(--ink3)}
+</style>
+</head>
+<body>
+<header><div>
+  <div class="eyebrow">DAY 10 확장 · 업계 밸류체인 · 기업 6곳 통합</div>
+  <h1>데이터는 위에서 사고, 돈은 두 번 빠진다</h1>
+  <p>주식 정보 산업 한 줄기에 ICE · LSEG · Yahoo Finance · Investing.com · 네이버페이 증권 · 토스증권을 겹쳤습니다. 초록은 이슈렌즈의 자리입니다.</p>
+</div></header>
+<main>
+  <div class="scroll"><div class="vc">
+    <div class="h"></div><div class="h">① 원천</div><div class="h">② 가공 · 라이선스</div><div class="h">③ 플랫폼</div><div class="h">④ 이용</div><div class="h">⑤ 행동</div>
+    <div class="lab">기업</div>
+    <div class="c"><span class="co">ICE (NYSE)</span><span class="co">KRX · 넥스트레이드</span><span class="co us">SEC · DART · GDELT</span></div>
+    <div class="c"><span class="co">ICE Data</span><span class="co">LSEG</span><span class="co">S&amp;P · Morningstar</span><span class="co">FnGuide · 코스콤</span></div>
+    <div class="c"><span class="co">Yahoo Finance</span><span class="co">Investing.com</span><span class="co">네이버페이 증권</span><span class="co">토스증권</span><span class="co us">이슈렌즈</span></div>
+    <div class="c"><span class="co">개인투자자 SG1~3</span></div>
+    <div class="c"><span class="co">광고주</span><span class="co">증권사 (토스)</span></div>
+    <div class="lab money">돈 ←</div>
+    <div class="c money"><b>ICE 거래소 데이터 · 연결</b>10.31억 USD (2025)</div>
+    <div class="c money"><b>LSEG 총수익</b>89.86억 GBP · 거래소 데이터 요금을 고객에 회수 3.60억 GBP<br><span class="m k">K1</span> 차감 2</div>
+    <div class="c money"><b>광고 · 구독 / 매매</b>Yahoo 9.95~49.95 USD/월 · 토스 수수료 5,778억 원<br><span class="m k">K1</span> 차감 1</div>
+    <div class="c money">무료</div>
+    <div class="c money"><b>시작점</b>광고비 · 매매 · 환전 수수료<br><span class="m k">K2</span> 유료 · 양방향은 규제</div>
+    <div class="lab data">데이터 →</div>
+    <div class="c data">체결가 = 거래소 소유<br>공시 · 공개 뉴스 = 누구나</div>
+    <div class="c data">재배포 조건 · 요금 비공개<br><span class="m b">B1</span> 화면용 가격은 계약</div>
+    <div class="c data">"실시간 · 정확 보장 안 함"(Investing) · AI 요약 + 면책(토스)<br><span class="m b">B2</span> <span class="m s">S1</span> <span class="m o">O1</span> <span class="m o">O4</span></div>
+    <div class="c data">포트폴리오는 로그인 · 계좌<br><span class="m b">B3</span> <span class="m o">O3</span></div>
+    <div class="c data">—</div>
+  </div></div>
+
+  <h2>업계 기회 (영향 × 실현 가능성)</h2>
+  <div class="tw"><table>
+    <thead><tr><th>기회</th><th>근거</th><th>영향</th><th>실현</th><th>판정</th></tr></thead>
+    <tbody>
+      <tr><td>O1 숫자마다 기준 시각 · 출처</td><td>B2 · VOC P1</td><td>3</td><td>3</td><td><b>먼저 간다</b></td></tr>
+      <tr><td>O3 로그인 없는 관심목록</td><td>B3 · VOC P2 · P3</td><td>2</td><td>3</td><td>먼저 간다</td></tr>
+      <tr><td>O4 공개 원천만으로 이슈 타임라인</td><td>B1 · K1</td><td>2</td><td>3</td><td><b>새로 추가</b></td></tr>
+      <tr><td>O2 확률 + 적중률 공개</td><td>S1 · VOC C2 · 규제</td><td>3</td><td>2</td><td>큰 기회 · 지금은 어려움</td></tr>
+      <tr><td>O5 재배포 라이선스 계약</td><td>B1 · K1</td><td>3</td><td>1</td><td>보류</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">출처는 research/company/*/onepager.md · 마커 근거는 valuechain/industry/analysis.md. 정보 제공 · 학습 목적이며 투자 권유가 아닙니다.</p>
+</main>
+</body>
+</html>

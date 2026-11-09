@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>문서 보기 · Stock Intelligence Lab</title>
+<style>
+:root{color-scheme:light;--ink:#111418;--ink2:#4A5159;--ink3:#6B727A;--line:#E6E8EB;--band:#F5F6F7;--accent:#FFD400;--blue:#1C64C8;--signal:#D9480F}
+*{box-sizing:border-box} html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#fff;color:var(--ink);font-family:Pretendard,"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif;font-size:15.5px;line-height:1.65;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--blue)}
+.bar{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;background:var(--ink);color:#fff;padding:8px 16px}
+.bar a{color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:4px 10px;border-radius:8px}
+.bar a:hover{background:#2A2F36}
+.bar .path{font-family:ui-monospace,Consolas,monospace;font-size:13px;color:#C9CDD2}
+.bar .gh{margin-left:auto;color:#C9CDD2}
+.embedded .bar .home{display:none}
+main{max-width:980px;margin:0 auto;padding:20px 16px 64px}
+main h1{font-size:clamp(22px,4vw,30px);font-weight:900;letter-spacing:-.02em;line-height:1.3;margin:6px 0 12px;text-wrap:balance}
+main h2{font-size:20px;margin:34px 0 10px;padding-top:12px;border-top:1px solid var(--line);letter-spacing:-.02em}
+main h3{font-size:17px;margin:24px 0 8px}
+main p,main li{max-width:78ch}
+.table{overflow-x:auto;margin:10px 0 16px}
+table{border-collapse:collapse;font-size:14px;min-width:60%}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--band);font-size:13px;color:var(--ink2)}
+code{background:var(--band);padding:1px 5px;border-radius:5px;font-size:13px;font-family:ui-monospace,Consolas,monospace}
+pre{background:var(--band);padding:14px;border-radius:12px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{margin:10px 0;border-left:4px solid var(--accent);padding:4px 14px;background:#FFFBE6;border-radius:0 10px 10px 0;color:var(--ink2)}
+img{max-width:100%;border-radius:10px;border:1px solid var(--line)}
+.mermaid{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;overflow-x:auto;margin:12px 0}
+.tag{display:inline-block;font-size:11px;font-weight:800;border-radius:4px;padding:0 4px;margin:0 1px;vertical-align:1px}
+.tag.f{background:#DCEFE0;color:#2B8A3E} .tag.i{background:#ECEEF0;color:#4A5159} .tag.u{background:#FBE1D6;color:#D9480F}
+.meta{font-size:13px;color:var(--ink3);margin:0 0 8px}
+.err{background:#FBE1D6;border-radius:12px;padding:14px}
+.csvinfo{font-size:13px;color:var(--ink3)}
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="home" href="index.html">← 결과 화면</a>
+  <span class="path" id="path"></span>
+  <a class="gh" id="gh" target="_blank" rel="noopener">GitHub 원본 ↗</a>
+</header>
+<main id="doc"><p class="meta">불러오는 중…</p></main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<script>
+/* 사용법: view.html?f=research/crosscheck.md  (stock-intelligence-lab 폴더 기준 상대 경로)
+   md → HTML(표 · Mermaid), csv → 표, py/json/txt → 코드. 문서 안의 상대 링크는 뷰어 안에서 다시 연다. */
+const REPO = "https://github.com/so-jung0729/cj_ax/blob/main/stock-intelligence-lab/";
+const params = new URLSearchParams(location.search);
+const file = (params.get("f") || "README.md").replace(/^\/+/, "");
+if (params.get("embed") === "1") document.body.classList.add("embedded");
+document.getElementById("path").textContent = file;
+document.getElementById("gh").href = REPO + file;
+document.title = file.split("/").pop() + " · Stock Intelligence Lab";
+mermaid.initialize({startOnLoad: false, theme: "neutral", securityLevel: "strict"});
+
+const dir = file.includes("/") ? file.slice(0, file.lastIndexOf("/") + 1) : "";
+function resolve(rel) {
+  if (/^(https?:|mailto:|#)/.test(rel)) return null;
+  const parts = (dir + rel).split("/"); const out = [];
+  for (const p of parts) { if (p === "..") out.pop(); else if (p !== "." && p !== "") out.push(p); }
+  return out.join("/");
+}
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function parseCSV(text) {
+  const rows = []; let row = [], cell = "", q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) { if (c === '"' && text[i + 1] === '"') { cell += '"'; i++; } else if (c === '"') q = false; else cell += c; }
+    else if (c === '"') q = true;
+    else if (c === ",") { row.push(cell); cell = ""; }
+    else if (c === "\n" || c === "\r") { if (c === "\r" && text[i + 1] === "\n") i++; row.push(cell); rows.push(row); row = []; cell = ""; }
+    else cell += c;
+  }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  return rows.filter(r => r.length > 1 || r[0]);
+}
+
+function fixLinks(root) {
+  root.querySelectorAll("a[href]").forEach(a => {
+    const raw = a.getAttribute("href"); const r = resolve(raw.split("#")[0]);
+    if (r === null) { if (/^https?:/.test(raw)) { a.target = "_blank"; a.rel = "noopener"; } return; }
+    if (/\.(md|csv|py|json|txt)$/i.test(r)) a.href = "view.html?f=" + encodeURIComponent(r) + (document.body.classList.contains("embedded") ? "&embed=1" : "");
+    else if (/\.html?$/i.test(r)) { a.href = r; a.target = "_top"; }
+    else { a.href = REPO.replace("/blob/", "/tree/") + r; a.target = "_blank"; }
+  });
+  root.querySelectorAll("img[src]").forEach(img => { const r = resolve(img.getAttribute("src")); if (r) img.src = r; });
+}
+
+function tagify(root) {  // [F] [I] [U] 표시를 작은 배지로
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const nodes = []; while (walker.nextNode()) if (/\[[FIU]\]/.test(walker.currentNode.nodeValue) && !walker.currentNode.parentElement.closest("pre,code")) nodes.push(walker.currentNode);
+  for (const n of nodes) {
+    const span = document.createElement("span");
+    span.innerHTML = esc(n.nodeValue).replace(/\[([FIU])\]/g, (m, k) => `<span class="tag ${k.toLowerCase()}">${k}</span>`);
+    n.replaceWith(span);
+  }
+}
+
+async function render() {
+  const el = document.getElementById("doc");
+  let text;
+  try {
+    const res = await fetch(file, {cache: "no-store"});
+    if (!res.ok) throw new Error(res.status + " " + res.statusText);
+    text = await res.text();
+  } catch (e) {
+    el.innerHTML = `<div class="err"><b>문서를 불러오지 못했습니다.</b><br>${esc(file)} · ${esc(String(e.message || e))}<br>GitHub 원본 링크로 열어 보세요.</div>`;
+    return;
+  }
+  const ext = file.split(".").pop().toLowerCase();
+  if (ext === "md") {
+    const md = text.replace(/<!--[\s\S]*?-->/g, "");
+    el.innerHTML = marked.parse(md, {gfm: true});
+    el.querySelectorAll("table").forEach(t => { const w = document.createElement("div"); w.className = "table"; t.replaceWith(w); w.appendChild(t); });
+    el.querySelectorAll("pre code.language-mermaid").forEach(c => { const d = document.createElement("div"); d.className = "mermaid"; d.textContent = c.textContent; c.parentElement.replaceWith(d); });
+    fixLinks(el); tagify(el);
+    try { await mermaid.run({nodes: el.querySelectorAll(".mermaid")}); } catch (e) { /* 그림이 실패해도 원문 텍스트는 남는다 */ }
+    const h1 = el.querySelector("h1"); if (h1) document.title = h1.textContent + " · Stock Intelligence Lab";
+  } else if (ext === "csv") {
+    const rows = parseCSV(text.replace(/^﻿/, ""));
+    const head = rows[0] || [], body = rows.slice(1);
+    const shown = body.slice(0, 500);
+    el.innerHTML = `<h1>${esc(file.split("/").pop())}</h1><p class="csvinfo">${body.length}행 · ${head.length}열${body.length > 500 ? " · 앞 500행만 표시" : ""}</p>
+      <div class="table"><table><thead><tr>${head.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${shown.map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+  } else {
+    let body = text;
+    if (ext === "json") { try { body = JSON.stringify(JSON.parse(text), null, 2); } catch (e) {} }
+    el.innerHTML = `<h1>${esc(file.split("/").pop())}</h1><pre><code>${esc(body)}</code></pre>`;
+  }
+}
+render();
+</script>
+</body>
+</html>

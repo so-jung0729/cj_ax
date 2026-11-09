@@ -132,6 +132,22 @@ a.kc:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(17,20,24,.10)}
 .pn a.next{text-align:right}
 .pn a:hover{background:var(--accent)}
 .dfoot{margin-top:40px;color:var(--ink3);font-size:12.5px;border-top:1px solid var(--line);padding-top:12px}
+/* 문서 열기: 파일 칩 → 같은 화면 위에 view.html */
+a.doc{color:var(--blue);text-decoration:none;border-bottom:1px dashed currentColor}
+a.doc:hover{background:#FFF1A8}
+.files a.doc{border:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;padding:2px 8px;border-radius:6px;font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
+.files a.doc:hover{background:var(--accent);color:var(--ink)}
+.docs{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.docs a{display:flex;flex-direction:column;gap:2px;text-decoration:none;background:var(--band);border-radius:12px;padding:10px 14px;min-width:0;flex:1 1 220px}
+.docs a b{font-size:15px}
+.docs a span{font-family:ui-monospace,Consolas,monospace;font-size:12px;color:var(--ink3);overflow-wrap:anywhere}
+.docs a:hover{background:var(--accent)}
+.sheet{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;background:#fff}
+.sheet header{display:flex;align-items:center;gap:10px;background:var(--ink);color:#fff;padding-block:calc(8px + env(safe-area-inset-top,0px)) 8px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sheet header button{font:inherit;font-weight:800;font-size:14px;background:var(--accent);color:var(--ink);border:0;border-radius:99px;padding:5px 14px;cursor:pointer}
+.sheet header span{font-family:ui-monospace,Consolas,monospace;font-size:13px;color:#C9CDD2;overflow-wrap:anywhere;flex:1;min-width:0}
+.sheet header a{color:#C9CDD2;font-size:13px;font-weight:700;white-space:nowrap}
+.sheet iframe{flex:1;border:0;width:100%}
 
 @media (max-width:760px){
   .home{padding-block:16px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -153,6 +169,10 @@ a.kc:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(17,20,24,.10)}
 <body>
 <main class="home" id="home"></main>
 <div id="view" hidden></div>
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-label="문서 보기">
+  <header><button type="button" id="sheetClose">← 닫기</button><span id="sheetPath"></span><a id="sheetOpen" target="_blank" rel="noopener">새 창 ↗</a></header>
+  <iframe id="sheetFrame" title="문서"></iframe>
+</div>
 
 <script>
 /* ===== 데이터 =====
@@ -202,7 +222,7 @@ const DAYS = [
        ["research/keyword_map.md (6유형 × 3개 이상)","research/keyword_map.md","ok","28개 키워드, 모두 '내 지식(미검증)' 표시"],
        ["CLAUDE.md 리서치 규칙","CLAUDE.md","ok","출처 등급 A~D, 숫자·라이선스는 A·B만"],
        ["규칙 반영 테스트 (근거 없는 수치 → 미확인)","—","no","새 세션에서 확인 필요"],
-       ["1인 리서치 노트 2개","research/market_data/*.md","ok","Alpha Vantage · yfinance · Stooq 3개"],
+       ["1인 리서치 노트 2개","research/market_data/","ok","Alpha Vantage · yfinance · Stooq 3개"],
        ["과제: 데이터 소스 후보 노트 5개","research/market_data · news_data","ok","Day 3에서 SEC · GDELT를 더해 5개"]],
   kpi:[["45.9년","AAPL 최장 이력"],["7종목","57,030행"],["3곳","가격 제공처 확인"],["0개","서비스에 바로 쓸 무료 소스"]],
   table:{title:"종목별 확보 기간",head:["종목","시작일","기간"],rows:[["AAPL","1980-12-12","45.9년"],["MSFT","1986-03-13","40.7년"],["SPY","1993-01-29","33.8년"],["AMZN","1997-05-15","29.5년"],["NVDA","1999-01-22","27.8년"],["삼성전자","2000-01-04","26.8년"],["GOOGL","2004-08-19","22.2년"]],note:"yfinance 1.8.0 실측, 2026-11-09 종가까지"},
@@ -227,7 +247,7 @@ const DAYS = [
   bridge:"그래서 기존 주식 서비스를 쓰는 사람들의 말을 모은다",
   req:[["keyword_map 재분류 v2 (세 질문 O/X · 1·2차 유형)","research/keyword_map.md","ok","자산 19 · 정보 12, '팀 검토' 0건"],
        ["공공데이터 1개 찾기 → 원본 저장 → 노트","research/data/archive/","ok","SEC EDGAR · GDELT 두 곳"],
-       ["리서치 노트 (출처 등급 · 주장별 교차검증)","research/news_data/*.md","ok","SEC EDGAR · GDELT"],
+       ["리서치 노트 (출처 등급 · 주장별 교차검증)","research/news_data/","ok","SEC EDGAR · GDELT"],
        ["research/crosscheck.md (15행 이상, 판정 · 후속 조치)","research/crosscheck.md","ok","20행, 모든 행에 후속 조치"],
        ["과제: 원천 데이터셋 명세 v0 + 정리본 3개","research/data/data_spec.md","ok","가격 · 공시 · 뉴스 CSV"],
        ["Claude in Chrome 공공 사이트 탐색","—","part","API 직접 호출로 대체"],
@@ -283,7 +303,7 @@ const DAYS = [
   bridge:"그래서 소스를 점수로 비교해 학습용과 화면용을 따로 고른다",
   req:[["폴더 3종 · 파일명 5요소 규칙","docs/archive_rules.md","ok","날짜_시장_소스_주제_순번, image는 해당 없음"],
        ["tags.md (3층 고정 목록)","archive/tags.md","ok","자산 유형 · 경험 · 활용"],
-       ["수집 20건 이상 (소스별 담당대로)","archive/text · video/","ok","Aside 18건 + 리뷰 묶음 · 데이터 5건"],
+       ["수집 20건 이상 (소스별 담당대로)","archive/text/ · archive/video/","ok","Aside 18건 + 리뷰 묶음 · 데이터 5건"],
        ["metadata.csv 14열 (id 중복 0)","archive/metadata.csv","ok","23행, region·place → market·target"],
        ["검증 보고서 '통과'","archive/check_report.md","ok","1차 오류 3건 → 수정 후 통과"],
        ["검수 A · B · C (사람)","archive/check_report.md","part","유튜브 2건만 대조, 나머지 사람 확인 필요"],
@@ -308,7 +328,7 @@ const DAYS = [
     [big("없음","화면용 가격 소스"),"Nasdaq · Polygon은 사전 지식뿐","약관 원문 확인 필요","t-red"]],
   bridge:"그래서 이 서비스가 어떤 말투로, 누구에게 말할지 정한다",
   req:[["결과 공유 · 보강 목록 (다섯 관점)","inventory/archive_feedback.md","ok","베스트 3 · 빈 곳 = 화면용 가격"],
-       ["인벤토리 v1 (11열, 사실 / 평가 분리)","inventory/inventory_v1.csv · .xlsx","ok","16개 (강의 30개 → 소스 범위가 작음)"],
+       ["인벤토리 v1 (11열, 사실 / 평가 분리)","inventory/inventory_v1.csv · inventory/inventory_v1.xlsx","ok","16개 (강의 30개 → 소스 범위가 작음)"],
        ["근거 파일 2개 이상 · 실제 존재 검증","scripts/build_inventory.py","part","누락 0건, 근거 1개뿐 9개는 '확인 필요'"],
        ["채점 척도 1·3·5 문장 · 가중치","inventory/scoring.md","ok","공통 · 학습용 · 화면용 3가지 저울"],
        ["xlsx 시트 3개 (총점은 수식)","inventory/inventory_v1.xlsx","ok","inventory · scoring · top3"],
@@ -338,7 +358,7 @@ const DAYS = [
        ["고객 페르소나 1명 (상황 → 행동 → 동기 → 불만)","persona/customer_persona.md","ok","VOC id 근거, 인구통계는 마지막 · 창작"],
        ["세계관 다섯 요소 + Do / Don't","persona/worldview.md","ok","일관성 질문 6개 모두 예"],
        ["FigJam 발산","—","no","혼자 진행, 근거 파일에서 바로 작성"],
-       ["브랜드 스킬 SKILL.md","stock-intelligence-lab/.claude/skills/issue-lens-voice/","ok","역할 · 규칙 · 톤 · 금칙어 · 메시지"],
+       ["브랜드 스킬 SKILL.md",".claude/skills/issue-lens-voice/SKILL.md","ok","역할 · 규칙 · 톤 · 금칙어 · 메시지"],
        ["스킬 호출 확인 (새 세션)","—","no","새 세션에서 문구 요청으로 확인 필요"],
        ["한 장 기획서 10항목","persona/onepager.md","ok","성공 신호는 숫자 없이 2개"],
        ["과제: 사용자 세그먼트 정의","persona/customer_persona.md","ok","질문 2개 × 세그먼트 3개"]],
@@ -390,7 +410,7 @@ const DAYS = [
   bridge:"그래서 데이터가 흐르는 길과 돈이 빠지는 곳을 그린다",
   req:[["관심 산업 · 후보 3곳","research/users_competitors/onepage.md","part","2곳(Yahoo · 토스) + 규제 · 가격 약관"],
        ["사업 모델 6질문 · 질문 뱅크","research/users_competitors/day09/_common.txt","ok","6질문 + 이슈 · 전망 · 포트폴리오 화면"],
-       ["공시 · IR 원문 수집 · sources.md","research/users_competitors/*.md 출처 표","ok","DART · 법령 · 공식 페이지 A 등급 위주"],
+       ["공시 · IR 원문 수집 · sources.md","research/users_competitors/ 노트별 출처 표","ok","DART · 법령 · 공식 페이지 A 등급 위주"],
        ["원페이지 8칸 (출처 번호)","research/users_competitors/onepage.md","ok","[F] · [I] · [U] 표시"],
        ["서브에이전트 4분할 리서치","research/users_competitors/day09/","part","Aside 세션 4개 동시 실행, 가격 약관 1개는 멈춰 직접 조사"],
        ["과제: 사실 검증","research/users_competitors/regulation.md","part","금융위 원문 1건 · 토스 수치 환산 재확인, 나머지 사람 확인 필요"]],
@@ -403,31 +423,36 @@ const DAYS = [
    {tag:"과제",name:"원페이지 취합 · 사실 검증",learn:"8칸, 칸마다 2~4줄, 문장 절반 이상에 출처. 숫자는 원문 확인분만, 해석은 [I].",did:"두 서비스와 규제를 8칸으로 합치고, 우리 가설과의 접점을 적었다.",res:["가설 1(이슈 키워드)은 토스가 이미 함","차별점: 적중률 공개 · 로그인 없는 관심목록","충돌 1건(과태료 수치) · 미확인 3건 기록"],files:["research/users_competitors/onepage.md"]}]},
 
 { n:10, key:"흐름", date:"11/06", lecture:"산업 밸류체인 맵핑", status:"ok",
-  title:"돈은 광고주에서 시작해 공급사로 빠지고, 우리는 공개 원천으로 그 고리를 건너뛴다",
-  ans:"무료 주식 정보 서비스를 5단계 × 4층(활동 · 이해관계자 · 돈 · 데이터)으로 그렸다. 병목 2 · 비용 2 · 기회 3을 근거와 함께 찍고, 우선 기회로 O1(숫자마다 기준 시각 · 출처)을 골랐다.",
+  title:"돈은 광고주에서 시작해 공급사 · 거래소로 두 번 빠지고, 우리는 공개 원천으로 그 고리를 건너뛴다",
+  ans:"서비스 밸류체인(5단계 × 4층)을 그린 뒤, 단계마다 대표 기업 6곳(ICE · LSEG · Yahoo · Investing.com · 네이버페이 증권 · 토스증권)을 조사해 업계 밸류체인으로 겹쳤다. 두 곳 이상 반복되는 병목만 업계 마커로 올렸고, 라이선스 없이 가능한 새 기회 O4가 나왔다.",
   dtitle:"Day 10 — 밸류체인과 데이터 흐름",
-  dlead:"AI가 Mermaid 초안(v0)을 그리고, 사람이 정해진 오류 지점 다섯 곳을 찾아 v1로 고쳤습니다. 이슈렌즈의 내부 파이프라인도 같은 그림의 3단계를 펼쳐 그렸습니다.",
+  dlead:"AI 초안(v0)을 사람이 검증해 v1로 고치고, 관련 기업 6곳의 원페이지를 만들어 한 줄기에 겹쳤습니다. 기업 조사는 Aside 세션이 멈춰 IR · 공식 페이지를 직접 확인했습니다.",
   cards:[
     [big("5 × 4","단계 × 층"),"원천 → 가공 → 플랫폼 → 이용 → 행동","이슈렌즈는 3 플랫폼","t-blue"],
     [big("B1 · B2","병목"),"화면용 가격 라이선스 · 기사 매핑 잡음","Yahoo도 시세는 ICE 라이선스","t-red"],
     [big("K1 · K2","비용"),"가격 라이선스료 · 규제 대응","개인용 월 0~199 USD, 공개 표시는 별도 계약","t-yellow"],
     [big("O1","우선 기회"),"숫자마다 기준 시각 · 출처","영향 3 × 실현 3","t-green"],
-    [big("v0 → v1","AI 초안 검증"),"오류 5개 수정","돈 시작점 · 데이터 층 · 규제 단계","t-gray"]],
+    [big("6곳","관련 기업"),"ICE · LSEG · Yahoo · Investing · 네이버 · 토스","원천 → 가공 → 플랫폼 → 행동","t-gray"],
+    [big("O4","업계에서 새로 나온 기회"),"공개 원천만으로 이슈 타임라인","가격 라이선스 없이 가능","t-teal"]],
   bridge:"그래서 투자자의 여정에서 실제로 어디가 아픈지 순위를 매긴다",
   req:[["FigJam 단계 발산","—","no","혼자 진행, 원페이지에서 바로 단계 도출"],
        ["단계 5개 · 이해관계자 (수행 · 영향 구분)","valuechain/valuechain_v1.md","ok","단계마다 2개 이상"],
        ["돈 흐름 (역순 · 시작점) · 데이터 흐름 (보유자 · 피드백)","valuechain/valuechain_v1.md","ok","피드백 화살표 2개"],
        ["병목 · 비용 · 기회 마커 + 근거 표","valuechain/analysis.md","ok","B2 · K2 · O3, 마커마다 출처"],
        ["영향 × 실현 가능성 → 우선 기회 1개","valuechain/analysis.md","ok","O1"],
-       ["Mermaid v0 → 사람 검증 → v1","valuechain/valuechain_v0.md · v1.md","ok","v0 오류 5개 기록"],
+       ["Mermaid v0 → 사람 검증 → v1","valuechain/valuechain_v0.md · valuechain/valuechain_v1.md","ok","v0 오류 5개 기록"],
        ["HTML 다이어그램","valuechain/valuechain_v1.html","ok","층 · 색 · 마커"],
-       ["과제: 대시보드 데이터 흐름도","valuechain/valuechain_v1.md","ok","내부 파이프라인 Mermaid"]],
-  kpi:[["5단계","밸류체인"],["7개","마커 (병목 2 · 비용 2 · 기회 3)"],["2개","피드백 화살표"],["O1","우선 기회"]],
-  table:{title:"기회 우선순위",head:["기회","영향","실현","위치"],rows:[["O1 기준 시각 · 출처","3","3","먼저 간다"],["O3 로그인 없는 관심목록","2","3","먼저 간다"],["O2 확률 + 적중률 예측","3","2","큰 기회 · 지금은 어려움"]],note:"valuechain/analysis.md"},
+       ["과제: 대시보드 데이터 흐름도","valuechain/valuechain_v1.md","ok","내부 파이프라인 Mermaid"],
+       ["확장: 관련 기업 6곳 원페이지 · 비교","research/company/compare.md","ok","IR · 공식 페이지 A 등급, 미확인은 [U]"],
+       ["확장: 업계 밸류체인 · 업계 분석","valuechain/industry/valuechain_v1.md · valuechain/industry/analysis.md","ok","2곳 이상 반복 신호만 업계 마커"]],
+  kpi:[["6곳","관련 기업"],["6개","업계 마커 (병목 3 · 비용 2 · 신호 1)"],["5개","업계 기회 (O1~O5)"],["O1","우선 기회"]],
+  table:{title:"관련 기업 6곳",head:["기업","단계","돈을 받는 곳","핵심 수치 (원문)"],rows:[["ICE","① 원천 + ② 가공","거래 수수료 · 데이터 구독","2025 순매출 99.31억 USD"],["LSEG","② 가공","데이터 구독 (ASV +5.9%)","총수익 89.86억 GBP"],["Yahoo Finance","③ 플랫폼","광고 · 구독","미국 월 방문 1억+"],["Investing.com","③ 플랫폼","광고 · 구독","정확성 면책"],["네이버페이 증권","③ 플랫폼","[U]","국내 실시간 무료"],["토스증권","③ + ⑤ 행동","매매 · 환전 수수료","영업이익 4,458억 원"]],note:"research/company/compare.md"},
   parts:[
    {tag:"1·2교시",name:"단계와 이해관계자",learn:"주활동 5단계 내외를 산업 용어로. 단계마다 '하는 사람'과 '영향 주는 사람'을 구분한다.",did:"Day 9 원페이지에서 단계를 뽑았다. 영향 주체에 공급사 약관과 금융위 · 금감원을 넣었다.",res:["원천 · 가공 · 플랫폼 · 이용 · 행동","이슈렌즈는 공급사를 건너뛰고 공개 원천(SEC · GDELT)에서 바로 받음"],files:["valuechain/valuechain_v1.md"]},
    {tag:"3교시",name:"돈 · 데이터 흐름과 마커",learn:"돈은 소비자에서 원천으로 거꾸로, 단계 사이마다 누가 얼마를 떼는지. 데이터는 단계마다 무엇이 누구 손에. 신호 체크리스트로 마커를 근거와 함께.",did:"돈의 시작점을 광고주 · 구독자로 표시하고, 예측 적중 기록이 모델로 돌아가는 피드백을 그렸다.",res:["병목 B1 화면용 가격 · B2 매핑 잡음","비용 K1 라이선스료 · K2 규제 대응","기회 O1 · O2 · O3"],files:["valuechain/analysis.md"]},
-   {tag:"4교시 · 과제",name:"Mermaid 초안 → v1 · HTML",learn:"AI 초안은 빠르지만 오류 지점이 정해져 있다. 사람이 검증 · 보완해 v1로.",did:"v0의 오류 5개(돈 시작점 · 근거 없는 숫자 · 데이터 층 · 우리 위치 · 규제)를 고치고 HTML로 그렸다.",res:["품질 체크리스트 4관점 모두 ○","우선 기회 O1 → 다음 단계 첫 기능"],files:["valuechain/valuechain_v0.md","valuechain/valuechain_v1.html"]}]},
+   {tag:"4교시 · 과제",name:"Mermaid 초안 → v1 · HTML",learn:"AI 초안은 빠르지만 오류 지점이 정해져 있다. 사람이 검증 · 보완해 v1로.",did:"v0의 오류 5개(돈 시작점 · 근거 없는 숫자 · 데이터 층 · 우리 위치 · 규제)를 고치고 HTML로 그렸다.",res:["품질 체크리스트 4관점 모두 ○","우선 기회 O1 → 다음 단계 첫 기능"],files:["valuechain/valuechain_v0.md","valuechain/valuechain_v1.html"]},
+   {tag:"확장 1",name:"관련 기업 6곳 조사",learn:"Day 9 원페이지 8칸을 체인의 단계마다 한 곳 이상 적용한다. 숫자는 원문 확인분만.",did:"원천 · 가공(ICE · LSEG), 플랫폼(Yahoo · Investing.com · 네이버페이 증권), 행동(토스증권). Aside 세션 4개가 승인 대기로 멈춰 IR · 공식 페이지를 직접 확인했다.",res:["ICE 거래소 데이터 · 연결 10.31억 USD, 채권 · 데이터 부문 반복 매출 약 81%","LSEG 거래소 데이터 같은 제3자 요금을 고객에게 회수 3.60억 GBP","Investing.com: 시세는 실시간 · 정확 보장 안 함, 마켓메이커 가격 가능"],files:["research/company/compare.md","research/company/ice/onepager.md","research/company/lseg/onepager.md","research/company/investing_com/onepager.md","research/company/naverpay/onepager.md"]},
+   {tag:"확장 2",name:"업계 밸류체인 · 업계 분석",learn:"기업 하나가 아니라 여러 기업이 같은 줄기의 어느 칸에 서는지 한 장에 겹친다. 두 곳 이상 반복되는 신호만 업계 마커로.",did:"6곳을 5단계에 겹치고, 돈이 두 번 빠지는 지점과 공개 원천이 그 고리를 건너뛰는 지점을 그렸다.",res:["업계 구조: 데이터는 위에서 사야 하고 돈은 두 번 빠진다","새 병목 B3 포트폴리오가 계정에 묶임 · 신호 S1 AI 해설 + 면책 확산","새 기회 O4 공개 원천만으로 이슈 타임라인 (라이선스 없이 가능)"],files:["valuechain/industry/valuechain_v1.md","valuechain/industry/analysis.md","valuechain/industry/valuechain_v1.html"]}]},
 
 { n:11, key:"페인포인트", date:"11/09", lecture:"페인포인트 도출", status:"ok",
   title:"P1은 '이 숫자가 언제 기준인지 모른다', 가설 3개 중 그대로 남은 것은 없다",
@@ -466,6 +491,32 @@ const ST = {ok:"완료",part:"일부",no:"미완",plan:"예정"};
 const st = s => `<span class="st ${s==="no"?"miss":s}">${ST[s]}</span>`;
 const route = d => `day-${pad(d.n)}`;
 
+/* 파일 경로 → 문서 링크. md · csv · py · json · txt는 view.html로, html은 그대로 연다. 폴더 · 그 밖은 GitHub */
+const GH = "https://github.com/so-jung0729/cj_ax/tree/main/stock-intelligence-lab/";
+const PATH_RE = /(?:stock-intelligence-lab\/)?(?:\.?[\w\-가-힣]+\/)*[\w\-가-힣*.]+\.(?:md|csv|py|json|txt|html|xlsx)|(?:\.?[\w\-가-힣]+\/)+(?=\s|$|[·,)])/g;
+function docHref(p){
+  p = p.replace(/^stock-intelligence-lab\//, "");
+  if (/\.(md|csv|py|json|txt)$/i.test(p) && !p.includes("*")) return {href:"view.html?f="+encodeURIComponent(p), view:"view.html?f="+encodeURIComponent(p)+"&embed=1", path:p};
+  if (/\.html$/i.test(p)) return {href:p, view:p, path:p};
+  return {href:GH+p, view:null, path:p};
+}
+function link(p, label){
+  const h = docHref(p);
+  return h.view ? `<a class="doc" href="${h.href}" data-doc="${h.view}" data-path="${esc(h.path)}">${esc(label||p)}</a>`
+                : `<a class="doc" href="${h.href}" target="_blank" rel="noopener">${esc(label||p)}</a>`;
+}
+function linkify(text){
+  let out = "", last = 0; text = String(text);
+  for (const m of text.matchAll(PATH_RE)) { out += esc(text.slice(last, m.index)) + link(m[0]); last = m.index + m[0].length; }
+  return out + esc(text.slice(last));
+}
+function docsOf(d){
+  const seen = new Set(), list = [];
+  const add = p => { for (const m of String(p).matchAll(PATH_RE)) { const h = docHref(m[0]); if (h.view && !seen.has(h.path)) { seen.add(h.path); list.push(h.path); } } };
+  d.parts.forEach(p => (p.files||[]).forEach(add)); d.req.forEach(r => add(r[1]));
+  return list;
+}
+
 function home(){
   const done = DAYS.filter(d=>d.status==="ok").length;
   const line = DAYS.map(d=>`<a href="#ch${pad(d.n)}" class="sl ${d.status==="plan"?"plan":""}" data-jump="ch${pad(d.n)}"><b>${pad(d.n)}</b>${d.key}</a>`).join("");
@@ -498,7 +549,10 @@ function detail(d){
   const i = DAYS.indexOf(d), prev = DAYS[i-1], next = DAYS[i+1], plan = d.status==="plan";
   const tabs = DAYS.map(x=>`<a class="tab ${x.status==="plan"?"plan":""}" href="#${route(x)}"${x===d?' aria-current="page"':""}>${pad(x.n)} ${x.key}</a>`).join("");
   const req = `<div class="card table-scroll"><table class="chk"><thead><tr><th>강의 요구 산출물</th><th>이 저장소의 파일</th><th>상태</th><th>메모</th></tr></thead><tbody>${
-    d.req.map(([a,b,s,m])=>`<tr><td>${esc(a)}</td><td class="path">${esc(b)}</td><td>${st(s)}</td><td>${esc(m)}</td></tr>`).join("")}</tbody></table></div>`;
+    d.req.map(([a,b,s,m])=>`<tr><td>${esc(a)}</td><td class="path">${linkify(b)}</td><td>${st(s)}</td><td>${esc(m)}</td></tr>`).join("")}</tbody></table></div>`;
+  const docList = docsOf(d);
+  const docs = docList.length ? `<h2><span class="n">··</span>결과 문서 바로 보기</h2><p class="sub">누르면 이 화면 위에 HTML로 열립니다.</p><div class="docs">${
+    docList.map(p=>{const h=docHref(p);return `<a href="${h.href}" data-doc="${h.view}" data-path="${esc(p)}"><b>${esc(p.split("/").pop())}</b><span>${esc(p)}</span></a>`;}).join("")}</div>` : "";
   let sec = 0; const h = t => `<h2><span class="n">${pad(++sec)}</span>${t}</h2>`;
   const kpi = d.kpi ? h("한눈에") + `<div class="grid g4">${d.kpi.map(([b,s],k)=>`<div class="card kpi ${k===3&&d.n===2?"red":""}"><b>${b}</b><span>${s}</span></div>`).join("")}</div>` : "";
   const tbl = d.table ? h(d.table.title) + `<div class="table-scroll"><table class="datat"><thead><tr>${d.table.head.map(x=>`<th>${x}</th>`).join("")}</tr></thead><tbody>${
@@ -507,7 +561,7 @@ function detail(d){
     d.parts.map(p=>`<article class="period ${plan?"plan":""}"><div class="ph"><span class="tag">${esc(p.tag)}</span><h3>${esc(p.name)}</h3></div><dl>
       <div><dt>이 시간에 배우는 것</dt><dd>${md(p.learn)}</dd></div>
       <div><dt>${plan?"이 프로젝트에서 할 일":"이 프로젝트에서 한 것"}</dt><dd>${md(p.did)}</dd></div>
-      ${p.res?`<div class="res"><dt>결과</dt><dd><ul>${p.res.map(r=>`<li>${md(r)}</li>`).join("")}</ul>${p.files?`<div class="files">${p.files.map(f=>`<code>${esc(f)}</code>`).join("")}</div>`:""}</dd></div>`:""}
+      ${p.res?`<div class="res"><dt>결과</dt><dd><ul>${p.res.map(r=>`<li>${md(r)}</li>`).join("")}</ul>${p.files?`<div class="files">${p.files.map(f=>linkify(f)).join("")}</div>`:""}</dd></div>`:""}
     </dl></article>`).join("")}</div>`;
   return `<header class="bar"><a class="back" href="#">← 한 줄기로</a><span class="cur">Stock Intelligence Lab</span><nav class="tabs" aria-label="Day 선택">${tabs}</nav></header>
   <section class="dhero"><div class="wrap">
@@ -515,7 +569,7 @@ function detail(d){
     <h1>${esc(d.dtitle)}</h1><p class="dlead">${esc(d.dlead)}</p>
     ${d.alert?`<div class="alert"><b>주의</b> ${esc(d.alert)}</div>`:""}
   </div></section>
-  <main class="wrap dmain">${req}${kpi}${tbl}${parts}
+  <main class="wrap dmain">${req}${docs}${kpi}${tbl}${parts}
     <nav class="pn">${prev?`<a href="#${route(prev)}"><small>이전 · Day ${pad(prev.n)}</small>${esc(prev.dtitle.split(" — ")[1])}</a>`:"<span></span>"}${next?`<a class="next" href="#${route(next)}"><small>다음 · Day ${pad(next.n)}</small>${esc(next.dtitle.split(" — ")[1])}</a>`:"<span></span>"}</nav>
     <p class="dfoot">강의 원래 날짜 ${d.date} · 실제 작업과 날짜는 다를 수 있음 · 상태: 완료 = 파일 있음 · 일부 = 대체하거나 부족 · 미완 = 하지 않음 · 예정 = 아직 진행 전</p>
   </main>`;
@@ -535,6 +589,26 @@ document.addEventListener("click", e => {
   e.preventDefault();
   document.getElementById(a.dataset.jump)?.scrollIntoView({block:"start"});
 });
+
+/* 문서 시트: data-doc 링크를 누르면 iframe으로 띄운다. 새 창/중클릭은 브라우저 기본 동작 */
+const sheet = document.getElementById("sheet"), frame = document.getElementById("sheetFrame");
+let lastFocus = null;
+function openDoc(view, path, href){
+  lastFocus = document.activeElement;
+  frame.src = view; document.getElementById("sheetPath").textContent = path;
+  document.getElementById("sheetOpen").href = href;
+  sheet.hidden = false; document.body.style.overflow = "hidden";
+  document.getElementById("sheetClose").focus();
+}
+function closeDoc(){ sheet.hidden = true; frame.src = "about:blank"; document.body.style.overflow = ""; lastFocus?.focus(); }
+document.addEventListener("click", e => {
+  const a = e.target.closest && e.target.closest("a[data-doc]");
+  if (!a || e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
+  e.preventDefault();
+  openDoc(a.dataset.doc, a.dataset.path, a.getAttribute("href"));
+});
+document.getElementById("sheetClose").addEventListener("click", closeDoc);
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !sheet.hidden) closeDoc(); });
 window.addEventListener("hashchange", render);
 render();
 </script>

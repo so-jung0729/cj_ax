@@ -213,17 +213,17 @@ const DAYS = [
    {tag:"4교시 · 과제",name:"출처 있는 리서치 노트",learn:"요청에 저장 경로와 노트 구성을 지정한다. 데이터 트랙 과제는 '어떤 데이터가 어디에 있는지'.",did:"가격 제공처 3곳을 공식 문서 · 약관 원문 · 실제 호출로 확인했다.",res:["Alpha Vantage: 무료는 개인·비상업, 수정주가·뉴스 유료","yfinance: 7종목 22~45년치, 수정종가·분할·배당 포함","Yahoo 약관: 자동 수집 금지 → 로컬 학습용만","Stooq: 브라우저 검증 페이지 → 자동 수집 불가"],files:["research/market_data/","scripts/probe_yfinance.py"]}]},
 
 { n:3, key:"검증", date:"10/28", lecture:"지역 자산 조사 방법론 1", status:"ok",
-  title:"가격은 두 소스가 100% 일치, 뉴스 시각은 하나도 확정 못 했다",
-  ans:"키워드 31개를 자산 19개로 줄이고, SEC 공시와 GDELT 뉴스를 실제로 받아 주장 20개를 교차검증했다. 시간대가 정해지지 않으면 미래 정보가 학습에 섞인다.",
+  title:"가격은 두 소스가 100% 일치, 시간대는 Day 5에 UTC로 확정",
+  ans:"키워드 31개를 자산 19개로 줄이고, SEC 공시와 GDELT 뉴스를 실제로 받아 주장 20개를 교차검증했다. Day 3에는 시간대를 확정하지 못했고, SEC 시각을 잘못 읽은 판정이 있었다(Day 5에 정정).",
   dtitle:"Day 03 — 데이터 소스 판정과 교차검증",
   dlead:"판정 세 질문으로 소스를 거르고, 공개 데이터 두 곳을 명세부터 읽어 내려받았습니다. 주장 하나마다 출처 두 개를 붙이고, 가격은 두 소스의 값을 날짜별로 대조했습니다.",
-  alert:"뉴스·공시가 장 전 · 장중 · 장 후 중 언제 나왔는지 모르면 데이터 누출을 막을 수 없습니다. SEC 실적 공시 3건이 모두 20:30Z인데, UTC로 읽으면 11월 건만 장중이 됩니다. Day 5 전에 해결할 1순위입니다.",
+  alert:"Day 5 정정: Day 3에는 AAPL 11/02 실적 공시 시각을 20:30Z로 잘못 읽어 '불일치'로 판정했습니다. 실제 값은 21:30Z이고, 서머타임 전후 4건이 모두 동부시간 16:30(장 마감 후)입니다. SEC · GDELT · Alpha Vantage 시각은 모두 UTC로 확인했습니다.",
   cards:[
     [big("100/100","IBM 종가 일치"),"yfinance = Alpha Vantage","100거래일, 최대 차이 0.0000","t-green"],
     [big("20건","교차검증") + stack([[25,"#2B8A3E"],[5,"#B08900"],[5,"#D9480F"],[55,"#868E96"],[10,"#C9CDD2"]]),"주장마다 출처 두 개","일치 5 · 부분 1 · 불일치 1 · 단일 11 · 미확인 2","t-gray"],
     [big("19 / 31","자산으로 남은 키워드"),"판정 세 질문","고유성 · 지속성 · 활용성","t-blue"],
     [big("11년","GDELT 뉴스 이력"),"2015-02부터","뉴스까지 쓰는 학습 기간이 여기로 제한","t-yellow"],
-    [big("20:30Z","SEC 접수 시각") + '<span class="ev">불일치</span>',"시간대 미확정","UTC로 읽으면 11월 실적만 장중","t-red"]],
+    [big("16:30 ET","AAPL 실적 공시") + '<span class="ev">Day 5 정정</span>',"접수 시각은 UTC","Day 3에 시각을 잘못 읽어 불일치로 판정했음","t-red"]],
   bridge:"그래서 기존 주식 서비스를 쓰는 사람들의 말을 모은다",
   req:[["keyword_map 재분류 v2 (세 질문 O/X · 1·2차 유형)","research/keyword_map.md","ok","자산 19 · 정보 12, '팀 검토' 0건"],
        ["공공데이터 1개 찾기 → 원본 저장 → 노트","research/data/archive/","ok","SEC EDGAR · GDELT 두 곳"],
@@ -233,11 +233,11 @@ const DAYS = [
        ["Claude in Chrome 공공 사이트 탐색","—","part","API 직접 호출로 대체"],
        ["서브에이전트 병렬 리서치 (시연)","—","no","혼자 진행, Day 9에서 사용"]],
   kpi:[["100%","IBM 종가 일치"],["20건","교차검증 주장"],["1,006건","AAPL 공시 (2015~)"],["1,443건","GDELT 기사 샘플"]],
-  table:{title:"교차검증 판정",head:["판정","개수","예"],rows:[["일치","5","IBM 종가, SEC 무료 제공, GDELT 제목 제공"],["부분일치","1","IBM 거래량 (비율 0.9978~1.0208)"],["불일치","1","SEC 접수 시각의 시간대"],["단일출처","11","대부분 약관 원문 1개"],["미확인","2","Alpha Vantage · GDELT 뉴스 시각의 시간대"]],note:"research/crosscheck.md"},
+  table:{title:"교차검증 판정",head:["판정","개수","예"],rows:[["일치","5 → 7","IBM 종가, SEC 무료 제공, GDELT 제목 · Day 5: SEC · AV 시간대"],["부분일치","1","IBM 거래량 (비율 0.9978~1.0208)"],["불일치","1 → 0","SEC 접수 시각 (Day 3 판독 오류, Day 5 정정)"],["단일출처","11 → 12","대부분 약관 원문 1개 · Day 5: GDELT 시간대"],["미확인","2 → 0","Day 5에 확인"]],note:"research/crosscheck.md · 화살표 오른쪽은 Day 5 재판정"},
   parts:[
    {tag:"1교시",name:"키워드 맵 재분류",learn:"고유성 · 지속성 · 활용성 중 하나라도 X면 '정보'로 뺀다. 남은 자산은 1차 · 2차 유형을 정하고, 3개 미만 유형은 보강한다.",did:"세 질문을 데이터 소스용으로 바꿨다. 대체하기 어려운가 · 계속 받을 수 있나 · 학습이나 화면에 쓸 수 있나.",res:["31개 → 자산 19 · 정보 12 (SPY는 받는 대상, 8-K는 EDGAR에 통합, Stooq는 자동 수집 불가)","유형별: 가격 5 · 뉴스 2(+2차 2) · 공시 2 · 시장 3 · VOC 3 · 경쟁 4"],files:["research/keyword_map.md"]},
    {tag:"2교시",name:"공개 데이터 찾기 5단계",learn:"자산 이름이 아니라 '세는 단위'로 찾는다 → 자료원 → 명세(열 · 단위 · 기간 · 갱신일) → 원본 저장 → 노트.",did:"'뉴스·공시가 언제 나왔나'를 집계 대상으로 정하고 SEC EDGAR와 GDELT를 받았다.",res:["SEC: AAPL 공시 1,006건(2015~) + 1,271건(1994~), 초 단위 접수 시각","SEC: 연락처 없는 요청은 403","GDELT 검색 API 429 → 15분 원본 파일로 우회","GDELT: 제목 · URL · 기관명 · 톤, 상업 이용 · 재배포 허용(출처 표기)"],files:["research/data/archive/","research/data/checks/"]},
-   {tag:"3교시",name:"출처 등급과 교차검증 표",learn:"서로 베끼지 않은 출처 2개가 일치해야 '확인'. 판정은 일치 · 부분일치 · 불일치 · 단일출처.",did:"주장마다 출처 두 개를 붙이고, 가격은 값을 날짜별로 직접 대조했다.",res:["IBM 종가 100거래일 100% 일치","거래량은 부분일치 → 기준 소스는 Day 5에서","SEC 접수 시각 불일치 발견"],files:["research/crosscheck.md","scripts/crosscheck_prices.py"]},
+   {tag:"3교시",name:"출처 등급과 교차검증 표",learn:"서로 베끼지 않은 출처 2개가 일치해야 '확인'. 판정은 일치 · 부분일치 · 불일치 · 단일출처.",did:"주장마다 출처 두 개를 붙이고, 가격은 값을 날짜별로 직접 대조했다.",res:["IBM 종가 100거래일 100% 일치","거래량은 부분일치 → 기준 소스는 Day 5에서","SEC 접수 시각을 '불일치'로 판정 → Day 5에 판독 오류로 정정(실제 UTC)"],files:["research/crosscheck.md","scripts/crosscheck_prices.py"]},
    {tag:"4교시",name:"분담 리서치 → 노트",learn:"유형을 나눠 맡고 출처 등급과 주장별 교차검증이 들어간 노트를 만든다.",did:"뉴스 · 공시 유형을 맡아 노트 2개를 새로 썼다.",res:["SEC: 실적 8-K item 2.02로 이벤트 라벨링 가능","GDELT: 화면 표시용 뉴스 1순위 후보, 기관명→티커 매핑 필요"],files:["research/news_data/sec_edgar.md","research/news_data/gdelt.md"]},
    {tag:"과제",name:"원천 데이터셋 명세 v0",learn:"원본은 그대로 두고, 열 이름을 통일한 정리본과 명세를 만든다.",did:"가격 · 공시 · 뉴스 정리본 3개를 코드로 만들고 명세를 썼다.",res:["prices_daily.csv 57,030행 · 결측 1건(삼성전자 11/09)","sec_filings_aapl.csv 1,006행 · 접수 시각은 원문 보관","gdelt_gkg_sample.csv 1,443행 · 빈 제목 4건"],files:["research/data/data_spec.md","scripts/build_day03_tables.py"]}]},
 
@@ -270,29 +270,57 @@ const DAYS = [
    {tag:"3교시",name:"태깅 · 차트 · 표본 검사",learn:"AI가 분류하고 사람이 축을 정한다. 무작위 10건을 원문과 대조하고, 틀린 유형을 기준으로 적어 재분류한다. n<10 칸은 인사이트로 쓰지 않는다.",did:"110건을 읽고 태그와 한 줄 요약을 달았다. 차트 3개, 표본 10건, 분류 기준 3개.",res:["표본 10건: 오분류 0 · 애매 2 (AI 점검)","의외 칸: 뉴스·정보 +10인데 시세·데이터 −9","본인 확인 칸은 비어 있음"],files:["research/users_competitors/voc_tagged.csv","research/users_competitors/review_log.md","scripts/analyze_voc.py"]},
    {tag:"4교시 · 과제",name:"인사이트 · 계획서 · 지표",learn:"인사이트 한 줄 형식: [단계]에서 [주제]에 대한 [감정]이 [빈도] → [시사점]. 데이터 트랙은 지표 후보를 정의한다.",did:"인사이트 3개를 쓰고 서비스 가설 3개와 연결했다. 다음 수집 계획과 지표 후보 5개.",res:["가설 2(예측)와 3(로그인 없는 포트폴리오)은 근거 있음, 가설 1(이슈 키워드)은 근거 약함","지표: 데이터 신선도 · 예측 적중률 · 보정도 · 키워드 커버리지 · 저장 실패율"],files:["research/users_competitors/voc_analysis.md","research/users_competitors/metrics.md"]}]},
 
-{ n:5, key:"보관", date:"10/30", lecture:"콘텐츠 아카이빙", status:"plan",
-  title:"모은 데이터를 다시 찾을 수 있게, 시간대까지",
-  ans:"파일명 규칙과 metadata.csv(한 건 = 한 행)를 정하고, Day 3에서 남긴 시간대 문제를 확정한다.",
-  dtitle:"Day 05 — 수집 데이터 아카이빙", dlead:"수집은 사람, 정리는 Claude Code, 확인은 다시 사람이 합니다.",
-  cards:[[big("1행","= 1건"),"metadata.csv","출처 · 수집 시각 · 기간 · 시간대 · 라이선스","t-plan"],[big("UTC?","시간대"),"뉴스 · 공시 시각 확정","Day 3 미해결 항목","t-plan"]],
-  bridge:"그래서 소스를 점수로 비교해 고른다",
-  req:[["수집 시트 · 소스별 1건 테스트","archive/","plan",""],["폴더 3종 · 파일명 5요소","docs/archive_rules.md","plan",""],["metadata.csv","archive/metadata.csv","plan",""],["정리 · CSV · 검증 3단계","research/data/","plan","시간대 확정 포함"]],
+{ n:5, key:"보관", date:"10/30", lecture:"콘텐츠 아카이빙", status:"ok",
+  title:"시간대는 모두 UTC, 수집물 23행이 검증을 통과했다",
+  ans:"Aside로 Reddit · 구글 플레이 · 유튜브 18건을 더 모으고, 데이터 원본까지 metadata.csv 한 표에 넣었다. Day 3에 남긴 시간대 문제는 세 소스 모두 UTC로 확정했다.",
+  dtitle:"Day 05 — 다시 찾을 수 있는 아카이브",
+  dlead:"수집은 Aside와 스크립트, 정리는 규칙 파일, 확인은 검증 보고서로 했습니다. 시각을 모두 UTC로 저장한다는 규칙을 정했습니다.",
+  cards:[
+    [big("UTC × 3","시간대 확정"),"SEC · GDELT · Alpha Vantage","실적 공시 4건 모두 16:30 ET","t-green"],
+    [big("23행","metadata.csv") + stack([[35,"#FF4500"],[35,"#2B8A3E"],[9,"#D9480F"],[22,"#868E96"]]),"14열, 1건 = 1행","Reddit 8 · Play 8 · YouTube 2 · 묶음·데이터 5","t-blue"],
+    [big("통과","check_report.md"),"1차 실행에서 태그 오류 3건","규칙 수정 후 재실행","t-yellow"],
+    [big("Day 3 정정","SEC 시각 판독 오류"),"20:30Z가 아니라 21:30Z","불일치 → 일치","t-red"]],
+  bridge:"그래서 소스를 점수로 비교해 학습용과 화면용을 따로 고른다",
+  req:[["폴더 3종 · 파일명 5요소 규칙","docs/archive_rules.md","ok","날짜_시장_소스_주제_순번, image는 해당 없음"],
+       ["tags.md (3층 고정 목록)","archive/tags.md","ok","자산 유형 · 경험 · 활용"],
+       ["수집 20건 이상 (소스별 담당대로)","archive/text · video/","ok","Aside 18건 + 리뷰 묶음 · 데이터 5건"],
+       ["metadata.csv 14열 (id 중복 0)","archive/metadata.csv","ok","23행, region·place → market·target"],
+       ["검증 보고서 '통과'","archive/check_report.md","ok","1차 오류 3건 → 수정 후 통과"],
+       ["검수 A · B · C (사람)","archive/check_report.md","part","유튜브 2건만 대조, 나머지 사람 확인 필요"],
+       ["시간대 확정 (Day 3 이월)","research/crosscheck.md","ok","SEC · AV 일치, GDELT 단일출처(실측)"]],
+  kpi:[["23행","metadata.csv"],["18건","Aside 현장 수집"],["3개","시간대 확정 소스"],["0건","남은 검증 오류"]],
+  table:{title:"시간대 확인",head:["소스","근거","판정"],rows:[["SEC EDGAR","실적 8-K 4건: 20:30Z(서머타임) · 21:30Z(표준시) = 모두 16:30 ET","일치 (UTC)"],["Alpha Vantage","9to5Mac 12:14:40+00:00 ↔ 12:14:05, Yahoo 11:04:38Z ↔ 11:04:54","일치 (UTC)"],["GDELT","최신 배치 163000 ↔ 확인 시각 16:33 UTC","단일출처 (UTC)"]],note:"Day 3의 SEC '불일치'는 21:30Z를 20:30Z로 잘못 읽은 판독 오류였음"},
   parts:[
-   {tag:"1·2교시",name:"수집 시트와 테스트",learn:"소스 맵 → 수집 → 기록 → 정리 → 검증. 수집과 기록은 한 동작.",did:"가격 · 공시 · 뉴스 · VOC 소스별로 1건씩 기록까지."},
-   {tag:"3교시",name:"아카이빙 규칙",learn:"폴더 3종, 파일명 5요소, metadata.csv, 태그 3층.",did:"시간대 열을 넣고 SEC · GDELT 시각 해석을 확정한다."},
-   {tag:"4교시 · 과제",name:"일괄 정리와 검증",learn:"정리 → CSV 생성 → 검증 3단계 프롬프트.",did:"research/data와 archive 전체를 규칙대로 정리."}]},
+   {tag:"1·2교시",name:"수집 계획과 테스트",learn:"소스 맵 → 수집 → 기록 → 정리 → 검증. 수집과 기록은 한 동작이다. 영상 · 이미지 원본은 저장하지 않는다.",did:"Day 4 계획서대로 Aside에 수집을 맡겼다(로그인 페이지 금지, 작성자 정보 금지, 요약만).",res:["Reddit 8 · 구글 플레이 8(토스) · 유튜브 2","모두 '개인' 또는 채널명, 닉네임 0건"],files:["research/users_competitors/fieldwork_plan.md"]},
+   {tag:"3교시",name:"아카이빙 규칙",learn:"폴더 3종, 파일명 5요소(날짜_지역_소스_주제_순번), metadata.csv 14열, 태그 3층.",did:"지역을 시장(us·kr·global)으로, place를 대상으로 바꿨다. 시각은 모두 UTC로 저장하기로 했다.",res:["파일명 예: 20261110_us_reddit_분석_AI_01.md","태그: 자산 유형 6 · 경험 9 · 활용 7"],files:["docs/archive_rules.md","archive/tags.md"]},
+   {tag:"3교시 이월",name:"시간대 확정",learn:"Day 3 교차검증 표의 '미확인' · '불일치' 행은 후속 조치 후 재판정한다.",did:"SEC 실적 공시 4건, Alpha Vantage 기사 원문 2건, GDELT 최신 배치 시각을 대조했다.",res:["세 소스 모두 UTC","Day 3 SEC '불일치'는 판독 오류였음 → 정정"],files:["research/crosscheck.md","research/data/checks/av_news_sample.txt"]},
+   {tag:"4교시 · 과제",name:"일괄 정리와 검증",learn:"정리 → CSV 생성 → 검증 3단계. 실행과 검수는 다른 사람이 한다.",did:"스크립트로 노트 · metadata.csv · 검증 보고서를 만들고, 오류를 고쳐 다시 돌렸다.",res:["1차: 태그 2개 오류 3건 → 규칙 수정 → 통과","유튜브 2건 제목 · 채널을 oEmbed로 대조, 일치","Reddit 요약 대조와 url/license 전수 대조는 사람 확인 필요"],files:["scripts/build_archive.py","archive/check_report.md","archive/metadata.csv"]}]},
 
-{ n:6, key:"선정", date:"11/02", lecture:"지역 자산 인벤토리", status:"plan",
-  title:"학습용과 서비스용 데이터 소스를 따로 고른다",
-  ans:"사실 열과 평가 열을 나눈 인벤토리로 채점하고, 점수 뒤의 '왜'를 근거표로 남긴다.",
-  dtitle:"Day 06 — 데이터 소스 인벤토리와 선정", dlead:"같은 소스라도 학습용과 서비스 표시용의 조건이 다릅니다.",
-  cards:[[big("Top 3 × 2","선정"),"학습용 · 서비스 표시용","Σ(점수 × 가중치)","t-plan"],[big("11열","인벤토리"),"사실 열 / 평가 열 분리","기간 · 한도 · 비용 · 상업 이용","t-plan"]],
-  bridge:"그래서 서비스가 어떤 말투로 말할지 정한다",
-  req:[["보강 목록 (다섯 관점)","inventory/","plan",""],["인벤토리 v1 (사실 / 평가 열)","inventory/data_source_inventory.csv","plan",""],["채점 척도 · 가중치","inventory/scoring.md","plan",""],["Top 3 근거표","inventory/top3_rationale.md","plan",""]],
+{ n:6, key:"선정", date:"11/02", lecture:"지역 자산 인벤토리", status:"ok",
+  title:"학습용은 SEC · yfinance · GDELT, 화면용 가격 소스는 비어 있다",
+  ans:"소스 16개를 사실 열과 평가 열로 나눠 채점했다. 같은 점수에 학습용과 화면 표시용 가중치를 따로 걸었더니, 실측한 가격 소스는 모두 공개 화면에 쓸 수 없었다.",
+  dtitle:"Day 06 — 데이터 소스 인벤토리와 선정",
+  dlead:"강의의 스토리성 · 시장성 · 데이터 가용성을 데이터 가용성 · 학습 가치 · 서비스 사용 가능성으로 바꿨습니다. 근거가 사전 지식뿐이면 3점을 넘지 않게 했습니다.",
+  cards:[
+    [big("4.9","SEC EDGAR · 학습용 1위"),"UTC 공시 시각 · 30년 이력","재게시 조건은 확인 필요","t-green"],
+    [big("4.8","GDELT · 화면용 1위"),"상업 이용 · 재배포 허용","뉴스 제목 · 링크 · 이슈 키워드","t-blue"],
+    [big("4.6 / 1","yfinance 학습 / 화면"),"학습엔 최고, 화면엔 못 씀","Yahoo 약관 S=1","t-yellow"],
+    [big("없음","화면용 가격 소스"),"Nasdaq · Polygon은 사전 지식뿐","약관 원문 확인 필요","t-red"]],
+  bridge:"그래서 이 서비스가 어떤 말투로, 누구에게 말할지 정한다",
+  req:[["결과 공유 · 보강 목록 (다섯 관점)","inventory/archive_feedback.md","ok","베스트 3 · 빈 곳 = 화면용 가격"],
+       ["인벤토리 v1 (11열, 사실 / 평가 분리)","inventory/inventory_v1.csv · .xlsx","ok","16개 (강의 30개 → 소스 범위가 작음)"],
+       ["근거 파일 2개 이상 · 실제 존재 검증","scripts/build_inventory.py","part","누락 0건, 근거 1개뿐 9개는 '확인 필요'"],
+       ["채점 척도 1·3·5 문장 · 가중치","inventory/scoring.md","ok","공통 · 학습용 · 화면용 3가지 저울"],
+       ["xlsx 시트 3개 (총점은 수식)","inventory/inventory_v1.xlsx","ok","inventory · scoring · top3"],
+       ["2인 독립 채점 · 캘리브레이션","—","no","AI 1차 채점만, 본인 채점 필요"],
+       ["Top 3 근거표 (7항목)","inventory/top3_rationale.md","ok","학습용 · 화면용 각 3, 화면용 3위는 비어 있음"]],
+  kpi:[["16개","채점한 소스"],["3가지","가중치 저울"],["9개","근거 1개뿐(확인 필요)"],["0개","화면에 쓸 가격 소스"]],
+  table:{title:"용도별 Top 3",head:["순위","학습용","화면 표시용"],rows:[["1","SEC EDGAR 4.9","GDELT 4.8"],["2","yfinance 4.6","SEC EDGAR 4.4"],["3","GDELT 4.0","비어 있음 (가격 소스 확인 필요)"]],note:"inventory/inventory_v1.xlsx · top3 시트"},
   parts:[
-   {tag:"1교시",name:"결과 공유와 보강 목록",learn:"건수 · 분포 · 쓸모 · 검증 결과를 다섯 관점으로 점검.",did:"Day 3~5 결과의 빈 곳을 찾는다."},
-   {tag:"2·3교시",name:"인벤토리 v1",learn:"콘텐츠와 자산을 구분, 사실 열과 평가 열을 분리.",did:"기간 · 필드 · 호출 한도 · 비용 · 상업 이용을 채운다."},
-   {tag:"4교시 · 과제",name:"채점과 Top 3",learn:"기준 · 척도 · 가중치 · 근거, 캘리브레이션.",did:"학습용 Top 3와 서비스 표시용 Top 3."}]},
+   {tag:"1교시",name:"결과 공유와 보강 목록",learn:"건수와 분포 · 베스트 3 · 검증 결과 · 막힌 점을 화면에 띄우고, 다섯 관점으로 보강 목록을 만든다.",did:"Day 5 아카이브를 스스로 점검했다.",res:["한 소스 최대 35% (기준 70% 이하)","빈 곳: 국내 커뮤니티 0건, 화면용 가격 소스"],files:["inventory/archive_feedback.md"]},
+   {tag:"2·3교시",name:"인벤토리 v1",learn:"콘텐츠와 자산을 구분하고, 열 11개로 사실 열과 평가 열을 분리한다. 평가 표현('유명한') 금지, 근거 파일은 실제 있는 것만.",did:"Day 3 v2에서 자산으로 남은 소스 + Day 4~5에 실측한 VOC 소스 16개. 경쟁 서비스는 Day 9로 뺐다.",res:["근거 파일 누락 0건 (스크립트로 확인)","근거 1개뿐인 9개 → 비고에 '확인 필요'"],files:["inventory/inventory_v1.csv","scripts/build_inventory.py"]},
+   {tag:"4교시",name:"채점 척도와 가중치",learn:"기준 · 척도 · 가중치 · 근거. 1 · 3 · 5점을 문장으로 정의하고 총점 = Σ(점수 × 가중치).",did:"트랙별 가중치 대신 용도별(학습용 · 화면용) 가중치를 걸었다.",res:["학습용 D0.4 · L0.5 · S0.1","화면용 D0.3 · L0.1 · S0.6"],files:["inventory/scoring.md","inventory/inventory_v1.xlsx"]},
+   {tag:"과제",name:"Top 3 근거표",learn:"점수 뒤의 '왜'를 문장으로. 순위 · 총점 · 근거 id · 이유 · 리스크 · 확인 과제.",did:"학습용 · 화면용 각각 Top 3를 쓰고, 화면용 3위는 비워 두었다.",res:["학습용: SEC 4.9 · yfinance 4.6 · GDELT 4.0","화면용: GDELT 4.8 · SEC 4.4 · 가격 소스 없음","캘리브레이션(본인 채점)은 안 함"],files:["inventory/top3_rationale.md"]}]},
 
 { n:7, key:"페르소나", date:"11/03", lecture:"브랜드 페르소나 · 세계관", status:"plan",
   title:"예측을 말할 때 근거와 한계를 같이 말한다",
@@ -381,10 +409,9 @@ function home(){
       <div><small>가격 이력 (AAPL)</small><b>45.9년</b></div>
       <div><small>확보한 일봉</small><b>57,030행</b></div>
       <div><small>교차검증 주장</small><b>20건</b></div>
-      <div><small>IBM 종가 두 소스 일치</small><b>100%</b></div>
-      <div class="alert"><small>미해결 1순위</small><b>뉴스 시간대</b></div>
+            <div><small>리뷰 · 현장 VOC</small><b>128건</b></div><div class="alert"><small>화면용 가격 소스</small><b>아직 없음</b></div>
     </div>
-    <p class="hero-note">yfinance 1.8.0 · SEC EDGAR · GDELT GKG 2.1 · 2026-11-10 실측 · 강의 ${done} / ${DAYS.length} Day 완료</p>
+    <p class="hero-note">yfinance 1.8.0 · SEC EDGAR · GDELT GKG 2.1 · App Store 리뷰 RSS · Aside 수집 · 2026-11-10 · 강의 ${done} / ${DAYS.length} Day 완료</p>
   </section>
   <nav class="storyline" aria-label="한 줄기">${line}</nav>
   ${chapters}

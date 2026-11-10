@@ -44,7 +44,7 @@ svg{width:100%;height:90px;display:block}
 </head>
 <body>
 <div class="phone">
-  <p class="note">화면 시안 v0 (Day 08) · 숫자는 실제 수집 데이터 · 가격은 <b>연구용(yfinance) 데이터</b>이며 공개 화면용 가격 소스는 아직 정하지 않았습니다 · 투자 권유가 아닙니다</p>
+  <p class="note">화면 시안 v0 (Day 08) · 공시 · 기사는 실제 수집 데이터 · 시세 차트는 <b>TradingView 무료 위젯</b>(TradingView가 표시, 실시간이 아닐 수 있음) · 투자 권유가 아닙니다</p>
 
   <section>
     <span class="tag">1 · 훅</span>
@@ -56,11 +56,16 @@ svg{width:100%;height:90px;display:block}
   <section>
     <span class="tag">2 · 전개</span>
     <h2>Apple Inc. · AAPL</h2>
-    <div class="price"><b>351.27</b><span>USD</span><span class="up">+2.6%</span></div>
-    <p class="src">11/09 종가 · 미국 동부 기준 <i>yfinance 연구용</i></p>
-    <div class="range" role="group" aria-label="기간"><button aria-pressed="false">1개월</button><button aria-pressed="true">60거래일</button><button aria-pressed="false">1년</button><button aria-pressed="false">5년</button></div>
-    <svg viewBox="0 0 400 90" role="img" aria-label="AAPL 최근 60거래일 종가"><polyline id="line" fill="none" stroke="#D9480F" stroke-width="2.5" stroke-linejoin="round"/></svg>
-    <p class="src">60거래일 +14.9% (08/17 305.59 → 11/09 351.27)</p>
+    <!-- 시세 추이: TradingView 무료 위젯. 데이터는 TradingView가 표시하고 우리는 저장 · 재배포하지 않는다.
+         조건: TradingView 브랜딩(아래 저작권 링크)을 그대로 둘 것. 실시간이 아닐 수 있음 → research/users_competitors/price_terms.md -->
+    <div class="tradingview-widget-container" style="margin-top:6px">
+      <div class="tradingview-widget-container__widget"></div>
+      <div class="tradingview-widget-copyright"><a href="https://kr.tradingview.com/symbols/NASDAQ-AAPL/" rel="noopener nofollow" target="_blank">AAPL 차트</a> · TradingView 제공</div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
+      {"symbols":[["Apple","NASDAQ:AAPL|12M"]],"chartOnly":false,"width":"100%","height":360,"locale":"kr","colorTheme":"light","autosize":false,"showVolume":false,"showMA":false,"hideDateRanges":false,"hideMarketStatus":false,"hideSymbolLogo":false,"scalePosition":"right","scaleMode":"Normal","fontFamily":"-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif","fontSize":"10","noTimeScale":false,"valuesTracking":"1","changeMode":"price-and-percent","chartType":"area","dateRanges":["1m|30","3m|60","12m|1D","60m|1W","all|1M"]}
+      </script>
+    </div>
+    <p class="src">시세 · 차트: TradingView 무료 위젯 (실시간이 아닐 수 있음) · 이 서비스는 가격 데이터를 저장하거나 재배포하지 않습니다</p>
   </section>
 
   <section>
@@ -90,9 +95,6 @@ svg{width:100%;height:90px;display:block}
 <div class="cta"><button id="add">관심목록에 담기</button><p>로그인 없이 이 기기에 저장됩니다</p></div>
 
 <script>
-const closes=[305.59,310.03,316.83,311.3,309.35,310.34,309.9,313.45,314.58,319.7,316.85,325.13,324.96,328.21,319.97,316.22,315.34,326.57,332.27,333.08,331.34,332.41,337.0,336.13,338.98,339.75,337.02,335.92,341.07,338.4,329.4,333.02,330.32,333.69,332.89,333.63,336.67,340.42,336.64,340.97,341.27,342.96,342.0,343.46,342.94,339.5,343.99,348.22,347.73,343.91,347.1,343.83,348.91,344.63,338.32,331.9,349.51,344.17,342.37,351.27];
-const lo=Math.min(...closes),hi=Math.max(...closes);
-document.getElementById('line').setAttribute('points',closes.map((v,i)=>`${(6+i*388/(closes.length-1)).toFixed(1)},${(6+(hi-v)/(hi-lo)*78).toFixed(1)}`).join(' '));
 const KEY='issuelens.watch';
 function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []}}
 function draw(){const w=load();document.getElementById('watch').innerHTML=w.length?w.map(t=>`<span>${t}</span>`).join(''):'<span>관심목록이 비어 있습니다</span>'}

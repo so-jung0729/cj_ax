@@ -22,3 +22,15 @@
 | 1 | Massive Pricing | https://massive.com/pricing | A | 2026-11-10 |
 | 2 | Tiingo Pricing | https://www.tiingo.com/about/pricing | A | 2026-11-10 |
 | 3 | Alpha Vantage Terms of Service (Day 2 확인) | https://www.alphavantage.co/terms_of_service/ | A | 2026-11-10 |
+
+## 추가 확인 (2026-11-10): 무료로 시세 추이를 보여 주는 방법
+**질문:** yfinance처럼 파이썬 라이브러리는 무료인데 그걸로 보여 주면 안 되나?
+- **라이브러리 무료 ≠ 데이터 무료.** yfinance 코드는 Apache 라이선스로 무료지만, 받아 오는 데이터는 Yahoo 것이고 Yahoo 약관은 개인 용도 · 자동 수집 금지다 [F] (research/market_data/yfinance.md). 그래서 학습용으로만 쓴다
+- **TradingView 위젯은 무료로 웹사이트에 넣을 수 있다:** "We provide widgets as a technology piece for FREE with default TradingView branding" [F][4]. 조건은 TradingView 브랜딩(저작권 링크)을 그대로 두는 것 [F][4][5]
+- 위젯 데이터는 TradingView가 화면에 그리고, 우리는 가격을 저장 · 재배포하지 않는다 [I]. 유료 플랜과 상관없이 위젯 데이터는 같고, 실시간이 필요하면 거래소와 직접 계약해야 한다 [F][4]
+- **결정:** 화면의 시세 추이는 TradingView 위젯(Symbol Overview)으로 표시한다. 시안 `screens/screen_v0.html`에 적용. 우리 숫자(예측 · 공시 시각)와 위젯 시세를 섞어 계산하지 않는다
+
+| # | 제목 | URL | 등급 | 확인일 |
+|---|---|---|---|---|
+| 4 | TradingView Widgets | https://www.tradingview.com/widget/ | A | 2026-11-10 |
+| 5 | TradingView Terms of Use, Policies, and Disclaimers (위젯 출처 표기) | https://in.tradingview.com/policies | A (검색 발췌) | 2026-11-10 |
